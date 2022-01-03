@@ -14,24 +14,18 @@ app.use(fileUpload({
     useTempFiles: true
 }))
 
-// app.use('/', (req, res, next) => {
-//     res.json({msg: "hi"})
-// })
-
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log('Server is running on port', PORT)
-})
 
 // connect to mongodb
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {
-    useCreateIndex: true,
-    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
-}, err => {
-    if(err) throw err;
-    console.log("Connected to mongodb")
+})
+.then(() => { console.log('Connected to Mongo!'); }) .catch((err) => { console.error('Error connecting to Mongo', err); });
+
+
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+    console.log('Server is running on port', PORT)
 })
 
