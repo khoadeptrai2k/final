@@ -5,4 +5,6 @@ router.post('/register', user_controller.register)
 
 router.post('/activation', user_controller.activateEmail)
 
+router.post('/login', user_controller.login)
+
 module.exports = router

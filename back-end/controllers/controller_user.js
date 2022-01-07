@@ -6,6 +6,7 @@ const sendMail = require('./send_mail')
 const {CLIENT_URL} = process.env
 
 const user_controller = {
+    // register account with email
     register: async (req, res) => {
         try{
             const {name, email, password} = req.body
@@ -39,7 +40,8 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
-    activateEmail : async (req, res) => {
+    // activate email 
+    activateEmail: async (req, res) => {
         try {
             const {activation_token} = req.body
             const user = jsonwebtoken.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
@@ -62,8 +64,22 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
-}
+    login: async (req, res) => {
+        try{
+            const {email, password} = req.body
+            const user = await Users.findOne({email})
+            
+            if(!user) return res.status(500).json({msg: "This email doesn't exists"})
 
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch) return res.status(500).json({msg:"Password is incorrect!"})
+
+        } catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    }
+}
+ 
 function validate_email(email) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
