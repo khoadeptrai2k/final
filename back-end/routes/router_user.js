@@ -7,4 +7,7 @@ router.post('/activation', user_controller.activateEmail)
 
 router.post('/login', user_controller.login)
 
+router.post('/refresh_token', user_controller.getAccessToken)
+
+
 module.exports = router
