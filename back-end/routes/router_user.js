@@ -9,5 +9,6 @@ router.post('/login', user_controller.login)
 
 router.post('/refresh_token', user_controller.getAccessToken)
 
+router.post('/forgot', user_controller.forgotPassword)
 
 module.exports = router

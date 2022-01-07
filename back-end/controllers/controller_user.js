@@ -64,6 +64,7 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
+    // login
     login: async (req, res) => {
         try{
             const {email, password} = req.body
@@ -87,6 +88,7 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
+    // accesstoken
     getAccessToken: (req, res) => {
         try {
             const rf_token = req.cookies.refreshtoken
@@ -98,6 +100,23 @@ const user_controller = {
                 const access_token = createAccessToken({id: user.id})
                 res.json({access_token})
             })
+        } catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    // forgot pass
+    forgotPassword: async (req, res) => {
+        try {
+            const {email} = req.body
+            const user = await Users.findOne({email})
+            if(!user) return res.status(500).json({msg: "This email doesn't exist"})
+            
+            const access_token = createAccessToken({id: user._id})
+            const url = `${CLIENT_URL}/user/reset/${access_token}`
+            sendMail(email, url, "Reset your password")
+            res.json({msg: "Re-send reset pass, please check your email."})
+        
+        
         } catch(err) {
             return res.status(500).json({msg: err.message})
         }
