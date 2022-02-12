@@ -19,4 +19,7 @@ router.get('/infor', auth, user_controller.getUserInfor)
 
 router.get('/all_infor', auth, authAdmin, user_controller.getUsersAllInfor)
 
+router.get('/logout', user_controller.logout)
+
+
 module.exports = router
