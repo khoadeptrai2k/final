@@ -177,6 +177,28 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
+    updateUsersRole: async (req, res) => {
+        try {
+            const {role} = req.body
+
+            await Users.findOneAndUpdate({_id: req.params.id}, {
+                role
+            })
+
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    deleteUser: async (req, res) => {
+        try {
+            await Users.findByIdAndDelete(req.params.id)
+
+            res.json({msg: "Deleted Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 }
  
 function validate_email(email) {
