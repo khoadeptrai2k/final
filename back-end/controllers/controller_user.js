@@ -146,7 +146,16 @@ const user_controller = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+    },
+    getUsersAllInfor: async (req, res) => {
+        try {
+            const users = await Users.find().select('-password')
+
+            res.json(users)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     
 }
  
@@ -156,11 +165,11 @@ function validate_email(email) {
 }
 
 const createActivationToken = (payload) =>{
-    return jsonwebtoken.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {expiresIn: '15m'})
+    return jsonwebtoken.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {expiresIn: '7d'})
 }
 
 const createAccessToken = (payload) =>{
-    return jsonwebtoken.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
+    return jsonwebtoken.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7d'})
 }
 
 const createRefreshToken = (payload) =>{
