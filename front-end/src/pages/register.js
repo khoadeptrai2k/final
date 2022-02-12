@@ -2,9 +2,7 @@ import React from 'react'
 
 const Register = () => {
     return (
-      <Router>
-  
-      </Router>
+      <div>register</div>
     );
   }
 export default Register;

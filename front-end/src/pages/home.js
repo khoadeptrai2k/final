@@ -3,9 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 
 const Home = () => {
   return (
-    <Router>
-
-    </Router>
+<div>home</div>
   );
 }
 
