@@ -21,5 +21,8 @@ router.get('/all_infor', auth, authAdmin, user_controller.getUsersAllInfor)
 
 router.get('/logout', user_controller.logout)
 
+router.patch('/update', auth, user_controller.updateUser)
+
+
 
 module.exports = router
