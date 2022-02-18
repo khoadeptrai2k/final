@@ -68,6 +68,8 @@ const Login = () => {
           </div>
 
         </form>
+
+        <p>Create New Account? <Link to="/register">Register</Link></p>
       </div>
     );
   }
