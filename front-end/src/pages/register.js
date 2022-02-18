@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../components/untils/notification/notification'
+import {isEmpty, isEmail, isLength, isMatch} from '../components/untils/validation/validation'
 
 const initialState = {
   name: '',
@@ -25,9 +26,24 @@ const Register = () => {
 
   const handleSubmitted = async i => {
     i.preventDefault()
+    if(isEmpty(name) || isEmpty(password))
+        return setUser({...user, err: "Please don't blank all fields.", success: ''})
+
+      if(!isEmail(email))
+        return setUser({...user, err: "Invalid Email!", success: ''})
+
+      if(isLength(password))
+        return setUser({...user, err: "Password must be at least 6 characters.", success: ''})
+      
+      if(!isMatch(password, cf_password))
+        return setUser({...user, err: "Please enter the correct Password", success: ''})
+    
     try {
-      
-      
+      const res = await axios.post('/user/register',{
+        name, email, password
+      })
+      setUser({...user, err: '', success: res.data.msg})
+
     } catch (err) {
       err.response.data.msg && 
       setUser({...user, err: err.response.data.msg, success:''})
