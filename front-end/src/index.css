@@ -14,3 +14,4 @@ code {
 
 /* LOGIN */
 @import url("./styles/login.css");
+@import url("./pages/Password/forgotPassword.css")
