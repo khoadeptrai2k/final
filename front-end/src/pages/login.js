@@ -33,13 +33,14 @@ const Login = () => {
       localStorage.setItem('firstLogin', true)
 
       dispatch(dispatchLogin())
-      navigate("/")
+      navigate('/home')
 
     } catch (err) {
       err.response.data.msg && 
       setUser({...user, err: err.response.data.msg, success:''})
       
     }
+    
   }
 
     return (

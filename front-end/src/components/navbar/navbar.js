@@ -5,15 +5,51 @@ import {
     Bars,
     NavMenu,
     NavBtn,
-    NavBtnLink } from './navbarElements';
+    NavBtnLink,
+    Img, 
+    Li,
+    DropItem} from './navbarElements';
+import {useSelector} from 'react-redux'
+import axios from 'axios'    
 
 
 const Navbar = () => {
+    const auth = useSelector(state => state.auth)
+
+    const {user, isLogged} = auth
+
+    const handleLogout = async () => {
+        try {
+            await axios.get('/user/logout')
+            localStorage.removeItem('firstLogin')
+            window.location.href ="/"
+        } catch (err) {
+            window.location.href ="/"
+        }
+    }
+
+    const userLink = () => {
+        return <NavMenu>
+                <NavLink to="#" className="avatar">
+                    <Img  src={user.avatar} alt=""/> {user.name}
+                </NavLink>                
+                <DropItem>
+                    <Li><NavLink to="/profile">Profile</NavLink></Li>
+                    <Li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></Li>
+                </DropItem>
+            </NavMenu>
+    }
+
+    const transFrom = {
+        transform: isLogged ? "translateY(-5px)" : 0
+    }
+
+
     return(
         <Nav>
-            <div className="logo">
+            <NavMenu className="logo">
                 <h1><NavLink to="/">STU-HOME</NavLink></h1>
-            </div>
+            </NavMenu>
             <Bars />
             <NavMenu>
                 <NavLink to='/home' activeStyle>
@@ -26,11 +62,18 @@ const Navbar = () => {
                     Contact
                 </NavLink>
             </NavMenu>
-            
-            <NavBtn>
-                <NavBtnLink to='/login'>Sign In</NavBtnLink>
-                <NavBtnLink to='/register'>Register</NavBtnLink>
-            </NavBtn>
+            <NavMenu style={transFrom}>
+            {
+                    isLogged
+                    ? userLink()
+                    :
+                <NavBtn>
+                    <NavBtnLink to='/login'>Sign In</NavBtnLink>
+                    <NavBtnLink to='/register'>Register</NavBtnLink>
+                </NavBtn>
+            }
+            </NavMenu>
+
         </Nav>
     );
 };

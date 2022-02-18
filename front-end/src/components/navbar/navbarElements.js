@@ -74,3 +74,37 @@ export const NavBtnLink = styled(Link)`
     color: #010606;
   }
 `;
+
+export const Img = styled.img`
+width: 30px; 
+height: 30px; 
+transform: translateY(10px);
+border_radius: 50%;
+overflow: hidden;
+text-transform: capitalize;
+`;
+
+export const Li = styled.li`
+height:50px;
+display: flex;
+align-items: center;
+border-radius: var(--border-radius);
+transition: background var(--speed);
+padding: 0.5rem;
+background-color: #525357;
+&:hover {
+  display: block;
+}
+`;
+
+export const DropItem = styled.ul`
+position: absolute;
+top: 64px;
+width: 300px;
+transform: translateX(-45%);
+background-color: var(--bg);
+border: var(--border);
+border-radius: var(--border-radius);
+padding: 1rem;
+overflow: hidden;
+`;
