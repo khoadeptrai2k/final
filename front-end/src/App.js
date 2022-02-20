@@ -5,6 +5,7 @@ import { dispatchLogin, fetchUser, dispatchGetUser } from './redux/actions/authA
 
 import Navbar from './components/navbar/navbar';
 import Main from './components/main/main';
+
 import axios from 'axios';
 
 const App = () => {

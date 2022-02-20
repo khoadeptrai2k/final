@@ -11,6 +11,7 @@ import {
     DropItem} from './navbarElements';
 import {useSelector} from 'react-redux'
 import axios from 'axios'    
+import SideBar from '../sidebar/sidebar';
 
 
 const Navbar = () => {
@@ -47,6 +48,7 @@ const Navbar = () => {
 
     return(
         <Nav>
+            <SideBar />
             <NavMenu className="logo">
                 <h1><NavLink to="/">STU-HOME</NavLink></h1>
             </NavMenu>
@@ -71,10 +73,10 @@ const Navbar = () => {
                     <NavBtnLink to='/login'>Sign In</NavBtnLink>
                     <NavBtnLink to='/register'>Register</NavBtnLink>
                 </NavBtn>
+                
             }
             </NavMenu>
-
-        </Nav>
+        </Nav>       
     );
 };
 
