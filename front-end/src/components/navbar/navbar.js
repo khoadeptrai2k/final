@@ -48,7 +48,7 @@ const Navbar = () => {
 
     return(
         <Nav>
-            <SideBar />
+            <SideBar/>
             <NavMenu className="logo">
                 <h1><NavLink to="/">STU-HOME</NavLink></h1>
             </NavMenu>

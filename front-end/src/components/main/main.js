@@ -7,6 +7,8 @@ import NotFound from "../untils/NotFound/Notfound";
 import Home from '../../pages/home';
 import ForgotPassword from  '../../pages/Password/forgotPassword';
 import ResetPassword from '../../pages/Password/resetPassword'
+import Profile from "../../pages/Profile/profile";
+
 
 import { useSelector } from "react-redux";
 
@@ -23,6 +25,9 @@ const Main = () => {
                 <Route exact path="/user/reset/:token" element={isLogged ? <NotFound/> : <ResetPassword/>} />
 
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
+
+                <Route exact path="/profile" element={isLogged ? <Profile/> : <NotFound/>} />
+        
         </Routes>
     )
 }
