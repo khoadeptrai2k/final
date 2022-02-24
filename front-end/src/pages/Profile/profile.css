@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin-left: 100px;
 }
 .profile_page .col-left{
     max-width: 400px;
@@ -70,8 +71,9 @@
     margin: 5px 0;
     border: none;
     outline: none;
-    background: #fee;
+    background: #555;
     padding: 0 5px;
+    color: white;
 }
 .profile_page .col-left button{
     background: #333;
@@ -145,9 +147,13 @@
     background: white;
     margin: 20px;
     font-size: 1.2rem;
+    margin-left: 100px;
+
 }
 .edit_user .col-left{
     margin-top: 50px;
+    margin-left: 100px;
+
 }
 .edit_user .col-left input{
     background: #eee;
