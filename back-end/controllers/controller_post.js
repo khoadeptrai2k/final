@@ -1,5 +1,6 @@
 const PostMessage = require('../models/model_postMessage')
 
+
 const post_controller = {
 
     getPosts: async (req, res) => {
@@ -12,8 +13,8 @@ const post_controller = {
         }
     },
     getPost: async (req, res) => {
-        const {id} = req.params;
         try{
+            const {id} = req.params;
             const post = await PostMessage.findById(id);
 
             res.status(200).json(post)
@@ -22,11 +23,10 @@ const post_controller = {
         }
     },
     createPost: async(req, res) =>{
-        const { title, message, selectedFile, creator, tags} = req.body
-        
-        const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags})
-        
         try{
+            const { title, message, selectedFile, creator, tags} = req.body
+            const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags})
+            
             await newPostMessage.save();
 
             res.status(200).json(newPostMessage);
@@ -34,7 +34,24 @@ const post_controller = {
             res.status(400).json({msg: err.message});
         }
     },
+    updatePost: async(req, res) =>{
+        try
+        {
+            const ObjectId = require('mongoose').Types.ObjectId
+            const { id } = req.params;
+            const { title, message, creator, selectedFile, tags } = req.body;
+        
+            if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
+            const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+    
+            await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+    
+            res.json(updatedPost);
+        } catch(err){
+            res.status(400).json({msg: err.message});
+        }
+    },
 
 
 }

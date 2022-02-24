@@ -6,5 +6,6 @@ router.get('/getPosts', post_controller.getPosts)
 router.get('/getPost/:id', post_controller.getPost)
 
 router.post('/createPost', post_controller.createPost)
+router.patch('/updatePost/:id', post_controller.updatePost)
 
 module.exports = router
