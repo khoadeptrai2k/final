@@ -26,6 +26,7 @@ mongoose.connect(URI, {
 
 // routes
 app.use('/user', require('./routes/router_user'))
+app.use('/post', require('./routes/router_post'))
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
