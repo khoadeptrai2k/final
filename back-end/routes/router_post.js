@@ -8,6 +8,7 @@ router.get('/getPost/:id', post_controller.getPost)
 router.post('/createPost', post_controller.createPost)
 router.patch('/updatePost/:id', post_controller.updatePost)
 router.delete('/deletePost/:id', post_controller.deletePost)
-router.patch('/likePost/:id/likePost', post_controller.likePost)
+router.patch('/likePosts/:id/likePost', post_controller.likePost)
+
 
 module.exports = router
