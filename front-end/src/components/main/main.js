@@ -9,6 +9,7 @@ import ForgotPassword from  '../../pages/Password/forgotPassword';
 import ResetPassword from '../../pages/Password/resetPassword'
 import Profile from "../../pages/Profile/profile";
 import EditUser from '../../pages/Profile/editUser'
+import Forum from '../../pages/forum';
 
 
 
@@ -25,11 +26,13 @@ const Main = () => {
                 <Route exact path="/register" element={isLogged ? <NotFound/> : <Register/>} />
                 <Route exact path="/forgot_password" element={isLogged ? <NotFound/> : <ForgotPassword/>} />
                 <Route exact path="/user/reset/:token" element={isLogged ? <NotFound/> : <ResetPassword/>} />
-
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
-
                 <Route exact path="/profile" element={isLogged ? <Profile/> : <NotFound/>} />
                 <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} />
+
+
+                <Route exact path="/forum" element={isLogged ? <NotFound/> : <Forum/>} />
+
 
         </Routes>
     )

@@ -12,6 +12,26 @@ const Form = () => {
     const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    useEffect(() =>{
+        if(post) setData(post);
+    }, [post]);
+
+    const clear = () => {
+        setCurrentId(0);
+        setData({creator: '', title: '', message: '', tags: '', selectedFile:''});
+    };
+
+    const handleSubmit = async (e) => {
+        i.preventDefault();
+        if(currentId === 0) {
+            dispatch(createPost(data));
+            clear();
+        } else {
+            dispatch(updatePost(currentId, data));
+            clear();
+        }
+    };
   
 return(
     <Paper className={classes.paper}>
