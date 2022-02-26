@@ -64,6 +64,22 @@ const post_controller = {
         } catch (err) {
             res.status(400).json({msg: err.message});
         }
+    },
+    likePost: async(req, res) =>{
+        try {
+            const ObjectId = require('mongoose').Types.ObjectId
+            const { id } = req.params;
+            
+            if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+            const post = await PostMessage.findById(id)
+
+            const updatePost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1}, { new: true});
+
+            res.json(updatePost);
+        } catch (err) {
+            res.status(400).json({msg: err.message})
+        }
     }
 
 

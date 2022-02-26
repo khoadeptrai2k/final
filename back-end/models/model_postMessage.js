@@ -9,11 +9,11 @@ const post_schema = mongoose.Schema({
     selectedFile: String,
     likeCount: {
         type: Number,
-        default: 0
+        default: 0,
     },
     createAt: {
         type: Date,
-        default: new Date()
+        default: new Date(),
     }
 
 });
