@@ -21,7 +21,7 @@ const Forum = () => {
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
+        <Typography className={classes.heading} variant="h2" align="center">Forum</Typography>
       </AppBar>
       <Grow in>
         <Container>
