@@ -6,29 +6,29 @@ import FileBase from 'react-file-base64';
 import {createPost, updatePost } from '../../../redux/actions/posts';
 import useStyles from './styles';
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
 
-    const [data, setData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
     const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
 
     useEffect(() =>{
-        if(post) setData(post);
+        if(post) setPostData(post);
     }, [post]);
 
     const clear = () => {
         setCurrentId(0);
-        setData({creator: '', title: '', message: '', tags: '', selectedFile:''});
+        setPostData({creator: '', title: '', message: '', tags: '', selectedFile:''});
     };
 
     const handleSubmit = async (e) => {
-        i.preventDefault();
+        e.preventDefault();
         if(currentId === 0) {
-            dispatch(createPost(data));
+            dispatch(createPost(postData));
             clear();
         } else {
-            dispatch(updatePost(currentId, data));
+            dispatch(updatePost(currentId, postData));
             clear();
         }
     };
@@ -40,23 +40,23 @@ return(
       <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
       
       <TextField name="creator" variant="outlined" label="Creator" fullWidth 
-                value={data.creator} 
-                onChange={(e) => setData({ ...data, creator: e.target.value })} />
+                value={postData.creator} 
+                onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
 
       <TextField name="title" variant="outlined" label="Title" fullWidth 
-                value={data.title} 
-                onChange={(e) => setData({ ...data, title: e.target.value })} />
+                value={postData.title} 
+                onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
 
       <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} 
-                value={data.message} 
-                onChange={(e) => setData({ ...data, message: e.target.value })} />
+                value={postData.message} 
+                onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
 
       <TextField name="tags" variant="outlined" label="Tags (coma separated)" fullWidth 
-                value={data.tags} 
-                onChange={(e) => setData({ ...data, tags: e.target.value.split(',') })} />
+                value={postData.tags} 
+                onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
       
         <div className={classes.fileInput}>
-          <FileBase type="file" multiple={false} onDone={({ base64 }) => setData({ ...data, selectedFile: base64 })} />
+          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         </div>
       
       <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>

@@ -11,9 +11,8 @@ import Profile from "../../pages/Profile/profile";
 import EditUser from '../../pages/Profile/editUser'
 import Forum from '../../pages/forum';
 
-
-
 import { useSelector } from "react-redux";
+
 
 const Main = () => {
     const auth = useSelector(state => state.auth)
@@ -29,9 +28,8 @@ const Main = () => {
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
                 <Route exact path="/profile" element={isLogged ? <Profile/> : <NotFound/>} />
                 <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} />
-
-
-                <Route exact path="/forum" element={isLogged ? <NotFound/> : <Forum/>} />
+                
+                <Route exact path="/forum" element={isLogged ? <Forum/> : <NotFound/>} />
 
 
         </Routes>
