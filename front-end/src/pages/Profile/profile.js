@@ -174,11 +174,22 @@ const Profile = () => {
                                             }
                                         </td>
                                         <td>
-                                            <Link to={`/edit_user/${user._id}`}>
+                                            {
+                                                user.role === 1
+                                                ? <Link to={`/edit_user/${user._id}`}>
                                                 <i className="fas fa-edit" title="Edit"></i>
-                                            </Link>
-                                            <i className="fas fa-trash-alt" title="Remove"
-                                            onClick={() => handleDelete(user._id)} ></i>
+                                                </Link>
+                                                :
+                                                <td>
+                                                <Link to={`/edit_user/${user._id}`}>
+                                                <i className="fas fa-edit" title="Edit"></i>
+                                                </Link>
+                                                <i className="fas fa-trash-alt " title="Remove"
+                                                onClick={() => handleDelete(user._id)} ></i>
+                                                </td>
+                                            }
+
+        
                                         </td>
                                     </tr>
                                 ))

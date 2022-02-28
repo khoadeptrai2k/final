@@ -9,7 +9,6 @@ img {
 .homeSection-container{
     /* background: url('') center center/cover no-repeat; */
     justify-content: center;
-
     height: 100vh;
     width: 100%;
     flex-direction: column;

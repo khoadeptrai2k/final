@@ -32,12 +32,18 @@ const Navbar = () => {
     const userLink = () => {
         return <NavMenu>
                 <NavLink to="#" className="avatar">
-                    <Img  src={user.avatar} alt=""/> {user.name}
-                </NavLink>                
-                <DropItem>
+                    <Img  src={user.avatar} alt=""
+                    role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    /> {user.name}
+                    <DropItem aria-labelledby="dropdownMenuLink">
+
                     <Li><NavLink to="/profile">Profile</NavLink></Li>
                     <Li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></Li>
+
                 </DropItem>
+                
+                </NavLink>                
+                
             </NavMenu>
     }
 
