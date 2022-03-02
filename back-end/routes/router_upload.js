@@ -5,8 +5,8 @@ const multer = require('multer');
 // const port = require('../config/default.js').port;
 
 const storage = multer.diskStorage({
-  destination: (req, res, cb) => {
-    cb(null, 'media/uploads/');
+  destination: (req, file, cb) => {
+    cb(null, 'media/uploads');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname.replace(/ /g, '_'));

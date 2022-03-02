@@ -3,16 +3,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const fileUpload = require('express-fileupload')
-const path = require('path')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
-app.use(fileUpload({
-    useTempFiles: true
-}))
+
 
 
 // connect to mongodb
@@ -24,7 +20,6 @@ mongoose.connect(URI, {
 .then(() => { console.log('Connected to Mongo!'); }) 
 .catch((err) => { console.error('Error connecting to Mongo', err); });
 
-app.use('/api/videos', express.static('media/uploads'));
 // routes
 app.use('/user', require('./routes/router_user'))
 app.use('/post', require('./routes/router_post'))
