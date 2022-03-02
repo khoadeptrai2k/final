@@ -5,6 +5,7 @@ import FileBase from 'react-file-base64';
 
 import {createPost, updatePost } from '../../../redux/actions/posts';
 import useStyles from './styles';
+import Upload from '../Posts/UploadVideo/upload';
 
 const Form = ({currentId, setCurrentId}) => {
 
@@ -58,6 +59,8 @@ return(
         <div className={classes.fileInput}>
           <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         </div>
+
+        <Upload></Upload>
       
       <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
       <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
