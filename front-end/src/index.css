@@ -16,4 +16,5 @@ code {
 @import url("./styles/login.css");
 @import url("./pages/Password/forgotPassword.css");
 @import url("./pages/Profile/profile.css");
-@import url("./pages/Forum/Posts/ShowPost/showPost.css")
+@import url("./pages/Forum/Posts/ShowPost/showPost.css");
+@import url("./pages/Forum/Posts/UploadVideo/upload.css")

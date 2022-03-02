@@ -24,9 +24,11 @@ mongoose.connect(URI, {
 .then(() => { console.log('Connected to Mongo!'); }) 
 .catch((err) => { console.error('Error connecting to Mongo', err); });
 
+app.use('/api/videos', express.static('media/uploads'));
 // routes
 app.use('/user', require('./routes/router_user'))
 app.use('/post', require('./routes/router_post'))
+app.use('/api/upload', require('./routes/router_upload'))
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
