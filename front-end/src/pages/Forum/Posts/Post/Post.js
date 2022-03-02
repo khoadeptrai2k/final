@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
@@ -11,10 +11,15 @@ import moment  from 'moment'
 
 import { likePost, deletePost } from '../../../../redux/actions/posts';
 
+import ShowPost from '../ShowPost/showPost';
+
 
 const Post = ({post, setCurrentId}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [onShow, setOnShow] = useState(false);
+
+  // const {user, isAdmin} = auth
 
 
   return (
@@ -46,8 +51,19 @@ const Post = ({post, setCurrentId}) => {
       <Button size="small" color="primary" 
             onClick={() => dispatch(likePost(post._id))}> Like {post.likeCount} </Button>
       
-      <Button size="small" color="primary" 
-            onClick={() => dispatch(deletePost(post._id))}> Delete</Button>
+      {/* {
+      user.role === 1 */}
+       <Button size="small" color="primary" 
+      onClick={() => dispatch(deletePost(post._id))}> Delete</Button>
+       <Button size="small" color="primary" 
+      onClick={() => setOnShow(true)}> ShowMore</Button>
+                      {
+                    onShow && 
+                    <ShowPost
+                    setOnShow={setOnShow}  
+                    />
+                }
+
     
     </CardActions>
   </Card>

@@ -146,7 +146,7 @@ const Profile = () => {
             </div>
 
             <div className="col-right">
-                <h2>{isAdmin ? "Users" : "My Orders"}</h2>
+                <h2>{isAdmin ? "Users" : "Not Found"}</h2>
 
                 <div style={{overflowX: "auto"}}>
                     <table className="customers">
