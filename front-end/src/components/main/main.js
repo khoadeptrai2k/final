@@ -12,6 +12,7 @@ import EditUser from '../../pages/Profile/editUser'
 import Forum from '../../pages/forum';
 
 import { useSelector } from "react-redux";
+import VideoList from '../../pages/videoList';
 
 
 const Main = () => {
@@ -29,8 +30,10 @@ const Main = () => {
                 <Route exact path="/profile" element={isLogged ? <Profile/> : <NotFound/>} />
                 <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} />
                 
+                
                 <Route exact path="/forum" element={isLogged ? <Forum/> : <NotFound/>} />
-
+                <Route exact path="/videoList" element={isLogged ? <VideoList/> : <NotFound/>} />
+                
 
         </Routes>
     )

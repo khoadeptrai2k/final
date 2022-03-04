@@ -63,8 +63,8 @@ const Navbar = () => {
                 <NavLink to='/' activeStyle>
                     Home
                 </NavLink>
-                <NavLink to='/about' activeStyle>
-                    About
+                <NavLink to='/videoList' activeStyle>
+                    Video
                 </NavLink>
                 <NavLink to='/contact' activeStyle>
                     Contact

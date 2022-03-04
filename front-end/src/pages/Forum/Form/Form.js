@@ -14,6 +14,8 @@ const Form = ({currentId, setCurrentId}) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    // const {auth} = useSelector((state) => state)
+    // const {posts} = useSelector((state) => state.postsReducer)
     useEffect(() =>{
         if(post) setPostData(post);
     }, [post]);
@@ -37,9 +39,18 @@ const Form = ({currentId, setCurrentId}) => {
 return(
     <Paper className={classes.paper}>
     <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-      
-      <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Create New Post'}</Typography>
-      
+      <div>
+        {/* {
+      auth.user._id === posts.Users &&
+      <> */}
+      <Typography variant="h6">
+        
+        {currentId ? `Editing "${post.title}"` : 'Create New Post'}
+        
+      </Typography>
+      {/* </>
+        } */}
+      </div>
       <TextField name="creator" variant="outlined" label="Creator" fullWidth 
                 value={postData.creator} 
                 onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
@@ -57,7 +68,7 @@ return(
                 onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
       
         <div className={classes.fileInput}>
-          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+          <FileBase type="file" multiple accept="image/*,video/*" onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         </div>
 
         {/* <Upload></Upload> */}

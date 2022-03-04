@@ -32,7 +32,7 @@ const Login = () => {
 
       localStorage.setItem('firstLogin', true)
 
-      dispatch(dispatchLogin())
+      dispatch(dispatchLogin(res))
       navigate('/home')
 
     } catch (err) {

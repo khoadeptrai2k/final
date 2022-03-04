@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.28.1",
     "cookie-parser": "^1.4.6",
@@ -17,6 +18,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-fileupload": "^1.2.1",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
     "googleapis": "^92.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",

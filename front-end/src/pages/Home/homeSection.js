@@ -17,8 +17,8 @@ const HomeSection = () => {
             >
                 GET NOW
             </button>
-          <Upload></Upload>
-            
+            <Upload></Upload>
+
         </div>
     </div>
   )

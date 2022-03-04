@@ -33,7 +33,7 @@ const generateThumbnail = (target, title, username) => {
     uploader_name: username,
     upload_title: title,
     video_path: target,
-    thumbnail_path: 'http://127.0.0.1:' + port + '/api/videos/video_thumbnails/' + encodeURIComponent(title + '.jpg')
+    thumbnail_path: 'http://localhost:' + port + '/api/videos/video_thumbnails/' + encodeURIComponent(title + '.jpg')
   });
   videoDetails
     .save()

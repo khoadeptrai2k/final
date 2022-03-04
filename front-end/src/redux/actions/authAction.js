@@ -1,10 +1,11 @@
 import ACTIONS from './index'
 import axios from 'axios'
 
-export const dispatchLogin = () => {
-    return {
-        type: ACTIONS.LOGIN
-    }
+export const dispatchLogin = (res) => async (dispatch) =>{
+    dispatch( {
+        type: ACTIONS.LOGIN,
+        payload: {user: res.data.user}
+    })
 }
 
 export const fetchUser = async (token) => {

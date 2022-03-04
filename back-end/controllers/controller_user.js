@@ -74,7 +74,7 @@ const user_controller = {
 
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(500).json({msg:"Password is incorrect!"})
-
+            const access_token = createAccessToken({id: user._id})
             const refresh_token = createRefreshToken({id: user._id})
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
@@ -82,7 +82,7 @@ const user_controller = {
                 maxAge: 7*24*60*60*1000 // 7 days
             })
 
-            res.json({msg: "Login successfully!"})
+            res.json({msg: "Login successfully!", access_token, user:{...user._doc}})
 
         } catch(err) {
             return res.status(500).json({msg: err.message})
