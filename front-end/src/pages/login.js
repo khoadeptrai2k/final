@@ -5,13 +5,12 @@ import { showErrMsg, showSuccessMsg } from '../components/untils/notification/no
 import {dispatchLogin} from '../redux/actions/authAction'
 import {useDispatch} from 'react-redux'
 
-const initialState = {
-  email: '',
-  password:'',
-  err:'',
-  success:'',
-}
 const Login = () => {
+
+  const initialState = {
+    email: '',
+    password:'',
+  }
   
   const [user, setUser] = useState(initialState)
   const dispatch = useDispatch()
@@ -21,25 +20,26 @@ const Login = () => {
   
   const handlePressInput = i =>{
     const{name, value} = i.target
-    setUser({...user, [name]:value, err:'', success:''})
+    setUser({...user, [name]:value})
   }
 
   const handleSubmitted = async i => {
     i.preventDefault()
-    try {
-      const res = await axios.post('/user/login', {email, password})
-      setUser({...user, err: '', success: res.data.msg})
 
-      localStorage.setItem('firstLogin', true)
+    dispatch(dispatchLogin(user))
+    // try {
+    //   const res = await axios.post('/user/login', {email, password})
+    //   setUser({...user, err: '', success: res.data.msg})
 
-      dispatch(dispatchLogin(res))
-      navigate('/home')
+    //   localStorage.setItem('firstLogin', true)
 
-    } catch (err) {
-      err.response.data.msg && 
-      setUser({...user, err: err.response.data.msg, success:''})
-      
-    }
+    //   dispatch(dispatchLogin(res))
+      navigate('/')
+
+    // } catch (err) {
+    //   err.response.data.msg && 
+    //   setUser({...user, err: err.response.data.msg, success:''})
+    // }
     
   }
 

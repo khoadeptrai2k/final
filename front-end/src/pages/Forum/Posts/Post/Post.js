@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
 
@@ -11,13 +11,16 @@ import moment  from 'moment'
 
 import { likePost, deletePost } from '../../../../redux/actions/posts';
 
-import ShowPost from '../ShowPost/showPost';
+import ShowPosts from '../ShowPost/showPosts';
 
 
 const Post = ({post, setCurrentId}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [onShow, setOnShow] = useState(false);
+
+  // const {auth} = useSelector(state => state)
+  // const {posts} = useSelector(state => state)
 
   // const {user, isAdmin} = auth
 
@@ -32,10 +35,21 @@ const Post = ({post, setCurrentId}) => {
       <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
     </div>
     
+
+    <div>
+        {/* {
+      auth.user._id === posts.user &&
+      <> */}
+
     <div className={classes.overlay2}>
       <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>EDIT</Button>
     </div>
     
+      {/* </>
+        } */}
+    </div>
+
+
     <div className={classes.details}>
       <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
     </div>
@@ -59,7 +73,7 @@ const Post = ({post, setCurrentId}) => {
       onClick={() => setOnShow(true)}> ShowMore</Button>
                       {
                     onShow && 
-                    <ShowPost
+                    <ShowPosts
                     setOnShow={setOnShow}  
                     />
                 }

@@ -16,8 +16,8 @@ import axios from 'axios'
 
 const Navbar = () => {
     const auth = useSelector(state => state.auth)
+    console.log(auth)
 
-    const {user, isLogged} = auth
 
     const handleLogout = async () => {
         try {
@@ -32,9 +32,9 @@ const Navbar = () => {
     const userLink = () => {
         return <NavMenu>
                 <NavLink to="#" className="avatar">
-                    <Img  src={user.avatar} alt=""
+                    <Img  src={auth.userHeader.avatar} alt=""
                     role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                    /> {user.name}
+                    /> {auth.userHeader.name}
                     <DropItem aria-labelledby="dropdownMenuLink">
 
                     <Li><NavLink to="/profile">Profile</NavLink></Li>
@@ -48,7 +48,7 @@ const Navbar = () => {
     }
 
     const transFrom = {
-        transform: isLogged ? "translateY(-5px)" : 0
+        transform: auth.token ? "translateY(-5px)" : 0
     }
 
 
@@ -76,7 +76,7 @@ const Navbar = () => {
             </NavMenu>
             <NavMenu style={transFrom}>
             {
-                    isLogged
+                    auth.token
                     ? userLink()
                     :
                 <NavBtn>

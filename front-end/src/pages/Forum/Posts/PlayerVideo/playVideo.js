@@ -16,7 +16,7 @@ class VideoPlayer extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:4000/api/videoList', {      
       headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'video/mpeg4',
       }
     }).then(res => {
       res.data.map(video => {
@@ -52,7 +52,9 @@ class VideoPlayer extends React.Component {
         <div className="row" style={{ width: "100vw" }}>
           <div className="col-xs-12 col-sm-12 col-md-10 col-lg-8 mx-auto mt-5">
               <div data-vjs-player>
-                <video ref={node => this.videoNode = node} className="video-js vjs-big-play-centered" />
+                <video 
+                  
+                ref={node => this.videoNode = node} className="video-js vjs-big-play-centered" />
               </div>
           </div>
         </div>

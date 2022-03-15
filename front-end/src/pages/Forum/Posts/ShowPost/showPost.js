@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const ShowPost = () => {
+const ShowPost = ({post}) => {
+console.log(post)
   return (
     <div className="show_post">
 
@@ -16,12 +18,12 @@ const ShowPost = () => {
         </div>
 
         <div className="form-group">
-            <label htmlFor="fullname">Full name</label>
+            <label htmlFor="fullname">{post.creator}</label>
 
         </div>
 
         <div className="form-group">
-            <label htmlFor="username">User name</label>
+            <label htmlFor="message">{post.message}</label>
 
         </div>
 

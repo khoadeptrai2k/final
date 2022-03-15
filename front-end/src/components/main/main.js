@@ -16,23 +16,23 @@ import VideoList from '../../pages/videoList';
 
 
 const Main = () => {
-    const auth = useSelector(state => state.auth)
-    const {isLogged, isAdmin } = auth
+    const {auth} = useSelector(state => state)
+    console.log(auth)
+    // const {isAdmin} = auth
     return(
         
         <Routes>
-                <Route exact path="/" element={<Home/>} />
-                <Route exact path="/login" element={isLogged ? <NotFound/> : <Login/>} />
-                <Route exact path="/register" element={isLogged ? <NotFound/> : <Register/>} />
-                <Route exact path="/forgot_password" element={isLogged ? <NotFound/> : <ForgotPassword/>} />
-                <Route exact path="/user/reset/:token" element={isLogged ? <NotFound/> : <ResetPassword/>} />
+                <Route exact path="/" element={ <Home/>} />
+                <Route exact path="/login" element={auth.token ? <NotFound/> : <Login/>} />
+                <Route exact path="/register" element={auth.token ? <NotFound/> : <Register/>} />
+                <Route exact path="/forgot_password" element={auth.token  ? <NotFound/> : <ForgotPassword/>} />
+                <Route exact path="/user/reset/:token" element={auth.token ? <NotFound/> : <ResetPassword/>} />
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
-                <Route exact path="/profile" element={isLogged ? <Profile/> : <NotFound/>} />
-                <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} />
+                <Route exact path="/profile" element={auth.token ? <Profile/> : <NotFound/>} />
+                {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
                 
-                
-                <Route exact path="/forum" element={isLogged ? <Forum/> : <NotFound/>} />
-                <Route exact path="/videoList" element={isLogged ? <VideoList/> : <NotFound/>} />
+                <Route exact path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
+                <Route exact path="/videoList" element={auth.token ? <VideoList/> : <NotFound/>} />
                 
 
         </Routes>

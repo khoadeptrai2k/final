@@ -4,6 +4,7 @@ const post_schema = mongoose.Schema({
     
     title: String,
     message: String,
+    name: String,
     creator: String,
     tags: [String],
     selectedFile: String,
@@ -17,7 +18,7 @@ const post_schema = mongoose.Schema({
     },
     user: {
         type: mongoose.Types.ObjectId, 
-        ref: 'Users'
+        ref: 'user'
     },
 
 });

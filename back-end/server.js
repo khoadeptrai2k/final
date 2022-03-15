@@ -13,7 +13,7 @@ app.use(cookieParser())
 
 // connect to mongodb
 const URI = process.env.MONGODB_URL
-mongoose.connect(URI || 'mongodb://127.0.0.1/videoServer', {
+mongoose.connect(URI || 'mongodb://local/videoServer', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -23,8 +23,8 @@ mongoose.connect(URI || 'mongodb://127.0.0.1/videoServer', {
 
 
 // routes
-app.use('/user', require('./routes/router_user'))
-app.use('/post', require('./routes/router_post'))
+app.use('/api', require('./routes/router_user'))
+app.use('/api', require('./routes/router_post'))
 
 app.use('/api/upload', require('./routes/router_upload'))
 app.use('/api/videoList', require('./routes/router_video'));

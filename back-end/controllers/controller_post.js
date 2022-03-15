@@ -24,8 +24,8 @@ const post_controller = {
     },
     createPost: async(req, res) =>{
         try{
-            const { title, message, selectedFile, creator, tags} = req.body
-            const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags, Users: req.user._id})
+            const post = req.body
+            const newPostMessage = new PostMessage({...post, creator:req.user.name, createdAt:new Date().toISOString()})
             
             await newPostMessage.save();
 

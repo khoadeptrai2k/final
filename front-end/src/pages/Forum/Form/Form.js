@@ -6,54 +6,49 @@ import FileBase from 'react-file-base64';
 import {createPost, updatePost } from '../../../redux/actions/posts';
 import useStyles from './styles';
 // import Upload from '../Posts/UploadVideo/upload';
+import tokenReducer from '../../../redux/reducers/tokenReducer';
+
 
 const Form = ({currentId, setCurrentId}) => {
-
-    const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    const user = JSON.parse(localStorage.getItem('profile'));
+    const [postData, setPostData] = useState({title: '', message: '', tags: '', selectedFile: '' });
     const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
+    const token = useSelector(state => state.token)
+    const {auth} = useSelector(state => state)
 
-    // const {auth} = useSelector((state) => state)
-    // const {posts} = useSelector((state) => state.postsReducer)
+    console.log(postData)
+
     useEffect(() =>{
         if(post) setPostData(post);
     }, [post]);
 
     const clear = () => {
         setCurrentId(0);
-        setPostData({creator: '', title: '', message: '', tags: '', selectedFile:''});
+        setPostData({ title: '', message: '', tags: '', selectedFile:''});
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(currentId === 0) {
-            dispatch(createPost(postData));
+            dispatch(createPost({postData, auth}));
             clear();
         } else {
-            dispatch(updatePost(currentId, postData));
+            dispatch(updatePost(currentId, {post, name: user?.result?.name, auth}));
             clear();
+ 
         }
     };
   
 return(
     <Paper className={classes.paper}>
     <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-      <div>
-        {/* {
-      auth.user._id === posts.Users &&
-      <> */}
+ 
       <Typography variant="h6">
-        
         {currentId ? `Editing "${post.title}"` : 'Create New Post'}
-        
       </Typography>
-      {/* </>
-        } */}
-      </div>
-      <TextField name="creator" variant="outlined" label="Creator" fullWidth 
-                value={postData.creator} 
-                onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
+
 
       <TextField name="title" variant="outlined" label="Title" fullWidth 
                 value={postData.title} 

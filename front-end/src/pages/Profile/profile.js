@@ -18,6 +18,7 @@ const initialState = {
 
 const Profile = () => {
     const auth = useSelector(state => state.auth)
+    console.log(auth)
     const token = useSelector(state => state.token)
 
     const users = useSelector(state => state.users)
