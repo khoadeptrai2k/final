@@ -1,16 +1,16 @@
 import ACTIONS from './index'
-import axios from 'axios'
+import { getData } from '../api/authAPI'
 
-export const fetchAllUsers = async (token) => {
-    const res = await axios.get('/user/all_infor', {
-        headers: {Authorization: token}
-    })
-    return res
-}
-
-export const dispatchGetAllUsers = (res) => {
-    return {
-        type: ACTIONS.GET_ALL_USERS,
-        payload: res.data
+export const fetchAllUsers = (auth) => async (dispatch) => {
+    const res = await getData('all_infor', auth.token)
+    try {
+        dispatch({type: ACTIONS.GET_ALL_USERS, payload: res.data})
+    } catch (error) {
+        dispatch({ 
+            payload: {
+              error: error.response.data.msg 
+            }
+        })
     }
 }
+

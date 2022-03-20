@@ -8,6 +8,27 @@ const Form = () => {
   const {auth} = useSelector(state => state)
   const dispatch = useDispatch()
   const [data, setData] = useState('')
+  const [preview, setPreview] = useState([])
+
+console.log(preview)
+  const handleChangeImages = e => {
+    const files = [...e.target.files]
+    let err = ""
+    let newImages = []
+
+    files.forEach(file => {
+        if(!file) return err = "File does not exist."
+
+        if(file.size > 1024 * 1024 * 5){
+            return err = "The image/video largest is 5mb."
+        }
+
+        return newImages.push(file)
+    })
+
+    if(err) dispatch({payload: {error: err} })
+    setPreview([...preview, ...newImages])
+  }
 
   return (
     <div className='form_modal'>
@@ -29,10 +50,23 @@ const Form = () => {
           onChange={e => setData(e.target.value)}
           />
 
+          <div className='show_images'>
+            {
+              preview.map((img,index) =>(
+                <div key={index} id='file_img'>
+                  <img src={URL.createObjectURL(img)} all='images'/>
+                </div>
+              ))
+            }
+          </div>
+
           <div className='input_images'>
               <box-icon name='camera' type='solid' ></box-icon>
             <div className='file_upload'>
-              <box-icon type='solid' name='file-image'></box-icon>              <input type="file" name="file" id="file" multiple accept='image/*'/>
+              <box-icon type='solid' name='file-image'></box-icon> 
+              <input type="file" name="file" id="file" multiple accept='image/*'
+              onChange={handleChangeImages}
+              />
             </div>
           </div>
 

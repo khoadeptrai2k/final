@@ -7,10 +7,11 @@ import Form from './Forum/Form/Form';
 
 const Forum = () => {
     const {status} = useSelector(state => state)
+    console.log(status)
   return (
   <div className="forum row mx-0">
-    <div div className="col-md-8">
-    {status && <Form />}
+    <div className="col-md-8">
+        {status && <Form />}
           <Newtus />
           <Posts />
     </div>

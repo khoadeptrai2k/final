@@ -19,6 +19,7 @@ const Navbar = () => {
     console.log(auth)
 
 
+
     const handleLogout = async () => {
         try {
             await axios.get('/user/logout')
@@ -38,6 +39,12 @@ const Navbar = () => {
                     <DropItem aria-labelledby="dropdownMenuLink">
 
                     <Li><NavLink to="/profile">Profile</NavLink></Li>
+                    <Li>
+                        {auth.userHeader.role === 1 ?
+                            <NavLink to="/listUser">ManageUser</NavLink>
+                            : <NavLink to="/forum">Forum</NavLink>
+                        }
+                    </Li>
                     <Li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></Li>
 
                 </DropItem>

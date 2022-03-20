@@ -1,5 +1,4 @@
 import ACTIONS from './index'
-import axios from 'axios'
 import { postData, getData } from '../api/authAPI'
 
 export const dispatchLogin = (user) => async (dispatch) =>{
@@ -43,12 +42,24 @@ export const refreshToken = () => async (dispatch) => {
     }
 }
 
-// export const fetchUser = async (token) => {
-//     const res = await axios.get('/user/infor', {
-//         headers: {Authorization: token}
-//     })
-//     return res
-// }
+export const fetchUser = (auth, id) => async (dispatch) => {
+    dispatch({type: ACTIONS.GET_ID, payload: id})
+    try {
+            const res = getData(`infor/${id}`, auth.token)
+
+            const users = await res
+            dispatch({
+                type: ACTIONS.GET_USER,
+                payload: users.data
+            })
+    } catch (error) {
+        dispatch({
+        payload: {
+            error: error.response.data.msg 
+          }
+        })
+    }
+}
 
 // export const dispatchGetUser =  (res) => {
 //     return {

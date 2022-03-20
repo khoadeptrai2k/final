@@ -12,6 +12,7 @@ import Profile from "../../pages/Profile/profile";
 import Forum from '../../pages/forum';
 import { useSelector } from "react-redux";
 import VideoList from '../../pages/videoList';
+import ListUser from '../../pages/listUser';
 
 
 const Main = () => {
@@ -31,6 +32,7 @@ const Main = () => {
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
                 <Route exact path="/profile" element={auth.token ? <Profile/> : <NotFound/>} />
                 {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
+                <Route exact path="/listUser" element={<ListUser/>} />
                 
                 <Route exact path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
                 <Route exact path="/videoList" element={auth.token ? <VideoList/> : <NotFound/>} />
