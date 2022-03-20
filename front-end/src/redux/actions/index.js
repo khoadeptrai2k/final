@@ -1,4 +1,4 @@
-const ACTIONS = {
+export const ACTIONS = {
 
     //User
 
@@ -13,7 +13,11 @@ const ACTIONS = {
     UPDATE: 'UPDATE',
     DELETE: 'DELETE',
     FETCH_ALL: 'FETCH_ALL',
-    LIKE: 'LIKE'
+    LIKE: 'LIKE',
+
+    //STATUS
+
+    STATUS: 'STATUS'
 
 }
 

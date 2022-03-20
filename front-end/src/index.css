@@ -12,8 +12,10 @@ code {
     monospace;
 }
 
-/* LOGIN */
+/* LOGIN */ 
 @import url("./styles/login.css");
 @import url("./pages/Password/forgotPassword.css");
 @import url("./pages/Profile/profile.css");
 @import url("./pages/Forum/Posts/ShowPost/showPost.css");
+@import url("./styles/forum.css");
+@import url("./pages/Forum/Form/Newtus.css");

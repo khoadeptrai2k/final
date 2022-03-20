@@ -8,9 +8,8 @@ import Home from '../../pages/home';
 import ForgotPassword from  '../../pages/Password/forgotPassword';
 import ResetPassword from '../../pages/Password/resetPassword'
 import Profile from "../../pages/Profile/profile";
-import EditUser from '../../pages/Profile/editUser'
+// import EditUser from '../../pages/Profile/editUser'
 import Forum from '../../pages/forum';
-
 import { useSelector } from "react-redux";
 import VideoList from '../../pages/videoList';
 
@@ -18,10 +17,12 @@ import VideoList from '../../pages/videoList';
 const Main = () => {
     const {auth} = useSelector(state => state)
     console.log(auth)
+
     // const {isAdmin} = auth
     return(
         
         <Routes>
+                
                 <Route exact path="/" element={ <Home/>} />
                 <Route exact path="/login" element={auth.token ? <NotFound/> : <Login/>} />
                 <Route exact path="/register" element={auth.token ? <NotFound/> : <Register/>} />
@@ -34,7 +35,6 @@ const Main = () => {
                 <Route exact path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
                 <Route exact path="/videoList" element={auth.token ? <VideoList/> : <NotFound/>} />
                 
-
         </Routes>
     )
 }

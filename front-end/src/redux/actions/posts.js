@@ -14,8 +14,7 @@ export const getPosts = () => async (dispatch) => {
 
 export const createPost = ({post, auth}) => async (dispatch) => {
   try {
-    const {data} = await postData('createPost', {...post}, auth.token);
-      console.log(data)
+    const { data } = await postData('createPost', {...post}, auth.token);
 
     dispatch({ type: ACTIONS.CREATE, payload: data });
   } catch (error) {
@@ -25,9 +24,9 @@ export const createPost = ({post, auth}) => async (dispatch) => {
 
 export const updatePost = (id, post, auth) => async (dispatch) => {
   try {
-    const { data } = await patchData ('updatePost', id, post, auth.token);
+    const {data} = await patchData ('updatePost', id, post, auth.token);
 
-    dispatch({ type: ACTIONS.UPDATE, payload: data });
+    dispatch({ type: ACTIONS.UPDATE, payload: data});
   } catch (error) {
     console.log(error.message);
   }
