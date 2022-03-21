@@ -5,8 +5,8 @@ const post_controller = {
 
     getPosts: async (req, res) => {
         try {
-            const postMessages = await PostMessage.find();
-            
+            const postMessages = await PostMessage.find({}).populate("user","avatar name");
+            req.user._id
             res.status(200).json(postMessages);
         } catch (err) {
             res.status(404).json({msg: err.message});
@@ -16,7 +16,7 @@ const post_controller = {
         try{
             const {id} = req.params;
             const post = await PostMessage.findById(id);
-
+        
             res.status(200).json(post)
         } catch (err) {
             res.status(400).json({msg: err.message})
@@ -25,7 +25,7 @@ const post_controller = {
     createPost: async(req, res) =>{
         try{
             const post = req.body
-            const newPostMessage = new PostMessage({...post, creator:req.user.name, createdAt:new Date().toISOString()})
+            const newPostMessage = new PostMessage({...post, creator:req.user.name, userId:req.user.id})
             
             await newPostMessage.save();
 

@@ -2,15 +2,18 @@ import React, {useState} from 'react';
 import 'boxicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { ACTIONS } from '../../../redux/actions/index';
-
+import { createPost } from '../../../redux/actions/posts';
 
 const Form = () => {
   const {auth} = useSelector(state => state)
   const dispatch = useDispatch()
-  const [data, setData] = useState('')
-  const [preview, setPreview] = useState([])
+  const [post, setpost] = useState({title:'', message:'', tag:''})
 
-console.log(preview)
+  const [images, setimages] = useState([])
+
+  const {title, message, tag} = post
+
+
   const handleChangeImages = e => {
     const files = [...e.target.files]
     let err = ""
@@ -27,12 +30,27 @@ console.log(preview)
     })
 
     if(err) dispatch({payload: {error: err} })
-    setPreview([...preview, ...newImages])
+    setimages([...images, ...newImages])
   }
+  const handleInput = (e) => {
+    const {name, value} = e.target
+    setpost({...post, [name]: value})
+}
+
+  const deleteImages = (index) => {
+    const newArr = [...images]
+    newArr.splice(index, 1)
+    setimages(newArr)
+  }
+  const handleSubmitForm = (e) =>{
+    e.preventDefault()    
+    dispatch(createPost({post, images, auth}))
+  }
+  console.log(post)
 
   return (
     <div className='form_modal'>
-      <form>
+      <form onSubmit = {handleSubmitForm}>
         
         <div className='form_header'>
           <h2 className='m-0'>Create New Post </h2>
@@ -45,23 +63,34 @@ console.log(preview)
 
         <div className='form_body'>
 
-          <textarea name="title" value={data}
+          <h3>Title: What are news Today?</h3>
+          <textarea name="title" value={title}
           placeholder={`${auth.userHeader.name}, What are you sharing?`}
-          onChange={e => setData(e.target.value)}
+          onChange={handleInput}
+          />
+          <textarea name="message" value={message}
+          placeholder="Write something?"
+          onChange={handleInput}          
+          />
+          <textarea name="tag" value={tag}
+          placeholder="hagtag new "
+          onChange={handleInput}          
           />
 
           <div className='show_images'>
             {
-              preview.map((img,index) =>(
+              images.map((img,index) =>(
                 <div key={index} id='file_img'>
-                  <img src={URL.createObjectURL(img)} all='images'/>
+                  <img src={URL.createObjectURL(img)} all="images"/>
+
+                  <span onClick={() => deleteImages(index)}>&times;</span>
+
                 </div>
               ))
             }
           </div>
 
           <div className='input_images'>
-              <box-icon name='camera' type='solid' ></box-icon>
             <div className='file_upload'>
               <box-icon type='solid' name='file-image'></box-icon> 
               <input type="file" name="file" id="file" multiple accept='image/*'
@@ -74,7 +103,7 @@ console.log(preview)
 
 
         <div className='form_footer my-5'>
-          <button className='btn btn-primary w-100'>Post</button>
+          <button className='btn btn-primary w-100' type="submit">Post</button>
         </div>
 
 

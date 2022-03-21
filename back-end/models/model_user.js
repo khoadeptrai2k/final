@@ -24,10 +24,11 @@ const user_schema = new mongoose.Schema({
         type: String,
         default: "https://res.cloudinary.com/dmuwuu1sr/image/upload/v1641450687/Avatar/avatar-1577909_960_720_cdpvk5.png"    
     },
+
     youtube:{
         type: String,
         unique: true
-    }
+    },
 },
 {
     timestamps: true

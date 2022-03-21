@@ -4,10 +4,9 @@ const post_schema = mongoose.Schema({
     
     title: String,
     message: String,
-    name: String,
     creator: String,
+    userId: String,
     tags: [String],
-    selectedFile: String,
     likeCount: {
         type: Number,
         default: 0,
@@ -20,7 +19,18 @@ const post_schema = mongoose.Schema({
         type: mongoose.Types.ObjectId, 
         ref: 'user'
     },
-
+    images: {
+        type: Array,
+        default: []
+    },
+    likes:[{type: mongoose.Types.ObjectId,
+        ref: 'user'
+    }],
+    comments:[{type: mongoose.Types.ObjectId,
+        ref: 'comment'
+    }]
+},{
+        timestamps: true 
 });
 
 module.exports = mongoose.model("PostMessage", post_schema )

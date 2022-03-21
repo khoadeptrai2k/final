@@ -55,13 +55,13 @@ const Profile = () => {
             <div className="col-left">
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="name" defaultValue={users.name}
+                    <input type="text" name="name" id="name" defaultValue={auth.userHeader.name}
                     placeholder="Your name" onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" defaultValue={users.email}
+                    <input type="email" name="email" id="email" defaultValue={auth.userHeader.email}
                     placeholder="Your email address" disabled />
                 </div>
 
