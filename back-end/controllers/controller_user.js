@@ -172,12 +172,15 @@ const user_controller = {
     },
     updateUser: async (req, res) => {
         try {
-            const {name, avatar} = req.body
-            await Users.findOneAndUpdate({_id: req.user.id}, {
-                name, avatar
+            const { avatar, name, mobile, address, something, gender } = req.body
+            if(!name) return res.status(400).json({msg: "Please add your name."})
+
+            await Users.findOneAndUpdate({_id: req.user._id}, {
+                avatar, name, mobile, address, something, gender
             })
 
             res.json({msg: "Update Success!"})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

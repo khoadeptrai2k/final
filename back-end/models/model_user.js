@@ -25,10 +25,25 @@ const user_schema = new mongoose.Schema({
         default: "https://res.cloudinary.com/dmuwuu1sr/image/upload/v1641450687/Avatar/avatar-1577909_960_720_cdpvk5.png"    
     },
 
-    youtube:{
+    something:{
         type: String,
         unique: true
     },
+
+    gender:{
+        type: String,
+        default:'male'
+    },
+    moblie:{
+        type: String,
+        default: ''
+    },
+    address:{
+        type: String,
+        default:''
+    },
+
+
 },
 {
     timestamps: true

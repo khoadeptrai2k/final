@@ -1,95 +1,120 @@
-import React, {useState, useEffect} from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import axios from 'axios'
-import { showSuccessMsg, showErrMsg } from '../../components/untils/notification/notification'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { checkImage } from '../../components/untils/imageUpload'
+import { updateProfileUser } from '../../redux/actions/profileAction'
 
-const EditUser = () => {
-    const {id} = useParams()
-    const navigate = useNavigate()
-    const [editUser, setEditUser] = useState([])
+const EditProfile = ({setOnEdit}) => {
+    const initState = {
+        name: '', mobile: '', address: '', website: '', something: '', gender: ''
+    }
+    const [userData, setUserData] = useState(initState)
+    const { name, mobile, address, something, gender } = userData
 
-    const users = useSelector(state => state.users)
-    const token = useSelector(state => state.token)
+    const [avatar, setAvatar] = useState('')
 
-    const [checkAdmin, setCheckAdmin] = useState(false)
-    const [err, setErr] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [num, setNum] = useState(0)
+    const { auth } = useSelector(state => state)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        if(users.length !== 0){
-            users.forEach(user => {
-                if(user._id === id){
-                    setEditUser(user)
-                    setCheckAdmin(user.role === 1 ? true : false)
-                }
-            })
-        }else{
-            navigate('/profile')
-        }
-    },[users, id, navigate])
+        setUserData(auth.user)
+    }, [auth.user])
 
-    const handleUpdate = async () => {
-        try {
-            if(num % 2 !== 0){
-                const res = await axios.patch(`/user/update_role/${editUser._id}`, {
-                    role: checkAdmin ? 1 : 0
-                }, {
-                    headers: {Authorization: token}
-                })
 
-                setSuccess(res.data.msg)
-                setNum(0)
-            }
-        } catch (err) {
-            err.response.data.msg && setErr(err.response.data.msg)
-        }
+    const changeAvatar = (e) => {
+        const file = e.target.files[0]
+
+        const err = checkImage(file)
+        if(err) return dispatch({
+         payload: {error: err}
+        })
+
+        setAvatar(file)
     }
 
-    const handleCheck = () => {
-        setSuccess('')
-        setErr('')
-        setCheckAdmin(!checkAdmin)
-        setNum(num + 1)
+    const handleInput = e => {
+        const { name, value } = e.target
+        setUserData({ ...userData, [name]:value })
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        dispatch(updateProfileUser({userData, avatar, auth}))
+    }
 
+    return (
+        <div className="edit_profile">
+            <button className="btn btn-danger btn_close"
+            onClick={() => setOnEdit(false)}>
+                Close
+            </button>
 
-  return (
-    <div className="edit_user">
-            <div className="row">
-                <button onClick={() => navigate.goBack()} className="go_back">
-                    <i className="fas fa-long-arrow-alt-left"></i> Go Back
-                </button>
-            </div>
-
-            <div className="col-left">
-                <h2>Edit User</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="info_avatar">
+                    <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} 
+                    alt="avatar" style={{ 'invert(1)' : 'invert(0)'}} />
+                    <span>
+                        <i className="fas fa-camera" />
+                        <p>Change</p>
+                        <input type="file" name="file" id="file_up"
+                        accept="image/*" onChange={changeAvatar} />
+                    </span>
+                </div>
 
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" name="name" defaultValue={editUser.name} disabled/>
+                    <div className="position-relative">
+                        <input type="text" className="form-control" id="fullname"
+                        name="name" value={name} onChange={handleInput} />
+                        <small className="text-danger position-absolute"
+                        style={{top: '50%', right: '5px', transform: 'translateY(-50%)'}}>
+                            {name.length}/25
+                        </small>
+                    </div>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" defaultValue={editUser.email} disabled />
+                    <label htmlFor="mobile">Mobile</label>
+                    <input type="text" name="mobile" value={mobile}
+                    className="form-control" onChange={handleInput} />
                 </div>
 
                 <div className="form-group">
-                    <input type="checkbox" id="isAdmin" checked={checkAdmin}
-                    onChange={handleCheck} />
-                    <label htmlFor="isAdmin">isAdmin</label>
+                    <label htmlFor="address">Address</label>
+                    <input type="text" name="address" value={address}
+                    className="form-control" onChange={handleInput} />
                 </div>
 
-                <button onClick={handleUpdate}>Update</button>
+                <div className="form-group">
+                    <label htmlFor="website">Website</label>
+                    <input type="text" name="website" value={website}
+                    className="form-control" onChange={handleInput} />
+                </div>
 
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
-            </div>
+                <div className="form-group">
+                    <label htmlFor="something">Write Something About You</label>
+                    <textarea name="something" value={something} cols="30" rows="4"
+                    className="form-control" onChange={handleInput} />
+
+                    <small className="text-danger d-block text-right">
+                        {something.length}/200
+                    </small>
+                </div>
+
+                <label htmlFor="gender">Gender</label>
+                <div className="input-group-prepend px-0 mb-4">
+                    <select name="gender" id="gender" value={gender}
+                    className="custom-select text-capitalize"
+                    onChange={handleInput}>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button className="btn btn-info w-100" type="submit">Save</button>
+            </form>
         </div>
-  )
+    )
 }
 
-export default EditUser
+export default EditProfile
