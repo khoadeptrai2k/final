@@ -1,4 +1,4 @@
-import ACTIONS from './index';
+import {ACTIONS} from './index';
 import { postData, getData, patchData, deleteData } from '../api/authAPI'
 import {imageUpload} from '../../components/untils/imageUpload'
 
@@ -8,7 +8,7 @@ export const getPosts = (token) => async (dispatch) => {
 console.log(data)
     dispatch({ type: ACTIONS.FETCH_ALL, payload: data });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 };
 

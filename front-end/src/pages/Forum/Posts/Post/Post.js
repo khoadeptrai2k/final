@@ -30,11 +30,9 @@ const Post = ({post,user, setCurrentId}) => {
     
     <div className={classes.overlay}>
       <Typography variant="h6">
-        <Link 
-        // to={`/profile/${post.user.id}`}
-        >
-          {post.creator}
-        </Link>
+
+        {post.creator}
+
       </Typography>
       <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
     </div>

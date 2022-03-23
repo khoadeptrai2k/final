@@ -80,7 +80,7 @@ const user_controller = {
             
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: '/user/refresh_token',
+                path: '/api/refresh_token',
                 maxAge: 7*24*60*60*1000 // 7 days
             })
 
@@ -145,9 +145,10 @@ const user_controller = {
     },
     getUserInfor: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id).select('-password')
+            const user = await Users.findById(req.params.id).select('-password')
+            if(!user) return res.status(400).json({msg: "User does not exist !"})
 
-            res.json(user)
+            res.json({user})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -163,7 +164,7 @@ const user_controller = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie('refreshtoken', {path: '/user/refresh_token'})
+            res.clearCookie('refreshtoken', {path: '/api/refresh_token'})
             return res.json({msg: "Logged Out!"})
 
         } catch (err) {

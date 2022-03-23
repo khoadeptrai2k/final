@@ -30,7 +30,7 @@ const Main = () => {
                 <Route exact path="/forgot_password" element={auth.token  ? <NotFound/> : <ForgotPassword/>} />
                 <Route exact path="/user/reset/:token" element={auth.token ? <NotFound/> : <ResetPassword/>} />
                 <Route exact path="/user/activate/:activation_token" element={<ActivateEmail/>} />
-                <Route exact path="/profile" element={auth.token ? <Profile/> : <NotFound/>} />
+                <Route exact path="/infor/:id" element={<Profile/>} />
                 {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
                 <Route exact path="/listUser" element={<ListUser/>} />
                 

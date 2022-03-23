@@ -7,17 +7,16 @@ const EditProfile = ({setOnEdit}) => {
     const initState = {
         name: '', mobile: '', address: '', website: '', something: '', gender: ''
     }
-    const [userData, setUserData] = useState(initState)
-    const { name, mobile, address, something, gender } = userData
-
+    const [dataUser, setDataUser] = useState(initState)
+    const { name, mobile, address, something, gender } = dataUser
     const [avatar, setAvatar] = useState('')
 
     const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        setUserData(auth.user)
-    }, [auth.user])
+        setDataUser(auth.userHeader)
+    }, [auth.userHeader])
 
 
     const changeAvatar = (e) => {
@@ -27,18 +26,17 @@ const EditProfile = ({setOnEdit}) => {
         if(err) return dispatch({
          payload: {error: err}
         })
-
         setAvatar(file)
     }
 
     const handleInput = e => {
         const { name, value } = e.target
-        setUserData({ ...userData, [name]:value })
+        setDataUser({...dataUser, [name]:value })
     }
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch(updateProfileUser({userData, avatar, auth}))
+        dispatch(updateProfileUser({dataUser, avatar, auth}))
     }
 
     return (
@@ -50,8 +48,8 @@ const EditProfile = ({setOnEdit}) => {
 
             <form onSubmit={handleSubmit}>
                 <div className="info_avatar">
-                    <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} 
-                    alt="avatar" style={{ 'invert(1)' : 'invert(0)'}} />
+                    <img src={avatar ? URL.createObjectURL(avatar) : auth.userHeader.avatar} 
+                    alt="avatar"/>
                     <span>
                         <i className="fas fa-camera" />
                         <p>Change</p>
@@ -85,19 +83,14 @@ const EditProfile = ({setOnEdit}) => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="website">Website</label>
-                    <input type="text" name="website" value={website}
-                    className="form-control" onChange={handleInput} />
-                </div>
-
-                <div className="form-group">
                     <label htmlFor="something">Write Something About You</label>
                     <textarea name="something" value={something} cols="30" rows="4"
                     className="form-control" onChange={handleInput} />
 
-                    <small className="text-danger d-block text-right">
+                    {/* <small className="text-danger d-block text-right">
                         {something.length}/200
-                    </small>
+                        
+                    </small> */}
                 </div>
 
                 <label htmlFor="gender">Gender</label>

@@ -10,8 +10,7 @@ import {
     Li,
     DropItem} from './navbarElements';
 import {useSelector} from 'react-redux'
-import axios from 'axios'    
-// import SideBar from '../sidebar/sidebar';
+import { postData } from '../../redux/api/authAPI';
 
 
 const Navbar = () => {
@@ -22,8 +21,8 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('/user/logout')
             localStorage.removeItem('firstLogin')
+            await postData('logout')
             window.location.href ="/"
         } catch (err) {
             window.location.href ="/"
@@ -38,7 +37,7 @@ const Navbar = () => {
                     /> {auth.userHeader.name}
                     <DropItem aria-labelledby="dropdownMenuLink">
 
-                    <Li><NavLink to="/profile">Profile</NavLink></Li>
+                    <Li><NavLink to={`/infor/${auth.userHeader._id}`}>Profile</NavLink></Li>
                     <Li>
                         {auth.userHeader.role === 1 ?
                             <NavLink to="/listUser">ManageUser</NavLink>

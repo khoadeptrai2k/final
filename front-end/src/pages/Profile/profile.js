@@ -1,30 +1,31 @@
 import React, {useState, useEffect} from 'react'
+
+import EditUser from '../Profile/editUser'
+import { useParams } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
+import { fetchUser } from '../../redux/actions/profileAction';
+import authReducer from '../../redux/reducers/authReducer';
+const Profile = () => {
 
-
-
-
-const Profile = ({id,profile,auth,dispatch}) => {
-
-    const [data, setData] = useState(initialState)
+    const [data, setData] = useState([])
     const [onEdit, setOnEdit] = useState(false)
-
+    const {id} = useParams()
+    console.log(id)
     const dispatch = useDispatch()
-
-
-    const handleChange = e => {
-        const {name, value} = e.target
-        setData({...data, [name]:value, err:'', success: ''})
-    }
+    const {auth, profile} =useSelector(state => state)
 
     useEffect(() => {
-        if(id === auth.user._id){
-            setData([auth.user])
+        if(profile.ids.every(item => item !== id)){
+          dispatch(fetchUser({ id, auth}))
+        }
+        if(id === auth.userHeader?._id){
+            setData([auth.userHeader])
         }else{
             const newData = profile.users.filter(user => user._id === id)
             setData(newData)
         }
-    }, [id, auth, dispatch, profile.users])
+      },[dispatch, id, auth, profile.ids, profile.users])
+    
 
 
 
@@ -34,13 +35,13 @@ const Profile = ({id,profile,auth,dispatch}) => {
             {
                 data.map(user => (
                     <div className="info_container" key={user._id}>
-                        <Avatar src={user.avatar} size="supper-avatar" />
+                        {/* <Avatar src={user.avatar} size="supper-avatar" /> */}
 
                         <div className="info_content">
                             <div className="info_content_title">
-                                <h2>{user.username}</h2>
+                                <h2>{user.name}</h2>
                                 {
-                                    user._id === auth.user._id
+                                    user._id === auth.userHeader._id
                                     ?  <button className="btn btn-outline-info"
                                     onClick={() => setOnEdit(true)}>
                                         Edit Profile
@@ -55,11 +56,13 @@ const Profile = ({id,profile,auth,dispatch}) => {
                             <h6>{user.fullname} <span className="text-danger">{user.mobile}</span></h6>
                             <p className="m-0">{user.address}</p>
                             <h6 className="m-0">{user.email}</h6>
+                            <h6 className="m-0">{user.mobile}</h6>
+
                             <p>{user.something}</p>
                         </div>
 
                         {
-                            onEdit && <EditProfile setOnEdit={setOnEdit} />
+                            onEdit && <EditUser setOnEdit={setOnEdit} />
                         }
                     </div>
                 ))

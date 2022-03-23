@@ -7,8 +7,8 @@ export const getData = async (url, token) => {
      return res;
 }
 
-export const postData = async (url, newPost, token) => {
-    const res = await axios.post(`/api/${url}`, newPost,
+export const postData = async (url, post, token) => {
+    const res = await axios.post(`/api/${url}`, post,
      {headers: {Authorization: token}})
      return res;
 }

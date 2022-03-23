@@ -34,7 +34,7 @@ const user_schema = new mongoose.Schema({
         type: String,
         default:'male'
     },
-    moblie:{
+    mobile:{
         type: String,
         default: ''
     },

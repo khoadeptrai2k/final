@@ -1,4 +1,4 @@
-import ACTIONS from './index'
+import {ACTIONS} from './index'
 import { getData } from '../api/authAPI'
 
 export const fetchAllUsers = (auth) => async (dispatch) => {
