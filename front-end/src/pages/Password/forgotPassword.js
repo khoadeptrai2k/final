@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import {isEmail} from '../../components/untils/validation/validation'
 import {showErrMsg, showSuccessMsg} from '../../components/untils/notification/notification'
+import { postData } from '../../redux/api/authAPI'
 
 const initialState = {
     email: '',
@@ -24,7 +25,7 @@ const ForgotPassword = () => {
             return setData({...data, err: 'Invalid emails.', success: ''})
             
         try {
-            const res = await axios.post('/user/forgot', {email})
+            const res = await postData('forgot', {email})
 
             return setData({...data, err: '', success: res.data.msg})
         } catch (err) {

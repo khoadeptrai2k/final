@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../components/untils/notification/notification'
 import {isEmpty, isEmail, isLength, isMatch} from '../components/untils/validation/validation'
+import { postData } from '../redux/api/authAPI'
 
 const initialState = {
   name: '',
@@ -39,7 +40,7 @@ const Register = () => {
         return setUser({...user, err: "Please enter the correct Password", success: ''})
     
     try {
-      const res = await axios.post('/user/register',{
+      const res = await postData('/register',{
         name, email, password
       })
       setUser({...user, err: '', success: res.data.msg})

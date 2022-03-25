@@ -3,6 +3,7 @@ import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import { showErrMsg, showSuccessMsg } from '../../components/untils/notification/notification'
 import { isLength, isMatch } from '../../components/untils/validation/validation'
+import { postData } from '../../redux/api/authAPI'
 
 
 const initialState ={
@@ -31,7 +32,7 @@ const ResetPassword = () => {
       return setData({...data, err: "Please enter the correct Password", success: ''})
 
     try {
-      const res = await axios.post('/user/reset', {password},{
+      const res = await postData('reset', {password},{
         headers:{Authorization: token}
       })
       return setData({...data,err: "", success:res.data.msg})
