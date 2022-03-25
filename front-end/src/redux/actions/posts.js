@@ -2,10 +2,10 @@ import {ACTIONS} from './index';
 import { postData, getData, patchData, deleteData } from '../api/authAPI'
 import {imageUpload} from '../../components/untils/imageUpload'
 
-export const getPosts = (token) => async (dispatch) => {
+export const getPosts = (auth) => async (dispatch) => {
   try {
-    const { data } = await getData('getPosts',token)
-console.log(data)
+    const { data } = await getData('getPosts', auth.token)
+// console.log(data)
     dispatch({ type: ACTIONS.FETCH_ALL, payload: data });
   } catch (error) {
     // console.log(error.message);
@@ -15,8 +15,8 @@ console.log(data)
 export const createPost = ({ post,images, auth}) => async (dispatch) => {
   let media = []
   try {
-    const { data } = await postData('createPost', {...post}, auth.token);
     if(images.length> 0) media = await imageUpload(images)
+    const { data } = await postData('createPost', {...post,images: media}, auth.token);
     dispatch({ type: ACTIONS.CREATE, payload: data });
   } catch (error) {
     console.log(error.message);

@@ -5,8 +5,9 @@ const post_controller = {
 
     getPosts: async (req, res) => {
         try {
-            const postMessages = await PostMessage.find({}).populate("user","avatar name");
-            req.user._id
+            const postMessages = await PostMessage.find(
+                req.user._id
+            ).sort('-createdAt').populate("user likes","avatar name");
             res.status(200).json(postMessages);
         } catch (err) {
             res.status(404).json({msg: err.message});

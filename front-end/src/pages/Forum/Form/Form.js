@@ -7,9 +7,9 @@ import { createPost } from '../../../redux/actions/posts';
 const Form = () => {
   const {auth} = useSelector(state => state)
   const dispatch = useDispatch()
-  const [post, setpost] = useState({title:'', message:'', tag:''})
+  const [post, setPost] = useState({title:'', message:'', tag:''})
 
-  const [images, setimages] = useState([])
+  const [images, setImages] = useState([])
 
   const {title, message, tag} = post
 
@@ -30,23 +30,22 @@ const Form = () => {
     })
 
     if(err) dispatch({payload: {error: err} })
-    setimages([...images, ...newImages])
+    setImages([...images, ...newImages])
   }
   const handleInput = (e) => {
     const {name, value} = e.target
-    setpost({...post, [name]: value})
+    setPost({...post, [name]: value})
 }
 
   const deleteImages = (index) => {
     const newArr = [...images]
     newArr.splice(index, 1)
-    setimages(newArr)
+    setImages(newArr)
   }
   const handleSubmitForm = (e) =>{
     e.preventDefault()    
     dispatch(createPost({post, images, auth}))
   }
-  console.log(post)
 
   return (
     <div className='form_modal'>

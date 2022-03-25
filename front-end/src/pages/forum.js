@@ -4,24 +4,35 @@ import Newtus from '../pages/Forum/Form/Newtus'
 import { useSelector, useDispatch } from 'react-redux';
 import Form from './Forum/Form/Form';
 import { getPosts } from '../redux/actions/posts';
-
-
+import { Typography, Container, AppBar, Grow, Grid } from '@material-ui/core';
 const Forum = () => {
-    const {status,auth} = useSelector(state => state)
-    console.log(status)
+    const {status,auth, posts} = useSelector(state => state)
     const dispatch = useDispatch()
+    
     useEffect(()=>{
-      if(auth.token) dispatch(getPosts(auth.token))
-    }, [dispatch, auth.token])
+      if(auth.token) dispatch(getPosts(auth))
+    }, [dispatch, auth])
+
   return (
   <div className="forum row mx-0">
-    <div className="col-md-8">
-        {status && <Form />}
-          <Newtus />
-          <Posts />
-    </div>
-    <div className="col-md-4">
+    
+    {status && <Form />}
 
+    <div className="col-md-8">
+
+    <Grid item xs={12} sm={9}>
+      <Newtus />
+    </Grid>
+
+    <Grid item xs={12} sm={9}>
+        {
+          posts.map((posts) =>(
+            <div key={posts._id}>
+            <Posts post={posts} />
+        </div>
+          ))
+        }
+    </Grid>
     </div>
   </div>
   )

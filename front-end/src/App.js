@@ -8,20 +8,20 @@ import Form from './pages/Forum/Form/Form';
 
 
 const App = () => {
-  const {auth, status} = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(refreshToken())
 },[dispatch])
 
+
   return (
     <Router>
       <div className="App">
-      {status && <Form/>}
-
+        <div>
         <Navbar/>
         <Main />
+        </div>
       </div>
     </Router>
   );

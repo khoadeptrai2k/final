@@ -12,9 +12,11 @@ import moment  from 'moment'
 import { likePost, deletePost } from '../../../../redux/actions/posts';
 
 import ShowPosts from '../ShowPost/showPosts';
+import { deleteData } from '../../../../redux/api/authAPI';
+import ShowImage from './showImage';
 
 
-const Post = ({post,user, setCurrentId}) => {
+const Post = ({post, setCurrentId}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [onShow, setOnShow] = useState(false);
@@ -26,7 +28,12 @@ const Post = ({post,user, setCurrentId}) => {
   return (
     <Card className={classes.card}>
     
-    <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
+    <CardMedia className={classes.media}>
+      {
+        post.images.length > 0 && <ShowImage images={post.images} id={post._id}/>
+      }
+    </CardMedia>
+
     
     <div className={classes.overlay}>
       <Typography variant="h6">
@@ -70,7 +77,7 @@ const Post = ({post,user, setCurrentId}) => {
       {/* {
       user.role === 1 */}
        <Button size="small" color="primary" 
-      onClick={() => dispatch(deletePost(post._id))}> Delete</Button>
+      onClick={() => dispatch(deleteData(post._id))}> Delete</Button>
        <Button size="small" color="primary" 
       onClick={() => setOnShow(true)}> ShowMore</Button>
                       {
@@ -83,6 +90,7 @@ const Post = ({post,user, setCurrentId}) => {
     
     </CardActions>
   </Card>
+  
   )
 }
 
