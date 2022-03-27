@@ -5,7 +5,13 @@ export default makeStyles({
     paddingTop: '56.25%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
-    
+    borderRadius: "4px",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)",
+    position: "relative",
+    height: 0,
+
+    objectFit: 'cover'
+
   },
   border: {
     border: 'solid',

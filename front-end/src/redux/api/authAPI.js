@@ -19,15 +19,14 @@ export const patchData = async (url, post, token) => {
      return res;
 }
 
-export const putData = async (url, post, token) => {
-    const res = await axios.put(`/api/${url}`, post,
+export const deleteData = async (url, token) => {
+    const res = await axios.delete(`/api/${url}`,
      {headers: {Authorization: token}})
      return res;
 }
 
-
-export const deleteData = async (url, token) => {
-    const res = await axios.delete(`/api/${url}`,
+export const putData = async (url, post, token) => {
+    const res = await axios.put(`/api/${url}`, post,
      {headers: {Authorization: token}})
      return res;
 }

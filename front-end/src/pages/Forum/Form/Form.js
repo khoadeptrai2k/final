@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'boxicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { ACTIONS } from '../../../redux/actions/index';
-import { createPost } from '../../../redux/actions/posts';
+import { createPost, updatePost } from '../../../redux/actions/posts';
+import {useNavigate } from 'react-router-dom'
 
 const Form = () => {
-  const {auth} = useSelector(state => state)
+  const {auth, status} = useSelector(state => state)
   const dispatch = useDispatch()
   const [post, setPost] = useState({title:'', message:'', tag:''})
 
   const [images, setImages] = useState([])
 
   const {title, message, tag} = post
-
+  const navigate = useNavigate()
 
   const handleChangeImages = e => {
     const files = [...e.target.files]
@@ -23,7 +24,7 @@ const Form = () => {
         if(!file) return err = "File does not exist."
 
         if(file.size > 1024 * 1024 * 5){
-            return err = "The image/video largest is 5mb."
+            return err = "please input image/video largest is 5mb."
         }
 
         return newImages.push(file)
@@ -35,7 +36,8 @@ const Form = () => {
   const handleInput = (e) => {
     const {name, value} = e.target
     setPost({...post, [name]: value})
-}
+  }
+
 
   const deleteImages = (index) => {
     const newArr = [...images]
@@ -43,9 +45,22 @@ const Form = () => {
     setImages(newArr)
   }
   const handleSubmitForm = (e) =>{
-    e.preventDefault()    
+    e.preventDefault()
+    
+    if(status.onEdit){
+      dispatch(updatePost({post,images,auth,status}))
+      dispatch({ type: ACTIONS.STATUS, payload: false })
+    }else{   
     dispatch(createPost({post, images, auth}))
   }
+}
+  
+  useEffect(()=>{
+    if(status.onEdit){
+      setPost(status.images)
+      setImages(status.images)
+    }
+  },[status])
 
   return (
     <div className='form_modal'>
@@ -80,7 +95,9 @@ const Form = () => {
             {
               images.map((img,index) =>(
                 <div key={index} id='file_img'>
-                  <img src={URL.createObjectURL(img)} all="images"/>
+                  <img src={img.url ? img.url : URL.createObjectURL(img)} all="images"
+                  className='img-thumbnail'
+                  />
 
                   <span onClick={() => deleteImages(index)}>&times;</span>
 
@@ -112,4 +129,4 @@ const Form = () => {
   )
 }
 
-export default Form;
+export default Form

@@ -25,9 +25,9 @@ const post_controller = {
     },
     createPost: async(req, res) =>{
         try{
-            const post = req.body
-            const newPostMessage = new PostMessage({...post, creator:req.user.name, userId:req.user.id})
-            
+            const {title, message, images, tags} = req.body
+            if(images.length === 0 ) return res.status(400).json({msg:'Please input your picture'})
+            const newPostMessage = new PostMessage({images, tags, title, message, creator:req.user.name, userId:req.user.id})
             await newPostMessage.save();
 
             res.status(200).json(newPostMessage);
@@ -40,15 +40,17 @@ const post_controller = {
         {
             const ObjectId = require('mongoose').Types.ObjectId
             const { id } = req.params;
-            const { title, message, creator, selectedFile, tags } = req.body;
+            const { title, message, creator, images, tags } = req.body;
         
             if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
-            const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+            const updatedPost = { creator, title, message, tags, images, _id: id };
     
-            await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+            await PostMessage.findByIdAndUpdate(id, updatedPost);
     
-            res.json(updatedPost);
+            res.json({
+                updatedPost: {...updatedPost._doc,
+                title, message, tags, images}});
         } catch(err){
             res.status(400).json({msg: err.message});
         }

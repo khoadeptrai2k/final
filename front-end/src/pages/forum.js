@@ -6,7 +6,7 @@ import Form from './Forum/Form/Form';
 import { getPosts } from '../redux/actions/posts';
 import { Typography, Container, AppBar, Grow, Grid } from '@material-ui/core';
 const Forum = () => {
-    const {status,auth, posts} = useSelector(state => state)
+    const {status,auth} = useSelector(state => state)
     const dispatch = useDispatch()
     
     useEffect(()=>{
@@ -15,25 +15,23 @@ const Forum = () => {
 
   return (
   <div className="forum row mx-0">
-    
     {status && <Form />}
+    <Grow in>
+    <Container>
+    <Grid Grid container justify="space-between" alignItems="stretch" spacing={3}>
+    <Grid item xs={12} sm={10}>
 
-    <div className="col-md-8">
-
-    <Grid item xs={12} sm={9}>
       <Newtus />
+      </Grid>
+
+      <Grid item xs={12} sm={10}>
+        <Posts/>
+      </Grid>
     </Grid>
 
-    <Grid item xs={12} sm={9}>
-        {
-          posts.map((posts) =>(
-            <div key={posts._id}>
-            <Posts post={posts} />
-        </div>
-          ))
-        }
-    </Grid>
-    </div>
+    </Container>
+    </Grow>
+
   </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography,Container } from '@material-ui/core/';
 import {Link} from 'react-router-dom'
 // import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 // import DeleteIcon from '@material-ui/icons/Delete';
@@ -14,48 +14,49 @@ import { likePost, deletePost } from '../../../../redux/actions/posts';
 import ShowPosts from '../ShowPost/showPosts';
 import { deleteData } from '../../../../redux/api/authAPI';
 import ShowImage from './showImage';
+import { ACTIONS } from '../../../../redux/actions/index';
 
 
-const Post = ({post, setCurrentId}) => {
+const Post = ({post}) => {
+  const {auth} = useSelector(state => state)
   const dispatch = useDispatch();
   const classes = useStyles();
   const [onShow, setOnShow] = useState(false);
+  const [readMore, setReadMore] = useState(false)
 
-  // const {auth} = useSelector(state => state)
-  // const {posts} = useSelector(state => state)
-
-
+  const handleEdit = () =>{
+    dispatch({type: ACTIONS.STATUS, 
+      payload:{...post, onEdit:true}})
+  }
+  
   return (
+    <Container className={classes.container}>
+    {
+           post.images.length > 0 && <ShowImage images={post.images} id={post._id} />
+    }  
     <Card className={classes.card}>
-    
-    <CardMedia className={classes.media}>
-      {
-        post.images.length > 0 && <ShowImage images={post.images} id={post._id}/>
-      }
-    </CardMedia>
-
-    
-    <div className={classes.overlay}>
+    <Card className={classes.card}>
       <Typography variant="h6">
-
         {post.creator}
-
       </Typography>
       <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
-    </div>
+    </Card>
     
 
     <div>
-        {/* {
-      auth.user._id === posts.user &&
-      <> */}
 
     <div className={classes.overlay2}>
-      <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>EDIT</Button>
+      {
+        auth.userHeader._id == post.userId &&
+        <>
+        <Button style={{ color: 'white', background:'black' }} size="small" onClick={handleEdit}>EDIT</Button>
+        <Button size="small" style={{ color: 'white',background:'black' }} onClick={() => dispatch(deleteData(post._id))}> Delete</Button>
+        </>
+
+      }
     </div>
     
-      {/* </>
-        } */}
+
     </div>
 
 
@@ -66,18 +67,35 @@ const Post = ({post, setCurrentId}) => {
     <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
     
     <CardContent>
-      <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
+      <Typography variant="body2" color="textSecondary" component="p">
+      <span>
+      {
+      post.message.length < 60 ? post.message : readMore ? post.message + '' : post.message.slice(0,60) + ' ...'
+      }
+      </span>
+      {
+      post.message.length > 60 && 
+      <span className='readMore' style={{color:'black', cursor: 'pointer',}} onClick={() => setReadMore(!readMore)}>
+        {readMore ? 'Hide' : 'Read'}
+      </span>
+      }
+      </Typography>
     </CardContent>
     
     <CardActions className={classes.cardActions}>
-      
+      <div>
+      {post.likes.length}
       <Button size="small" color="primary" 
-            onClick={() => dispatch(likePost(post._id))}> Like {post.likeCount} </Button>
-      
-      {/* {
-      user.role === 1 */}
-       <Button size="small" color="primary" 
-      onClick={() => dispatch(deleteData(post._id))}> Delete</Button>
+            onClick={() => dispatch(likePost(post._id))}> Like {post.likeCount}   
+      </Button>
+      </div>
+
+      <div>
+      {post.comments.length}
+      <Button size="small" color="primary" > Comment   
+      </Button>
+      </div>
+
        <Button size="small" color="primary" 
       onClick={() => setOnShow(true)}> ShowMore</Button>
                       {
@@ -90,6 +108,8 @@ const Post = ({post, setCurrentId}) => {
     
     </CardActions>
   </Card>
+
+  </Container>
   
   )
 }

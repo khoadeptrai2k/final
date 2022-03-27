@@ -9,7 +9,7 @@ const Newtus = () => {
 
     return (
         <div className="newtus my-3 d-flex">
-            {/* <Avatar></Avatar>             */}
+            <img  src={auth.userHeader.avatar} style={{width: 50, height: 50}}/>            
             <button className="newtusButton flex-fill"
             onClick={() => dispatch({ type: ACTIONS.STATUS, payload: true })}
             >

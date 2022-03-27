@@ -2,8 +2,13 @@ const mongoose = require('mongoose')
 
 const post_schema = mongoose.Schema({
     
-    title: String,
-    message: String,
+    title: {
+        type: String,
+        required: true,
+    },
+    message: {        
+        type: String,
+        required: true,},
     creator: String,
     userId: String,
     tags: [String],
@@ -21,7 +26,7 @@ const post_schema = mongoose.Schema({
     },
     images: {
         type: Array,
-        default: []
+        require: true,
     },
     likes:[{type: mongoose.Types.ObjectId,
         ref: 'user'
