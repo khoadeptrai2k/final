@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography,Container } from '@material-ui/core/';
+import {TextField, Card, CardActions, CardContent, CardMedia, Button, Typography,Container } from '@material-ui/core/';
 import {Link} from 'react-router-dom'
 // import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 // import DeleteIcon from '@material-ui/icons/Delete';
@@ -9,20 +9,49 @@ import {Link} from 'react-router-dom'
 import moment  from 'moment'
 
 
-import { likePost, deletePost } from '../../../../redux/actions/posts';
+import { likePost, unLikePost, deletePost } from '../../../../redux/actions/posts';
 
 import ShowPosts from '../ShowPost/showPosts';
 import { deleteData } from '../../../../redux/api/authAPI';
 import ShowImage from './showImage';
 import { ACTIONS } from '../../../../redux/actions/index';
+import ButtonLike from '../../../../components/button/ButtonLike';
 
 
 const Post = ({post}) => {
   const {auth} = useSelector(state => state)
-  const dispatch = useDispatch();
-  const classes = useStyles();
-  const [onShow, setOnShow] = useState(false);
+  const dispatch = useDispatch()
+  const classes = useStyles()
+  const [onShow, setOnShow] = useState(false)
   const [readMore, setReadMore] = useState(false)
+
+  const [like, setLike] = useState(false)
+  const [loadLike, setLoadLike] = useState(false)
+
+
+  useEffect(()=>{
+    if(post.likes.find(like => like._id === auth.userHeader._id)){
+      setLike(true)
+    }else{
+      setLike(false)
+    }
+  },[post.likes, auth.userHeader._id])
+  
+  const handleLike = async () => {
+    if(loadLike) return;
+    setLike(true)
+    setLoadLike(true)
+    await dispatch(likePost({post, auth}))
+    setLoadLike(false)
+  } 
+  const handleUnLike = async () => {
+    if(loadLike) return;
+    setLike(false)
+    setLoadLike(true)
+    await dispatch(unLikePost({post, auth}))
+    setLoadLike(false)
+  }
+
 
   const handleEdit = () =>{
     dispatch({type: ACTIONS.STATUS, 
@@ -41,7 +70,6 @@ const Post = ({post}) => {
       </Typography>
       <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
     </Card>
-    
 
     <div>
 
@@ -83,14 +111,21 @@ const Post = ({post}) => {
     </CardContent>
     
     <CardActions className={classes.cardActions}>
-      <div>
-      {post.likes.length}
-      <Button size="small" color="primary" 
-            onClick={() => dispatch(likePost(post._id))}> Like {post.likeCount}   
-      </Button>
+      
+      <div className='like'>
+      <Typography>{post.likes.length} likes</Typography>
+    
+      <ButtonLike  
+        like={like}
+        handleLike={handleLike}
+        handleUnLike={handleUnLike}>
+      </ButtonLike>
+
+
       </div>
 
       <div>
+      <Typography>{post.comments.length} Comments</Typography>
       {post.comments.length}
       <Button size="small" color="primary" > Comment   
       </Button>

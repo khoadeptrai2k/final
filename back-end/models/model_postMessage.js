@@ -8,14 +8,11 @@ const post_schema = mongoose.Schema({
     },
     message: {        
         type: String,
-        required: true,},
+        required: true,
+    },
     creator: String,
     userId: String,
     tags: [String],
-    likeCount: {
-        type: Number,
-        default: 0,
-    },
     createAt: {
         type: Date,
         default: new Date(),
@@ -28,7 +25,8 @@ const post_schema = mongoose.Schema({
         type: Array,
         require: true,
     },
-    likes:[{type: mongoose.Types.ObjectId,
+    likes:[{
+        type: mongoose.Types.ObjectId,
         ref: 'user'
     }],
     comments:[{type: mongoose.Types.ObjectId,

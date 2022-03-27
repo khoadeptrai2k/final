@@ -1,5 +1,5 @@
 import {ACTIONS} from './index';
-import { postData, getData, patchData, deleteData } from '../api/authAPI'
+import { postData, getData, patchData, deleteData, putData } from '../api/authAPI'
 import {imageUpload} from '../../components/untils/imageUpload'
 
 export const getPosts = (auth) => async (dispatch) => {
@@ -42,11 +42,27 @@ export const updatePost = ({id, post, auth, status, images}) => async (dispatch)
   }
 };
 
-export const likePost = (auth, id) => async (dispatch) => {
-  try {
-    const { data } = await patchData(`likePosts/${id}/likePost`, id, auth.token);
+export const likePost = ({auth, id, post}) => async (dispatch) => {
+  const newPost = {...post, likes: [...post.likes, auth.userHeader]}
+  dispatch({ type: ACTIONS.UPDATE, payload: newPost})
+console.log(newPost)
 
-    dispatch({ type: ACTIONS.LIKE, payload: data });
+  try {
+    await patchData(`likePosts/${post._id}/like`, null ,id, auth.token);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const unLikePost = ({auth, id, post}) => async (dispatch) => {
+  const newPost = {...post, likes: post.likes.filter(like => like._id !== auth.userHeader._id )}
+  dispatch({ type: ACTIONS.UPDATE, payload: newPost})
+console.log(newPost)
+
+  try {
+    await patchData(`likePosts/${post._id}/unlike`, null ,id, auth.token);
+
   } catch (error) {
     console.log(error.message);
   }

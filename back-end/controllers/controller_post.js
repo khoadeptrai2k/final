@@ -71,19 +71,40 @@ const post_controller = {
     likePost: async(req, res) =>{
         try {
             const ObjectId = require('mongoose').Types.ObjectId
-            const { id } = req.params;
-            
+            const{id} = res.params;
             if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-            const post = await PostMessage.findById(id)
+            const like = await PostMessage.find({_id: req.params.id, likes: req.user._id})
+            if(like) return res.status(400).json({msg: "You liked this post."})
+console.log(post)
 
-            const updatePost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1}, { new: true});
+            await PostMessage.findOneAndUpdate({_id: req.params.id}, {
+                $push: {likes: req.user._id},
+            }, {new: true})
 
-            res.json(updatePost);
+            if(!like) return res.status(400).json({msg: 'This post does not exist.'})
+
+            res.json({msg: 'Liked Post!'})
+
         } catch (err) {
-            res.status(400).json({msg: err.message})
+            return res.status(500).json({msg: err.message})
         }
-    }
+    },
+    unLikePost: async (req, res) => {
+        try {
+
+            const like = await Posts.findOneAndUpdate({_id: req.params.id}, {
+                $pull: {likes: req.user._id}
+            }, {new: true})
+
+            if(!like) return res.status(400).json({msg: 'This post does not exist.'})
+
+            res.json({msg: 'UnLiked Post!'})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 
 
 }

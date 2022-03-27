@@ -55,4 +55,10 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  buttonLike:{
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#0062cc',
+    borderColor: '#005cbf',
+  }},
 });
