@@ -12,7 +12,6 @@ import moment  from 'moment'
 import { likePost, unLikePost, deletePost } from '../../../../redux/actions/posts';
 
 import ShowPosts from '../ShowPost/showPosts';
-import { deleteData } from '../../../../redux/api/authAPI';
 import ShowImage from './showImage';
 import { ACTIONS } from '../../../../redux/actions/index';
 import ButtonLike from '../../../../components/button/ButtonLike';
@@ -57,7 +56,10 @@ const Post = ({post}) => {
     dispatch({type: ACTIONS.STATUS, 
       payload:{...post, onEdit:true}})
   }
-  
+  const handleDelete = () =>{
+    dispatch(deletePost({post, auth}))
+  }
+  console.log(post)
   return (
     <Container className={classes.container}>
     {
@@ -78,7 +80,7 @@ const Post = ({post}) => {
         auth.userHeader._id == post.userId &&
         <>
         <Button style={{ color: 'white', background:'black' }} size="small" onClick={handleEdit}>EDIT</Button>
-        <Button size="small" style={{ color: 'white',background:'black' }} onClick={() => dispatch(deleteData(post._id))}> Delete</Button>
+        <Button size="small" style={{ color: 'white',background:'black' }} onClick={handleDelete}> Delete</Button>
         </>
 
       }

@@ -3,7 +3,8 @@ import 'boxicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { ACTIONS } from '../../../redux/actions/index';
 import { createPost, updatePost } from '../../../redux/actions/posts';
-import {useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom';
+// import { showImage, showVideo } from '../../../components/untils/mediaShow';
 
 const Form = () => {
   const {auth, status} = useSelector(state => state)
@@ -23,16 +24,20 @@ const Form = () => {
     files.forEach(file => {
         if(!file) return err = "File does not exist."
 
+
         if(file.size > 1024 * 1024 * 5){
             return err = "please input image/video largest is 5mb."
         }
 
         return newImages.push(file)
     })
+    console.log(files)
 
     if(err) dispatch({payload: {error: err} })
     setImages([...images, ...newImages])
   }
+
+
   const handleInput = (e) => {
     const {name, value} = e.target
     setPost({...post, [name]: value})
@@ -46,7 +51,11 @@ const Form = () => {
   }
   const handleSubmitForm = (e) =>{
     e.preventDefault()
-    
+    if(images.length === 0)
+        return dispatch({ 
+          payload: {error: "Please add your photo."}
+        })
+
     if(status.onEdit){
       dispatch(updatePost({post,images,auth,status}))
       dispatch({ type: ACTIONS.STATUS, payload: false })
@@ -54,6 +63,8 @@ const Form = () => {
     dispatch(createPost({post, images, auth}))
   }
 }
+
+
   
   useEffect(()=>{
     if(status.onEdit){
@@ -61,6 +72,20 @@ const Form = () => {
       setImages(status.images)
     }
   },[status])
+
+   const showImage = (src, theme) => {
+    return(
+        <img src={src} alt="images" className="img-thumbnail"
+        />
+    )
+}
+
+ const showVideo = (src, theme) => {
+    return(
+        <video controls src={src} alt="images" className="img-thumbnail"
+        />
+    )
+}
 
   return (
     <div className='form_modal'>
@@ -95,10 +120,22 @@ const Form = () => {
             {
               images.map((img,index) =>(
                 <div key={index} id='file_img'>
-                  <img src={img.url ? img.url : URL.createObjectURL(img)} all="images"
-                  className='img-thumbnail'
-                  />
-
+                  {
+                    img.camera ? showImage(img.camera) : img.url 
+                    ? <>
+                      {
+                        img.url.match(/video/i)
+                          ? showVideo(img.url) : showImage(img.url)
+                      }
+                      </>
+                      : 
+                      <>
+                      {
+                          img.type.match(/video/i)
+                            ? showVideo(URL.createObjectURL(img)) : showImage(URL.createObjectURL(img))
+                      }
+                      </>
+                  }
                   <span onClick={() => deleteImages(index)}>&times;</span>
 
                 </div>
@@ -109,7 +146,7 @@ const Form = () => {
           <div className='input_images'>
             <div className='file_upload'>
               <box-icon type='solid' name='file-image'></box-icon> 
-              <input type="file" name="file" id="file" multiple accept='image/*'
+              <input type="file" name="file" id="file" multiple accept='image/*,video/*'
               onChange={handleChangeImages}
               />
             </div>

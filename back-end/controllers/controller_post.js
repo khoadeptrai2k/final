@@ -57,12 +57,9 @@ const post_controller = {
     },
     deletePost: async(req, res) =>{
         try {
-            const ObjectId = require('mongoose').Types.ObjectId
-            const { id } = req.params;
-            if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-
-            await PostMessage.findByIdAndRemove(id);
-            
+          
+            await PostMessage.findOneAndDelete({_id: req.params.id, user:req.user._id});
+        
             res.json({ message: "Post deleted successfully." });
         } catch (err) {
             res.status(400).json({msg: err.message});
@@ -74,11 +71,10 @@ const post_controller = {
             const{id} = res.params;
             if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-            const like = await PostMessage.find({_id: req.params.id, likes: req.user._id})
-            if(like) return res.status(400).json({msg: "You liked this post."})
-console.log(post)
+            const post = await PostMessage.find({_id: req.params.id, likes: req.user._id})
+            if(post.length> 0) return res.status(400).json({msg: "You liked this post."})
 
-            await PostMessage.findOneAndUpdate({_id: req.params.id}, {
+            const like = await PostMessage.findOneAndUpdate({_id: req.params.id}, {
                 $push: {likes: req.user._id},
             }, {new: true})
 

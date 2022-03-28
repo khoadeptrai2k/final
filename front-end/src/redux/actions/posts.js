@@ -68,11 +68,12 @@ console.log(newPost)
   }
 };
 
-export const deletePost = (id, auth) => async (dispatch) => {
-  try {
-    await deleteData('deletePost', id, auth.token);
+export const deletePost = ({auth, post}) => async (dispatch) => {
 
-    dispatch({ type: ACTIONS.DELETE, payload: id });
+  try {
+    const {data} = await deleteData(`deletePost/${post._id}`,auth.token);
+    dispatch({ type: ACTIONS.DELETE, payload: data});
+
   } catch (error) {
     console.log(error.message);
   }
