@@ -41,11 +41,6 @@ const EditProfile = ({setOnEdit}) => {
 
     return (
         <div className="edit_profile">
-            <button className="btn btn-danger btn_close"
-            onClick={() => setOnEdit(false)}>
-                Close
-            </button>
-
             <form onSubmit={handleSubmit}>
                 <div className="info_avatar">
                     <img src={avatar ? URL.createObjectURL(avatar) : auth.userHeader.avatar} 
@@ -60,14 +55,11 @@ const EditProfile = ({setOnEdit}) => {
 
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <div className="position-relative">
                         <input type="text" className="form-control" id="fullname"
                         name="name" value={name} onChange={handleInput} />
-                        <small className="text-danger position-absolute"
-                        style={{top: '50%', right: '5px', transform: 'translateY(-50%)'}}>
-                            {name.length}/25
+                    <small className="text-danger position-absolute">
+                        {name.length}/50
                         </small>
-                    </div>
                 </div>
 
                 <div className="form-group">
@@ -84,7 +76,7 @@ const EditProfile = ({setOnEdit}) => {
 
                 <div className="form-group">
                     <label htmlFor="something">Write Something About You</label>
-                    <textarea name="something" value={something} cols="30" rows="4"
+                    <textarea name="something" value={something} cols="30" rows="5"
                     className="form-control" onChange={handleInput} />
 
                     {/* <small className="text-danger d-block text-right">
@@ -104,7 +96,11 @@ const EditProfile = ({setOnEdit}) => {
                     </select>
                 </div>
 
-                <button className="btn btn-info w-100" type="submit">Save</button>
+                <button className="button" type="submit">Save</button>
+                <button className="button" style={{marginLeft:'50px', marginTop:'10px' }}
+                    onClick={() => setOnEdit(false)}>
+                        Close
+                </button>
             </form>
         </div>
     )

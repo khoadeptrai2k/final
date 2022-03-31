@@ -6,6 +6,7 @@ import PostUser from '../pages/Profile/postUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchUser } from '../redux/actions/profileAction'
 import { useParams } from 'react-router-dom'
+import { Grid } from '@material-ui/core'
 
 
 const ProfileUser = () => {
@@ -23,12 +24,12 @@ const ProfileUser = () => {
     },[id, auth, dispatch, profile.ids])
 
     return (
-        <div>
-            
-            <InfoUser auth={auth} profile={profile} dispatch={dispatch} id={id}/>
-            <PostUser auth={auth} profile={profile} dispatch={dispatch} id={id}/>
+        <Grid container alignItems="stretch" spacing={3}>
+            <Grid item xs={12} sm={12} md={12} >
+                <InfoUser auth={auth} profile={profile} dispatch={dispatch} id={id}/>
+            </Grid>
+        </Grid>
 
-        </div>
     )
 }
 

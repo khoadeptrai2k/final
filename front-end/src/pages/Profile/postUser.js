@@ -11,8 +11,10 @@ const PostUser = ({id, profile}) => {
         })
     },[profile.postAuth, id])
     return (
-    <div>
-        <ShowPostUser post={post}/>
+    <div className="showPost">
+        <div className="showPostWrap">
+            <ShowPostUser post={post}/>
+        </div>
     </div>
   )
 }
