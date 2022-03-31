@@ -5,6 +5,7 @@ const authAdmin = require('../middleware/authAdmin')
 
 router.get('/getPosts', auth, post_controller.getPosts)
 router.get('/getPost/:id',auth, post_controller.getPost)
+router.get('/authPost/:id', post_controller.getAuthPost)
 
 router.post('/createPost',auth, post_controller.createPost)
 router.patch('/updatePost/:id',auth, authAdmin,  post_controller.updatePost)

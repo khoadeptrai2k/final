@@ -7,6 +7,8 @@ export const ACTIONS = {
     GET_USER: 'GET_USER',
     GET_ID:'GET_USER_ID',
     GET_ALL_USERS: 'GET_ALL_USERS',
+    GET_POST: 'GET_POST',
+    GET_POSTS: 'GET_POSTS',
 
     //POST
 

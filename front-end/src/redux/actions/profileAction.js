@@ -3,22 +3,27 @@ import { getData , patchData } from '../api/authAPI'
 import {ACTIONS} from './index'
 
 
-export const fetchUser = ({auth, id}) => async (dispatch) => {
+export const fetchUser = ({id}) => async (dispatch) => {
+
     dispatch({type: ACTIONS.GET_ID, payload: id})
     try {
-            const res = getData(`infor/${id}`, auth.token)
-
+            const res = getData(`infor/${id}`)
+            const resAuthPost = getData(`authPost/${id}`)
+            
             const users = await res
+            const authPost = await resAuthPost
             dispatch({
                 type: ACTIONS.GET_USER,
                 payload: users.data
             })
+            dispatch({
+                type: ACTIONS.GET_POSTS,
+                payload: {...authPost.data, _id: id}
+            })
     } catch (error) {
-        dispatch({
-        payload: {
-            error: error.response.data.msg 
-          }
-        })
+        dispatch(
+            console.log(error.message)
+        )
     }
 }
 

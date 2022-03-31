@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import Navbar from './components/navbar/navbar';
 import Main from './components/main/main';
-import Form from './pages/Forum/Form/Form';
 
 
 const App = () => {

@@ -7,7 +7,7 @@ import NotFound from "../untils/NotFound/Notfound";
 import Home from '../../pages/home';
 import ForgotPassword from  '../../pages/Password/forgotPassword';
 import ResetPassword from '../../pages/Password/resetPassword'
-import Profile from "../../pages/Profile/profile";
+import Profile from "../../pages/profile";
 // import EditUser from '../../pages/Profile/editUser'
 import Forum from '../../pages/forum';
 import { useSelector } from "react-redux";
