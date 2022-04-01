@@ -1,22 +1,54 @@
-import React,{useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllUsers } from '../redux/actions/usersAction'
 import {Link} from 'react-router-dom'
-
+import axios from 'axios'
 const ListUser = () => {
+
+    const initialState = {
+        name: '',
+        err: '',
+        success: ''
+    }
 
     const {auth, users} = useSelector(state => state)
     console.log(auth, users)
     const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(false)
+    const [callback, setCallback] = useState(false)
+    const [data, setData] = useState(initialState)
+
+
     useEffect(() =>{
         dispatch(fetchAllUsers(auth))
     },[dispatch, auth])
 
+    const handleDelete = async (id) => {
+        try {
+            if(users._id !== id){
+                if(window.confirm("Are you sure you want to delete this account?")){
+                    setLoading(true)
+                    await axios.delete(`api/delete/${id}`, {
+                        headers: {Authorization: auth.token}
+                    })
+                    setLoading(false)
+                    setCallback(!callback)
+                }
+            }
+            
+        } catch (err) {
+            setData({...data, err: err.response.data.msg , success: ''})
+        }
+    }
+
   return (
     <div>listUser
+        <div>
+            {loading && <h3>Loading.....</h3>}
+        </div>
         <div style={{overflowX: "auto"}}>
-                    <table className="customers">
+                    <table className="adminListUser">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -49,10 +81,10 @@ const ListUser = () => {
                                                 :
                                                 <td>
                                                 <Link to={`/edit_user/${user._id}`}>
-                                                <i className="fas fa-edit" title="Edit"></i>
+                                                <button className="" title="Edit">Edit</button>
                                                 </Link>
-                                                {/* <i className="fas fa-trash-alt " title="Remove"
-                                                onClick={() => handleDelete(user._id)} ></i> */}
+                                                <button className="" title="Remove"
+                                                onClick={() => handleDelete(user._id)} >Delete</button>
                                                 </td>
                                             }
 

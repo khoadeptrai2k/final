@@ -81,9 +81,9 @@ const post_controller = {
             const{id} = res.params;
             if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
             const {likes} = req.body
-            const post = await PostMessage.find({_id: req.params.id, likes: req.user._id})
-            if(post.length> 0) return res.status(400).json({msg: "You liked this post."})
-            const like = await PostMessage.findOneAndUpdate({_id: req.params.id}, {
+            const post = await PostMessage.find({_id: id, likes: req.user._id})
+                if(post.length> 0) return res.status(400).json({msg: "You liked this post."})
+            const like = await PostMessage.findOneAndUpdate({_id: id}, {
                 $push: {likes: req.user._id},
             }, {new: true})
 
@@ -98,7 +98,7 @@ const post_controller = {
     unLikePost: async (req, res) => {
         try {
 
-            const like = await Posts.findOneAndUpdate({_id: req.params.id}, {
+            const like = await Posts.findOneAndUpdate({_id: req.params.id, likes:req.user._id}, {
                 $pull: {likes: req.user._id}
             }, {new: true})
 

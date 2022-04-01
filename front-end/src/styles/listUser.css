@@ -1,0 +1,27 @@
+.adminListUser{
+    border-collapse: collapse;
+    width: 100%;
+}
+.adminListUser td,
+.adminListUser th{
+    border: 1px solid rgb(15, 15, 15);
+    padding: 5px;
+    min-width: 5px;
+    text-align: left;
+}
+
+.adminListUser th{
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: black;
+    color: white;
+}
+.adminListUser i{
+    cursor: pointer;
+}
+.adminListUser .fa-trash-alt{
+    background: rgb(121, 121, 121);
+    padding: 7px;
+    color: white;
+    font-size: 15px;
+}

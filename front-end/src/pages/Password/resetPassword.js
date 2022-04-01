@@ -59,9 +59,6 @@ const ResetPassword = () => {
                 <input type="cf_password" name="cf_password" id="cf_password" value={cf_password}
                 onChange={handleChangeInput} />
 
-
-
-                
                 <button onClick={handleResetPass}>Reset Password</button>
             </div>
     </div>

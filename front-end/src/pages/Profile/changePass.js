@@ -46,11 +46,10 @@ const ChangePass = ({setChangePass}) => {
     }
 
     return (
-        <div className="edit_profile">
-
+        <div className="change_pass">
             <form>
                 <div className="form-group">
-                    <label htmlFor="name">{auth.userHeader.name}</label>
+                    <label htmlFor="name">Hi: {auth.userHeader.name}, If you know someone has your password ? CHANGE NOW</label>
                 </div>
 
                 <div className="form-group">
@@ -71,7 +70,7 @@ const ChangePass = ({setChangePass}) => {
                     placeholder="Confirm password" value={cf_password} onChange={handleChangeInput} />
                 </div>
 
-                <button type="submit" onClick={handleUpdate}>Update</button>
+                <button className="button" type="submit" onClick={handleUpdate}>Update</button>
                 <button className="button" style={{marginLeft:'50px', marginTop:'10px' }}
                     onClick={() => setChangePass(false)}>
                         Close

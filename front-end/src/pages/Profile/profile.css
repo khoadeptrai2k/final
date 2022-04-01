@@ -162,6 +162,113 @@
     overflow: hidden;
     margin: 15px 0;
   }
+  /* CHANGE PASS */
+.change_pass{
+    position: fixed;
+    width: 100%;
+    background: #0008;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    overflow: auto;
+    height: 100%;
+}
+.change_pass form{
+    max-width: 700px;
+    height:fit-content;
+    width: 50%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 100px auto;
+}
+.change_pass .form-group{
+  display: flex;
+  flex-direction: column;
+
+}
+.change_pass label {
+  font-family: 'Ubuntu', sans-serif;
+  display: block;
+  margin: 5px;
+  border: none;
+  font-size: 18px;
+}
+.change_pass input{
+  font-size: 15px;
+  background: linear-gradient(21deg, white);
+  padding: 3px;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 10px;
+  height: 30px;
+}
+
+.change_pass .edit_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.change_pass .edit_header span{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.change_pass button{
+    background-color: #3DD1E7;
+    border: 0 solid #E5E7EB;
+    box-sizing: border-box;
+    color: #000000;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: 5px;
+    text-decoration: none #000000 solid;
+    text-decoration-thickness: auto;
+    max-width: 200px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    
+  }
+  
+  .button:focus {
+    outline: 0;
+  }
+  
+  .button:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #000000;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+  }
+  
+  .button:hover:after {
+    bottom: 2px;
+    left: 2px;
+  }
+  
+  @media (min-width: 768px) {
+    .button {
+      padding: .75rem 3rem;
+      font-size: 1.25rem;
+    }
+  }
+
+
+
+
 
   /* EDIT PROFILE*/
 .edit_profile{

@@ -101,7 +101,7 @@ background-color: #525357;
 
 export const DropItem = styled.ul`
 position: absolute;
-top: 64px;
+top: 70px;
 width: 300px;
 transform: translateX(-45%);
 background-color: var(--bg);

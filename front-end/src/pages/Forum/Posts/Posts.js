@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
@@ -9,16 +9,57 @@ const Posts = ({ setCurrentId }) => {
   const {posts} = useSelector((state) => state);
   const classes = useStyles();
 
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue)
+    if (searchInput !== '') {
+        const filteredData = posts.filter((item) => {
+            return Object.values(item.title).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
+    else{
+        setFilteredResults(posts)
+    }
+}
+
   return (
+    <div>
+    <input icon='search' placeholder='What are you looking for?'
+                onChange={(e) => searchItems(e.target.value)}
+                style={{width: "100%",
+                        padding: "10px",
+                        border: "2px solid #111d5e",
+                        borderRadius:"10px" }}
+    />
+    <>{
     !posts.length ? <CircularProgress /> : (
       <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-        {posts.map((post) => (
+        {searchInput.length > 1 ? (
+                    filteredResults.map((item) => {
+                        return (
+                            <div>
+                                <div>
+                                    <Grid key={item._id}>
+                                      <Post post={item} setCurrentId={setCurrentId} />
+                                    </Grid>
+                                </div>
+                            </div>
+                        )
+        })
+        ) : (
+        
+        posts.map((post) => (
           <Grid key={post._id} item xs={12} sm={12} md={12}>
             <Post post={post} setCurrentId={setCurrentId} />
           </Grid>
-        ))}
+        )))}
       </Grid>
     )
+    }</>
+    </div>
   );
 };
 
