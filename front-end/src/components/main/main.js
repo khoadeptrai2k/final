@@ -13,6 +13,7 @@ import Forum from '../../pages/forum';
 import { useSelector } from "react-redux";
 import VideoList from '../../pages/videoList';
 import ListUser from '../../pages/listUser';
+import Member  from "../../pages/member";
 
 
 const Main = () => {
@@ -32,6 +33,8 @@ const Main = () => {
                 <Route path="/listUser" element={<ListUser/>} />
                 <Route path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
                 <Route path="/videoList" element={auth.token ? <VideoList/> : <NotFound/>} />
+                <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
+        
         </Routes>
     )
 }

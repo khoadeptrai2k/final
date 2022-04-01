@@ -94,8 +94,8 @@ console.log(menu,"checkl")
         <NavLink to="/videoList" activeStyle>
           Video
         </NavLink>
-        <NavLink to="/contact" activeStyle>
-          Contact
+        <NavLink to="/member" activeStyle>
+          Member
         </NavLink>
         <NavLink to="/forum" activeStyle>
           Forum

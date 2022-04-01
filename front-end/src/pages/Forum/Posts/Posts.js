@@ -40,13 +40,9 @@ const Posts = ({ setCurrentId }) => {
         {searchInput.length > 1 ? (
                     filteredResults.map((item) => {
                         return (
-                            <div>
-                                <div>
                                     <Grid key={item._id}>
                                       <Post post={item} setCurrentId={setCurrentId} />
                                     </Grid>
-                                </div>
-                            </div>
                         )
         })
         ) : (

@@ -117,7 +117,7 @@ const Post = ({post}) => {
       <div className='like'>
       <Typography>{post.likes.length} likes</Typography>
     
-      <ButtonLike  
+      <ButtonLike
         like={like}
         handleLike={handleLike}
         handleUnLike={handleUnLike}>
