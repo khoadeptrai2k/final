@@ -7,7 +7,14 @@ const post_controller = {
         try {
             const postMessages = await PostMessage.find(
                 req.user._id
-            ).sort('-createdAt').populate("user likes","avatar name");
+            ).sort('-createdAt').populate("user likes","avatar name")
+            // .populate({
+            //     path: "comments",
+            //     populate: {
+            //         path: "user likes",
+            //         select: "-password"
+            //     }
+            // });
             res.status(200).json(postMessages);
         } catch (err) {
             res.status(404).json({msg: err.message});
@@ -56,7 +63,16 @@ const post_controller = {
     
             const updatedPost = { creator, title, message, tags, images, _id: id };
     
-            await PostMessage.findByIdAndUpdate(id, updatedPost);
+            await PostMessage.findByIdAndUpdate(id, updatedPost)
+            .populate("user likes", "avatar name")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user likes",
+                    select: "-password"
+                }
+            })
+            ;
     
             res.json({
                 updatedPost: {...updatedPost._doc,

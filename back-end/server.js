@@ -25,6 +25,8 @@ mongoose.connect(URI || 'mongodb://local/videoServer', {
 // routes
 app.use('/api', require('./routes/router_user'))
 app.use('/api', require('./routes/router_post'))
+app.use('/api', require('./routes/router_comment'))
+
 
 app.use('/api/upload', require('./routes/router_upload'))
 app.use('/api/videoList', require('./routes/router_video'));
