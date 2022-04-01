@@ -36,4 +36,5 @@ code {
 @import url("./pages/Forum//Posts/Post/showImage.css");
 @import url("./styles//profile.css");
 @import url("./styles/listUser.css");
-@import url("./pages/Member/member.css")
+@import url("./pages/Member/member.css");
+@import url("./pages/Forum/Posts/Comment/commentPost.css")

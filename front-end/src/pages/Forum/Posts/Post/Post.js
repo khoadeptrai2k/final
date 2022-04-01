@@ -15,6 +15,8 @@ import ShowPosts from '../ShowPost/showPosts';
 import ShowImage from './showImage';
 import { ACTIONS } from '../../../../redux/actions/index';
 import ButtonLike from '../../../../components/button/ButtonLike';
+import CommentPost from '../Comment/CommentPost';
+import { InputCommentPost } from '../Comment/InputCommentPost';
 
 
 const Post = ({post}) => {
@@ -144,7 +146,12 @@ const Post = ({post}) => {
 
     
     </CardActions>
-  </Card>
+    </Card>
+    <Card className={classes.card}>
+      <CommentPost post={post}></CommentPost>
+      <InputCommentPost post={post}></InputCommentPost>
+    </Card>
+
 
   </Container>
   

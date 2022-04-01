@@ -1,0 +1,30 @@
+.inputCommentPost{
+    display: flex;
+    align-items: center;
+    height: 40px;
+
+}
+.inputCommentPost input{
+    background: #f7f7f7;
+    outline: none;
+    flex: 1;
+    overflow: auto;
+    height: 40px;
+    padding: 10px;
+    border: 0.5px solid #111d5e;
+    border-radius:5px 0px 0px 5px;
+
+}
+.inputCommentPost .postBtn{
+    border: none;
+    outline: none;
+    background: #f7f7f7;
+    color: blue;
+    font-weight: 600;
+    height: 40px;
+    border-radius:0px 5px 5px 0px;
+    border: 0.5px solid #111d5e;
+}
+.inputCommentPost .dropdown-menu{
+    transform: translate3d(-120px, -200px, 0px) !important;
+}
