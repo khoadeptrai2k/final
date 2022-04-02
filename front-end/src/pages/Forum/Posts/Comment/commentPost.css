@@ -28,3 +28,49 @@
 .inputCommentPost .dropdown-menu{
     transform: translate3d(-120px, -200px, 0px) !important;
 }
+
+
+.commentPost{
+    padding: 10px 25px;
+}
+.itemCommentPost .comment_content{
+    background: #eee;
+    padding: 7px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.itemCommentPost img{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.itemCommentPost .comment_content .readMore{
+    cursor: pointer;
+    color: crimson;
+}
+
+.itemCommentPost .comment_content .nav-item{
+    cursor: pointer;
+    opacity: 0;
+}
+.itemCommentPost .comment_content:hover .nav-item{
+    opacity: 1;
+}
+.itemCommentPost .comment_content .dropdown-menu{
+    position: absolute;
+    right: 0;
+    left: inherit;
+}
+.itemCommentPost .comment_content .dropdown-item{
+    display: flex;
+    margin: 10px 0;
+}
+.itemCommentPost .comment_content textarea{
+    width: 100%;
+    border: none;
+    outline: none;
+}

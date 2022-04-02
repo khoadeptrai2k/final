@@ -6,21 +6,16 @@ const commentCtrl = {
     createComment: async (req, res) => {
         try {
             const { postId, content, tag, reply, postUserId } = req.body
-
             const post = await Posts.findById(postId)
             if(!post) return res.status(400).json({msg: "Can not Load Post because it does not exist."})
 
-            if(reply){
-                const cm = await Comments.findById(reply)
-                if(!cm) return res.status(400).json({msg: "This comment does not exist."})
-            }
 
             const newComment = new Comments({
                 user: req.user._id, content, tag, reply, postUserId, postId
             })
 
             await Posts.findOneAndUpdate({_id: postId}, {
-                $push: {comments: newComment._id}
+                $push: {comments: newComment.id}
             }, {new: true})
 
             await newComment.save()

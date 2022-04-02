@@ -1,8 +1,15 @@
 import React from 'react'
+import ItemCommentPost from './itemCommentPost'
 
-const CommentPost = () => {
+const CommentPost = ({post}) => {
   return (
-    <div>CommentPost</div>
+      <div className="commentPost">
+            {
+                post.comments.map(comment => (
+                    <ItemCommentPost key={comment._id} comment={comment} post={post} />
+                ))
+            }
+        </div>
   )
 }
 

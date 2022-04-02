@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const post_schema = mongoose.Schema({
+const post_schema = new mongoose.Schema({
     
     title: {
         type: String,
@@ -29,7 +29,8 @@ const post_schema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'user'
     }],
-    comments:[{type: mongoose.Types.ObjectId,
+    comments:[{
+        type: mongoose.Types.ObjectId,
         ref: 'comment'
     }]
 },{

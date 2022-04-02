@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
 
 const comment_schema = new mongoose.Schema({
+    
+
     content: {
         type: String,
-        required: true
+        required: true,
+        
     },
     likes: [{type: mongoose.Types.ObjectId, ref: 'user'}],
     user: {type: mongoose.Types.ObjectId, ref: 'user'},

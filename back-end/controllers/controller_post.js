@@ -8,13 +8,13 @@ const post_controller = {
             const postMessages = await PostMessage.find(
                 req.user._id
             ).sort('-createdAt').populate("user likes","avatar name")
-            // .populate({
-            //     path: "comments",
-            //     populate: {
-            //         path: "user likes",
-            //         select: "-password"
-            //     }
-            // });
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user likes",
+                    select: "-password"
+                }
+            });
             res.status(200).json(postMessages);
         } catch (err) {
             res.status(404).json({msg: err.message});
@@ -66,10 +66,10 @@ const post_controller = {
             await PostMessage.findByIdAndUpdate(id, updatedPost)
             .populate("user likes", "avatar name")
             .populate({
-                path: "comments",
+                path: "comment content",
                 populate: {
                     path: "user likes",
-                    select: "-password"
+                    select: "comment"
                 }
             })
             ;
