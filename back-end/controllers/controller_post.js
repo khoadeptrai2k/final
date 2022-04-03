@@ -33,9 +33,16 @@ const post_controller = {
     getPost: async (req, res) => {
         try{
             const {id} = req.params;
-            const post = await PostMessage.findById(id);
+            const post = await PostMessage.findById(id).populate("user likes", "avatar name")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user likes",
+                    select:"-password"
+                }
+            });
         
-            res.status(200).json(post)
+            res.status(200).json({post})
         } catch (err) {
             res.status(400).json({msg: err.message})
         }

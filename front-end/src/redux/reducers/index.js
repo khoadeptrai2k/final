@@ -5,6 +5,7 @@ import users from './usersReducer';
 import posts from './postsReducer';
 import status from './statusReducer'
 import profile from './profileReducer'
+import detailPost from './detailPostReducer'
 export const reducers = combineReducers({
     auth,
     token,
@@ -12,4 +13,5 @@ export const reducers = combineReducers({
     posts, 
     status,
     profile,
+    detailPost,
 })

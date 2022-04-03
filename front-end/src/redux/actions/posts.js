@@ -77,3 +77,15 @@ export const deletePost = ({auth, post}) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const getPost = ({detailPost, id, auth}) => async (dispatch) => {
+  if(detailPost.every(post => post._id !== id)){
+      try {
+          const res = await getData(`getPost/${id}`, auth.token)
+          dispatch({ type: ACTIONS.GET_POST, payload: res.data.post })
+      } catch (error) {
+        console.log(error.message);
+
+      }
+  }
+}

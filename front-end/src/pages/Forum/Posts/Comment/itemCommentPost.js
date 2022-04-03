@@ -15,7 +15,6 @@ const ItemCommentPost = ({post, comment, commentId}) => {
     const [readMore, setReadMore] = useState(false)
     const [onEdit, setOnEdit] = useState(false)
 
-    const[reply, setReply] = useState(false)
 
     const [like, setLike] = useState(false)
     const [loadLike, setLoadLike] =useState(false)
@@ -24,7 +23,6 @@ const ItemCommentPost = ({post, comment, commentId}) => {
     useEffect(() => {
         setContent(comment.content)
         setLike(false)
-        setReply(false)
 
         if(comment.likes.find(like => like._id === auth.userHeader._id)){
             setLike(true)
@@ -59,11 +57,7 @@ const ItemCommentPost = ({post, comment, commentId}) => {
         setLoadLike(false)
     }
 
-    const handleReply = () => {
-        if(reply) return setReply(false)
-        setReply({...comment, commentId})
-    }
-    console.log({commentId})
+
 
 
 
@@ -127,10 +121,7 @@ const ItemCommentPost = ({post, comment, commentId}) => {
                                     </small>
 
                                 </>
-                                :   <small className="mr-3" style={{fontWeight: "bold"}}
-                                    onClick={handleReply}>
-                                        {reply ? 'cancel' :'reply'}
-                                    </small>
+                                :   <></>
                             }
 
                         </div>
@@ -156,14 +147,6 @@ const ItemCommentPost = ({post, comment, commentId}) => {
             
             </div>
             
-            {
-                        reply &&
-                        <InputCommentPost post={post} reply={reply} setReply={setReply} >
-                            <Link to={`/infor/${reply.user._id}`} className="mr-1">
-                                @{reply.user.name}:
-                            </Link>
-                        </InputCommentPost>
-                    }
         </div>
         
     )

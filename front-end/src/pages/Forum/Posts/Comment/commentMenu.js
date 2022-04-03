@@ -1,16 +1,17 @@
 import React from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import {Dropdown} from 'react-bootstrap'
+import { deleteComment } from '../../../../redux/actions/commentAction';
 
 const CommentMenu = ({post, comment, setOnEdit}) => {
     const {auth} = useSelector(state => state)
     const dispatch = useDispatch()
 
-    // const handleRemove = () => {
-    //     if(post.user._id === auth.user._id || comment.user._id === auth.user._id){
-    //         dispatch(deleteComment({post, auth, comment}))
-    //     }
-    // }
+    const handleRemove = () => {
+        if(post.userId === auth.userHeader._id || comment.user._id === auth.userHeader._id){
+            dispatch(deleteComment({post, auth, comment}))
+        }
+    }
 
     const MenuItem = () => {
         return(
@@ -18,7 +19,7 @@ const CommentMenu = ({post, comment, setOnEdit}) => {
                 <Dropdown.Item className="dropdown-item" onClick={() => setOnEdit(true)}>
                     <span className="material-icons">Edit</span>
                 </Dropdown.Item>
-                <Dropdown.Item className="dropdown-item">
+                <Dropdown.Item className="dropdown-item" onClick={handleRemove}>
                     <span className="material-icons">Remove</span>
                 </Dropdown.Item>
             </>
@@ -39,7 +40,7 @@ const CommentMenu = ({post, comment, setOnEdit}) => {
                             post.userId=== auth.userHeader._id
                             ? comment.user._id === auth.userHeader._id
                                 ? MenuItem()
-                                : <Dropdown.Item className="dropdown-item" >
+                                : <Dropdown.Item className="dropdown-item" onClick={handleRemove}>
                                     <span className="material-icons">Remove</span>
                                 </Dropdown.Item>
                             : comment.user._id === auth.userHeader._id && MenuItem()

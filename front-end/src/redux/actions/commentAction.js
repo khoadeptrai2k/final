@@ -1,4 +1,4 @@
-import {patchData, postData } from '../api/authAPI'
+import {deleteData, patchData, postData } from '../api/authAPI'
 import {ACTIONS, DeleteData, EditData} from './index'
 
 export const createComment = ({post, newComment, auth}) => async (dispatch) =>{
@@ -73,4 +73,25 @@ export const unLikeComment = ({comment, post, auth}) => async (dispatch) => {
             error: error.response.data.msg 
           }})
     }
+}
+export const deleteComment = ({post, comment, auth}) => async (dispatch) => {
+    const deleteArr = [...post.comments.filter(cm => cm.reply === comment._id), comment]
+    
+    const newPost = {
+        ...post,
+        comments: post.comments.filter(cm => !deleteArr.find(da => cm._id === da._id))
+    }
+
+    dispatch({ type: ACTIONS.UPDATE, payload: newPost })
+    try {
+       deleteArr.forEach(item => {
+            deleteData(`comment/${item._id}`, auth.token)
+
+           })
+    } catch (error) {
+        dispatch({
+            payload: {
+            error: error.response.data.msg 
+          }})    }
+
 }
