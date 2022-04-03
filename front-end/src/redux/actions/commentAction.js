@@ -1,5 +1,5 @@
-import { patchData, postData } from '../api/authAPI'
-import {ACTIONS, EditData} from './index'
+import {patchData, postData } from '../api/authAPI'
+import {ACTIONS, DeleteData, EditData} from './index'
 
 export const createComment = ({post, newComment, auth}) => async (dispatch) =>{
 
@@ -28,7 +28,49 @@ export const updateComment = ({comment, post, content, auth}) => async (dispatch
     dispatch({ type: ACTIONS.UPDATE, payload: newPost })
     try {
         patchData(`comment/${comment._id}`, { content }, auth.token)
-    } catch (err) {
-        dispatch({ type: ACTIONS.ALERT, payload: {error: err.response.data.msg} })
+    } catch (error) {
+        dispatch({
+            payload: {
+            error: error.response.data.msg 
+          }})
+    }
+}
+
+export const likeComment = ({comment, post, auth}) => async (dispatch) => {
+    const newComment = {...comment, likes: [...comment.likes, auth.userHeader]}
+
+    const newComments = EditData(post.comments, comment._id, newComment)
+
+    const newPost = {...post, comments: newComments}
+    
+    dispatch({ type: ACTIONS.UPDATE, payload: newPost })
+
+    try {
+        await patchData(`comment/${comment._id}/like`, null, auth.token)
+    } catch (error) {
+        dispatch({
+            payload: {
+            error: error.response.data.msg 
+          }})
+    }
+}
+
+export const unLikeComment = ({comment, post, auth}) => async (dispatch) => {
+
+    const newComment = {...comment, likes: DeleteData(comment.likes, auth.userHeader._id)}
+
+    const newComments = EditData(post.comments, comment._id, newComment)
+
+    const newPost = {...post, comments: newComments}
+    
+    dispatch({ type: ACTIONS.UPDATE, payload: newPost })
+
+    try {
+        await patchData(`comment/${comment._id}/unlike`, null, auth.token)
+    } catch (error) {
+        dispatch({
+            payload: {
+            error: error.response.data.msg 
+          }})
     }
 }

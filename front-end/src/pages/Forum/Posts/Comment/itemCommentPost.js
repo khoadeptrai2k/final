@@ -3,22 +3,34 @@ import {useSelector, useDispatch} from 'react-redux'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 
+import { InputCommentPost } from './InputCommentPost'
 import ButtonLike from '../../../../components/button/ButtonLike'
 import CommentMenu from './commentMenu'
-import { updateComment } from '../../../../redux/actions/commentAction'
+import { likeComment, unLikeComment, updateComment } from '../../../../redux/actions/commentAction'
 
-const ItemCommentPost = ({post, comment}) => {
+const ItemCommentPost = ({post, comment, commentId}) => {
     const [content, setContent] = useState('')
     const {auth} = useSelector(state => state) 
     const dispatch = useDispatch()
     const [readMore, setReadMore] = useState(false)
     const [onEdit, setOnEdit] = useState(false)
 
+    const[reply, setReply] = useState(false)
+
     const [like, setLike] = useState(false)
+    const [loadLike, setLoadLike] =useState(false)
+
 
     useEffect(() => {
         setContent(comment.content)
-    }, [comment])
+        setLike(false)
+        setReply(false)
+
+        if(comment.likes.find(like => like._id === auth.userHeader._id)){
+            setLike(true)
+        }
+
+    }, [comment, auth.userHeader._id])
 
     const handleUpdate = () => {
         if(comment.content !== content){
@@ -29,13 +41,31 @@ const ItemCommentPost = ({post, comment}) => {
         }
     }
 
-    const handleUnLike = () => {
+    const handleLike = async () => {
+        if(loadLike) return;
+        setLike(true)
 
+        setLoadLike(true)
+        await dispatch(likeComment({comment, post, auth}))
+        setLoadLike(false)
     }
 
-    const handleLike = () => {
+    const handleUnLike = async () => {
+        if(loadLike) return;
+        setLike(false)
 
+        setLoadLike(true)
+        await dispatch(unLikeComment({comment, post, auth}))
+        setLoadLike(false)
     }
+
+    const handleReply = () => {
+        if(reply) return setReply(false)
+        setReply({...comment, commentId})
+    }
+    console.log({commentId})
+
+
 
     const styleCard ={
         marginTop: '5px',
@@ -97,8 +127,9 @@ const ItemCommentPost = ({post, comment}) => {
                                     </small>
 
                                 </>
-                                :   <small className="mr-3" style={{fontWeight: "bold"}}>
-                                        reply
+                                :   <small className="mr-3" style={{fontWeight: "bold"}}
+                                    onClick={handleReply}>
+                                        {reply ? 'cancel' :'reply'}
                                     </small>
                             }
 
@@ -115,6 +146,9 @@ const ItemCommentPost = ({post, comment}) => {
                         />
                     </div>
 
+                                
+
+
 
             
             <div className="commentMenu">
@@ -122,6 +156,14 @@ const ItemCommentPost = ({post, comment}) => {
             
             </div>
             
+            {
+                        reply &&
+                        <InputCommentPost post={post} reply={reply} setReply={setReply} >
+                            <Link to={`/infor/${reply.user._id}`} className="mr-1">
+                                @{reply.user.name}:
+                            </Link>
+                        </InputCommentPost>
+                    }
         </div>
         
     )
