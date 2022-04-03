@@ -11,17 +11,18 @@ import Profile from "../../pages/profile";
 // import EditUser from '../../pages/Profile/editUser'
 import Forum from '../../pages/forum';
 import { useSelector } from "react-redux";
-import VideoList from '../../pages/videoList';
 import ListUser from '../../pages/listUser';
 import Member  from "../../pages/member";
 import ShowPosts from "../../pages/Forum/Posts/ShowPost/showPosts";
+import Alert from "../alert/Alert";
 
 
 const Main = () => {
     const {auth} = useSelector(state => state)
-
+    
     return(
-        
+        <div>
+        <Alert/>
         <Routes>
                 <Route exact path="/" element={ <Home/>} />
                 <Route path="/login" element={auth.token ? <NotFound/> : <Login/>} />
@@ -33,12 +34,14 @@ const Main = () => {
                 {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
                 <Route path="/listUser" element={<ListUser/>} />
                 <Route path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
-                <Route path="/videoList" element={auth.token ? <VideoList/> : <NotFound/>} />
                 <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
                 <Route path="/post/:id" element={<ShowPosts/>}/>
 
+
         
         </Routes>
+        </div>
+
     )
 }
 

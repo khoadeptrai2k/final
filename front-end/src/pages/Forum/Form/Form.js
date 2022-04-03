@@ -5,6 +5,7 @@ import { ACTIONS } from '../../../redux/actions/index';
 import { createPost, updatePost } from '../../../redux/actions/posts';
 import {useNavigate } from 'react-router-dom';
 // import { showImage, showVideo } from '../../../components/untils/mediaShow';
+import { toast } from 'react-toastify';
 
 const Form = () => {
   const {auth, status} = useSelector(state => state)
@@ -22,7 +23,7 @@ const Form = () => {
     let newImages = []
 
     files.forEach(file => {
-        if(!file) return err = "File does not exist."
+        if(!file) return err = "Please choose file is existing."
 
 
         if(file.size > 1024 * 1024 * 5){
@@ -33,7 +34,7 @@ const Form = () => {
     })
     console.log(files)
 
-    if(err) dispatch({payload: {error: err} })
+    if(err) dispatch({ type: ACTIONS.ALERT, payload: {error: err} })
     setImages([...images, ...newImages])
   }
 
@@ -53,8 +54,9 @@ const Form = () => {
     e.preventDefault()
     if(images.length === 0)
         return dispatch({ 
-          payload: {error: "Please add your photo."}
+          type: ACTIONS.ALERT, payload: {error: "Please add your photo and Create Post"}
         })
+
 
     if(status.onEdit){
       dispatch(updatePost({post,images,auth,status}))
@@ -145,7 +147,7 @@ const Form = () => {
 
           <div className='input_images'>
             <div className='file_upload'>
-              <box-icon type='solid' name='file-image'></box-icon> 
+              <box-icon type='solid' name='file-image'>INPUT</box-icon> 
               <input type="file" name="file" id="file" multiple accept='image/*,video/*'
               onChange={handleChangeImages}
               />

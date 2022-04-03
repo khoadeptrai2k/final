@@ -12,12 +12,21 @@ export const dispatchLogin = (user) => async (dispatch) =>{
             } 
         })
         localStorage.setItem("firstlogin", true);
+
+        dispatch({ 
+            type: ACTIONS.ALERT, 
+            payload: {
+                success: res.data.msg
+            } 
+        })
+
       } catch (err) {
         dispatch({ 
-          payload: {
-            error: err.response.data.msg 
-          }
-      })
+            type: ACTIONS.ALERT, 
+            payload: {
+                error: err.response.data.msg
+            } 
+        })
 }}
 
 export const refreshToken = () => async (dispatch) => {
@@ -32,8 +41,12 @@ export const refreshToken = () => async (dispatch) => {
                         userHeader: res.data.user
                     } 
                 })
+
+                dispatch({ type: ACTIONS.ALERT, payload: {} })
+
             } catch (err) {
                 dispatch({ 
+                    type: ACTIONS.ALERT, 
                     payload: {
                         error: err.response.data.msg
                     } 

@@ -21,26 +21,28 @@ export const fetchUser = ({id}) => async (dispatch) => {
                 payload: {...authPost.data, _id: id}
             })
     } catch (error) {
-        dispatch(
-            console.log(error.message)
-        )
+        dispatch({
+            type: ACTIONS.ALERT,
+            payload: {error: error.response.data.msg}
+        })
     }
 }
 
 export const updateProfileUser = ({dataUser, avatar, auth}) => async (dispatch) => {
-    console.log(dataUser)
+
 
     if(!dataUser.name)
-    return dispatch({payload: {error: "Please add your name."}})
+    return dispatch({type: ACTIONS.ALERT, payload: {error: "Please add your name."}})
 
     if(dataUser.name.length > 25)
-    return dispatch({payload: {error: "Your name too long."}})
+    return dispatch({type: ACTIONS.ALERT, payload: {error: "Your name too long."}})
 
-    // if(data.something.length > 200)
-    // return dispatch({payload: {error: "About something to you, short introduction"}})
+    if(dataUser.something.length > 200)
+    return dispatch({type: ACTIONS.ALERT, payload: {error: "About something to you, short introduction"}})
 
     try {
         let media;
+        dispatch({type: ACTIONS.ALERT, payload: {loading: true}})
 
         if(avatar) media = await imageUpload([avatar])
 
@@ -49,7 +51,6 @@ export const updateProfileUser = ({dataUser, avatar, auth}) => async (dispatch) 
             avatar: avatar ? media[0].url : auth.userHeader.avatar
         }, auth.token)
 
-        console.log(res)
 
         dispatch({
             type: ACTIONS.LOGIN,
@@ -63,9 +64,12 @@ export const updateProfileUser = ({dataUser, avatar, auth}) => async (dispatch) 
             }
         })
 
-    } catch (err) {
+        dispatch({type: ACTIONS.ALERT, payload: {success: res.data.msg}})
+
+    } catch (error) {
         dispatch({
-            payload: {error: err.response.data.msg}
+            type: ACTIONS.ALERT,
+            payload: {error: error.response.data.msg}
         })
     }
 }

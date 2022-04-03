@@ -14,10 +14,8 @@ export const createComment = ({post, newComment, auth}) => async (dispatch) =>{
         dispatch({type: ACTIONS.UPDATE, payload:newPost})
 
     } catch (error) {
-        dispatch({
-            payload: {
-            error: error.response.data.msg 
-          }})
+        dispatch({ type: ACTIONS.ALERT, payload: {error: error.response.data.msg} })
+
     }
 }
 
@@ -29,10 +27,8 @@ export const updateComment = ({comment, post, content, auth}) => async (dispatch
     try {
         patchData(`comment/${comment._id}`, { content }, auth.token)
     } catch (error) {
-        dispatch({
-            payload: {
-            error: error.response.data.msg 
-          }})
+        dispatch({ type: ACTIONS.ALERT, payload: {error: error.response.data.msg} })
+
     }
 }
 
@@ -48,10 +44,8 @@ export const likeComment = ({comment, post, auth}) => async (dispatch) => {
     try {
         await patchData(`comment/${comment._id}/like`, null, auth.token)
     } catch (error) {
-        dispatch({
-            payload: {
-            error: error.response.data.msg 
-          }})
+        dispatch({ type: ACTIONS.ALERT, payload: {error: error.response.data.msg} })
+
     }
 }
 
@@ -68,10 +62,8 @@ export const unLikeComment = ({comment, post, auth}) => async (dispatch) => {
     try {
         await patchData(`comment/${comment._id}/unlike`, null, auth.token)
     } catch (error) {
-        dispatch({
-            payload: {
-            error: error.response.data.msg 
-          }})
+        dispatch({ type: ACTIONS.ALERT, payload: {error: error.response.data.msg} })
+
     }
 }
 export const deleteComment = ({post, comment, auth}) => async (dispatch) => {
@@ -89,9 +81,8 @@ export const deleteComment = ({post, comment, auth}) => async (dispatch) => {
 
            })
     } catch (error) {
-        dispatch({
-            payload: {
-            error: error.response.data.msg 
-          }})    }
+        dispatch({ type: ACTIONS.ALERT, payload: {error: error.response.data.msg} })
+
+        }
 
 }

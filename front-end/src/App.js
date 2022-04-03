@@ -20,6 +20,7 @@ const App = () => {
         <div>
         <Navbar/>
         <Main />
+
         </div>
       </div>
     </Router>

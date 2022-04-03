@@ -6,6 +6,8 @@ import posts from './postsReducer';
 import status from './statusReducer'
 import profile from './profileReducer'
 import detailPost from './detailPostReducer'
+import alert from './alertReducer'
+
 export const reducers = combineReducers({
     auth,
     token,
@@ -14,4 +16,6 @@ export const reducers = combineReducers({
     status,
     profile,
     detailPost,
+    alert
+    
 })

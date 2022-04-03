@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   height: 80px;
   display: flex;
   justify-content: space-around;
-  z-index: 999;
+  z-index: 50;
   position: sticky;
   
 `;  

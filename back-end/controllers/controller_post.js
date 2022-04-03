@@ -1,13 +1,29 @@
 const PostMessage = require('../models/model_postMessage')
 
+class APIloadmores {
+    constructor(query, queryString){
+        this.query = query;
+        this.queryString = queryString;
+    }
+    paginating(){
+        const limit = this.queryString.limit * 1 || 2
+        const page = this.queryString.page * 1 || 1
+        const skip = (page - 1) * limit
+        this.query = this.query.skip(skip).limit(limit)
+        return this;
+    }
+}
 
 const post_controller = {
 
     getPosts: async (req, res) => {
         try {
+
+
             const postMessages = await PostMessage.find(
                 req.user._id
-            ).sort('-createdAt').populate("user likes","avatar name")
+            ).sort('-createdAt')
+            .populate("user likes","avatar name")
             .populate({
                 path: "comments",
                 populate: {
@@ -22,7 +38,10 @@ const post_controller = {
     },
     getAuthPost: async(req, res) =>{
         try {
-            const authPost = await PostMessage.find({userId: req.params.id}).sort('-createdAt')
+
+            const authPost = await PostMessage.find(
+                req.params._id
+            ).sort('-createdAt')
 
             res.json({authPost})
         } catch (err) {
@@ -57,6 +76,29 @@ const post_controller = {
             res.status(200).json(newPostMessage);
         } catch (err){
             res.status(400).json({msg: err.message});
+        }
+    },
+
+    getPostsDicover: async (req, res) => {
+        try {
+
+            const newArr = [...req.user.likes, req.userId]
+
+            const num  = req.query.num || 9
+
+            const posts = await PostMessage.aggregate([
+                { $match: { user : { $nin: newArr } } },
+                { $sample: { size: Number(num) } },
+            ])
+
+            return res.json({
+                msg: 'Success!',
+                result: posts.length,
+                posts
+            })
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
         }
     },
     updatePost: async(req, res) =>{

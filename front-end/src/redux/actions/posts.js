@@ -9,18 +9,26 @@ export const getPosts = (auth) => async (dispatch) => {
     dispatch({ type: ACTIONS.FETCH_ALL, payload: data });
     dispatch({payload: false})
   } catch (error) {
-    // console.log(error.message);
-  }
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })  }
 };
 
 export const createPost = ({ post,images, auth}) => async (dispatch) => {
   let media = []
   try {
+    dispatch({ type: ACTIONS.ALERT, payload: {loading: true} })
     if(images.length> 0) media = await imageUpload(images)
     const { data } = await postData('createPost', {...post,images: media}, auth.token);
     dispatch({ type: ACTIONS.CREATE, payload: data });
+    dispatch({ type: ACTIONS.ALERT, payload: {loading: false} })
+
   } catch (error) {
-    console.log(error.message);
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })
   }
 };
 
@@ -33,13 +41,20 @@ export const updatePost = ({id, post, auth, status, images}) => async (dispatch)
     )
   return;
   try {
+    dispatch({ type: ACTIONS.ALERT, payload: {loading: true} })
+
     if(imgNew.length > 0 ) media = await imageUpload(imgNew)
     const {data} = await patchData(`updatePost/${status._id}`, {...post, images: [...imgOld, ...media]}, auth.token, id);
 
     dispatch({ type: ACTIONS.UPDATE, payload: data});
+
+    dispatch({ type: ACTIONS.ALERT, payload: {success: data.msg} })
+
   } catch (error) {
-    console.log(error.message);
-  }
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })  }
 };
 
 export const likePost = ({auth, post}) => async (dispatch) => {
@@ -50,8 +65,10 @@ export const likePost = ({auth, post}) => async (dispatch) => {
     await patchData(`updatePost/${post._id}/like`, null , auth.token);
 
   } catch (error) {
-    console.log(error.message);
-  }
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })  }
 };
 
 export const unLikePost = ({auth, post}) => async (dispatch) => {
@@ -63,8 +80,10 @@ console.log(newPost)
     await patchData(`updatePost/${post._id}/unlike`, null, auth.token);
 
   } catch (error) {
-    console.log(error.message);
-  }
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })  }
 };
 
 export const deletePost = ({auth, post}) => async (dispatch) => {
@@ -74,8 +93,10 @@ export const deletePost = ({auth, post}) => async (dispatch) => {
     dispatch({ type: ACTIONS.DELETE, payload: data});
 
   } catch (error) {
-    console.log(error.message);
-  }
+    dispatch({
+      type: ACTIONS.ALERT,
+      payload: {error: error.response.data.msg}
+  })  }
 };
 
 export const getPost = ({detailPost, id, auth}) => async (dispatch) => {
@@ -84,8 +105,10 @@ export const getPost = ({detailPost, id, auth}) => async (dispatch) => {
           const res = await getData(`getPost/${id}`, auth.token)
           dispatch({ type: ACTIONS.GET_POST, payload: res.data.post })
       } catch (error) {
-        console.log(error.message);
-
+        dispatch({
+          type: ACTIONS.ALERT,
+          payload: {error: error.response.data.msg}
+      })
       }
   }
 }

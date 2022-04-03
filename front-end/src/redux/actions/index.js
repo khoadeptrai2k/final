@@ -20,8 +20,10 @@ export const ACTIONS = {
 
     //STATUS
 
-    STATUS: 'STATUS'
-    
+    STATUS: 'STATUS',
+
+    //ALERT
+    ALERT: 'ALERT'
 
 }
 
