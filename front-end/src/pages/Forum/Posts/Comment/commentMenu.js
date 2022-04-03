@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import {Dropdown} from 'react-bootstrap'
 
-const CommentMenu = ({post, comment}) => {
+const CommentMenu = ({post, comment, setOnEdit}) => {
     const {auth} = useSelector(state => state)
     const dispatch = useDispatch()
 
@@ -15,7 +15,7 @@ const CommentMenu = ({post, comment}) => {
     const MenuItem = () => {
         return(
             <>
-                <Dropdown.Item className="dropdown-item">
+                <Dropdown.Item className="dropdown-item" onClick={() => setOnEdit(true)}>
                     <span className="material-icons">Edit</span>
                 </Dropdown.Item>
                 <Dropdown.Item className="dropdown-item">
