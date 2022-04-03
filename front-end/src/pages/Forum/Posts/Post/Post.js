@@ -40,18 +40,25 @@ const Post = ({post}) => {
   
   const handleLike = async () => {
     if(loadLike) return;
-    setLike(true)
+
     setLoadLike(true)
     await dispatch(likePost({post, auth}))
     setLoadLike(false)
   } 
   const handleUnLike = async () => {
     if(loadLike) return;
-    setLike(false)
+
     setLoadLike(true)
     await dispatch(unLikePost({post, auth}))
     setLoadLike(false)
   }
+  // const handleSHowHide = () =>{
+  //   if(menu === false){
+  //     return setMenu(true)
+  //   }
+  //   return setMenu(false)
+  
+  // }
 
 
   const handleEdit = () =>{
@@ -122,8 +129,9 @@ const Post = ({post}) => {
       <ButtonLike
         like={like}
         handleLike={handleLike}
-        handleUnLike={handleUnLike}>
-      </ButtonLike>
+        handleUnLike={handleUnLike}
+      />
+
 
 
       </div>

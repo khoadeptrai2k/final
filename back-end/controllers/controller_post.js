@@ -66,7 +66,7 @@ const post_controller = {
             await PostMessage.findByIdAndUpdate(id, updatedPost)
             .populate("user likes", "avatar name")
             .populate({
-                path: "comment content",
+                path: "comment",
                 populate: {
                     path: "user likes",
                     select: "comment"
@@ -93,19 +93,15 @@ const post_controller = {
     },
     likePost: async(req, res) =>{
         try {
-            const ObjectId = require('mongoose').Types.ObjectId
-            const{id} = res.params;
-            if (!ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-            const {likes} = req.body
-            const post = await PostMessage.find({_id: id, likes: req.user._id})
+            const post = await PostMessage.find({_id: req.params.id, likes: req.user._id})
                 if(post.length> 0) return res.status(400).json({msg: "You liked this post."})
-            const like = await PostMessage.findOneAndUpdate({_id: id}, {
+            const like = await PostMessage.findOneAndUpdate({_id: req.params.id}, {
                 $push: {likes: req.user._id},
             }, {new: true})
 
             if(!like) return res.status(400).json({msg: 'This post does not exist.'})
 
-            res.json({msg: 'Liked Post!', post:{...post, likes}})
+            res.json({msg: 'Liked Post!'})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -114,7 +110,7 @@ const post_controller = {
     unLikePost: async (req, res) => {
         try {
 
-            const like = await Posts.findOneAndUpdate({_id: req.params.id, likes:req.user._id}, {
+            const like = await PostMessage.findOneAndUpdate({_id: req.params.id, likes:req.user._id}, {
                 $pull: {likes: req.user._id}
             }, {new: true})
 

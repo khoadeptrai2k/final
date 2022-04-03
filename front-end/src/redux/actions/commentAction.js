@@ -7,9 +7,11 @@ export const createComment = ({post, newComment, auth}) => async (dispatch) =>{
     dispatch({type: ACTIONS.UPDATE, payload: newPost})
     try{
         const data = {...newComment, postId: post._id}
-        const {res} = await postData('comment', data, auth.token)
+        const res = await postData('comment', data, auth.token)
         
-        console.log(res)
+        const newData = {...res.data.newComment, user: auth.userHeader}
+        const newPost = {...post, comments: [...post.comments, newData]}
+        dispatch({type: ACTIONS.UPDATE, payload:newPost})
 
     } catch (error) {
         dispatch({

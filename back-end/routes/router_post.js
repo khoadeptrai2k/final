@@ -10,8 +10,8 @@ router.get('/authPost/:id', post_controller.getAuthPost)
 router.post('/createPost',auth, post_controller.createPost)
 router.patch('/updatePost/:id',auth, authAdmin,  post_controller.updatePost)
 router.delete('/deletePost/:id',auth, authAdmin, post_controller.deletePost)
-router.patch('/likePosts/:id/like',auth, post_controller.likePost)
-router.patch('/likePosts/:id/unlike',auth, post_controller.unLikePost)
+router.patch('/updatePost/:id/like',auth, post_controller.likePost)
+router.patch('/updatePost/:id/unlike',auth, post_controller.unLikePost)
 
 
 module.exports = router

@@ -37,4 +37,5 @@ code {
 @import url("./styles//profile.css");
 @import url("./styles/listUser.css");
 @import url("./pages/Member/member.css");
-@import url("./pages/Forum/Posts/Comment/commentPost.css")
+@import url("./pages/Forum/Posts/Comment/commentPost.css");
+@import 'bootstrap/dist/css/bootstrap.min.css';

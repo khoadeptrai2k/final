@@ -42,26 +42,25 @@ export const updatePost = ({id, post, auth, status, images}) => async (dispatch)
   }
 };
 
-export const likePost = ({auth, id, post}) => async (dispatch) => {
+export const likePost = ({auth, post}) => async (dispatch) => {
   const newPost = {...post, likes: [...post.likes, auth.userHeader]}
   dispatch({ type: ACTIONS.UPDATE, payload: newPost})
-console.log(newPost)
 
   try {
-    await patchData(`likePosts/${post._id}/like`, null ,id, auth.token);
+    await patchData(`updatePost/${post._id}/like`, null , auth.token);
 
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const unLikePost = ({auth, id, post}) => async (dispatch) => {
+export const unLikePost = ({auth, post}) => async (dispatch) => {
   const newPost = {...post, likes: post.likes.filter(like => like._id !== auth.userHeader._id )}
   dispatch({ type: ACTIONS.UPDATE, payload: newPost})
 console.log(newPost)
 
   try {
-    await patchData(`likePosts/${post._id}/unlike`, null ,id, auth.token);
+    await patchData(`updatePost/${post._id}/unlike`, null, auth.token);
 
   } catch (error) {
     console.log(error.message);
