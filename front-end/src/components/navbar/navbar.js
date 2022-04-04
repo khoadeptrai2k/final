@@ -16,6 +16,8 @@ import { postData } from "../../redux/api/authAPI";
 const Navbar = () => {
   const auth = useSelector((state) => state.auth);
   const [menu, setMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
 
   const handleLogout = async () => {
     try {
@@ -33,7 +35,6 @@ const Navbar = () => {
     return setMenu(false)
   
 }
-console.log(menu,"checkl")
 
   const userLink = () => {
     return (

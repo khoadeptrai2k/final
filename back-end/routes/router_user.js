@@ -17,7 +17,11 @@ router.post('/reset', auth, user_controller.resetPassword)
 
 router.get('/infor/:id', user_controller.getUserInfor)
 
+router.get('/search', auth, user_controller.searchUser)
+
 router.get('/all_infor', auth, authAdmin, user_controller.getUsersAllInfor)
+
+
 
 router.post('/logout', user_controller.logout)
 

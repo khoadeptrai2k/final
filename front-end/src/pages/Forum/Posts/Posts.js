@@ -36,11 +36,11 @@ const Posts = ({ setCurrentId }) => {
     />
     <>{
     !posts.length ? <CircularProgress /> : (
-      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+      <Grid  className={classes.container} container alignItems="stretch" spacing={3}>
         {searchInput.length > 1 ? (
                     filteredResults.map((item) => {
                         return (
-                                    <Grid key={item._id}>
+                                    <Grid style={{marginTop:'20px'}} key={item._id}  xs={12} sm={12} md={12}>
                                       <Post post={item} setCurrentId={setCurrentId} />
                                     </Grid>
                         )
@@ -48,7 +48,7 @@ const Posts = ({ setCurrentId }) => {
         ) : (
         
         posts.map((post) => (
-          <Grid key={post._id} item xs={12} sm={12} md={12}>
+          <Grid style={{marginTop:'10px'}} key={post._id} item xs={12} sm={12} md={12}>
             <Post post={post} setCurrentId={setCurrentId} />
           </Grid>
         )))}

@@ -153,6 +153,16 @@ const user_controller = {
             return res.status(500).json({msg: err.message})
         }
     },
+    searchUser: async (req, res) => {
+        try {
+            const user = await Users.find({name: {$regex: req.query.name}})
+            .limit(10).select("name avatar")
+            
+            res.json({user})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     getUsersAllInfor: async (req, res) => {
         try {
             const users = await Users.find().select('-password')

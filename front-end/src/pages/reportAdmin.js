@@ -72,9 +72,11 @@ const ReportAdmin = (files) => {
 
 
   return (
-    <div>
+    <div style={{margin:'10px'}}>
+        <h1>REPORT WITH ADMIN - YOUR PROBLEMS:</h1>
+
       <Form className="search-form" onSubmit={handleOnSubmit}>
-        {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+        {errorMsg && <p style={{color:'red'}} className="errorMsg">{errorMsg}</p>}
         <Row>
           <Col>
             <Form.Group controlId="title">
