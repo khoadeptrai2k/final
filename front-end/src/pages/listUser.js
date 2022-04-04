@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllUsers } from '../redux/actions/usersAction'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import FilesList from './Report/FilesList'
 const ListUser = () => {
 
     const initialState = {
@@ -43,11 +44,16 @@ const ListUser = () => {
     }
 
   return (
-    <div>listUser
+    <div> 
+        <div style={{textAlign:'center'}}>
+             <h1 style={{margin:'20px'}}>ADMIN MANAGER</h1>
+        </div>
+       
         <div>
             {loading && <h3>Loading.....</h3>}
         </div>
-        <div style={{overflowX: "auto"}}>
+                <div style={{overflowX: "auto"}}>
+                    <h3 style={{margin:'20px'}}>Table Users</h3>
                     <table className="adminListUser">
                         <thead>
                             <tr>
@@ -96,6 +102,8 @@ const ListUser = () => {
                         </tbody>
                     </table>
                 </div>
+        <h3 style={{margin:'20px'}}>Table Users</h3>
+        <FilesList/>
     </div>
   )
 }

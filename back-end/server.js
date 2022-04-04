@@ -3,6 +3,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const multer = require('multer');
+
+
 
 const app = express()
 app.use(express.json())
@@ -13,7 +16,7 @@ app.use(cookieParser())
 
 // connect to mongodb
 const URI = process.env.MONGODB_URL
-mongoose.connect(URI || 'mongodb://local/videoServer', {
+mongoose.connect(URI || 'mongodb://127.0.0.1:27017/file_upload', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -28,9 +31,10 @@ app.use('/api', require('./routes/router_post'))
 app.use('/api', require('./routes/router_comment'))
 
 
-app.use('/api/upload', require('./routes/router_upload'))
-app.use('/api/videoList', require('./routes/router_video'));
-app.use('/api/videos', express.static('media/uploads'));
+// Upload Report
+const fileRoute = require('./routes/router_report');
+app.use(fileRoute);
+
 
 
 

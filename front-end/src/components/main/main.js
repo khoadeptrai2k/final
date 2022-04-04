@@ -15,6 +15,7 @@ import ListUser from '../../pages/listUser';
 import Member  from "../../pages/member";
 import ShowPosts from "../../pages/Forum/Posts/ShowPost/showPosts";
 import Alert from "../alert/Alert";
+import ReportAdmin from "../../pages/reportAdmin";
 
 
 const Main = () => {
@@ -36,6 +37,7 @@ const Main = () => {
                 <Route path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
                 <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
                 <Route path="/post/:id" element={<ShowPosts/>}/>
+                <Route path="/report" element={auth.token ? <ReportAdmin/> : <NotFound/> } />
 
 
         

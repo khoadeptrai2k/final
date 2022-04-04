@@ -91,8 +91,8 @@ console.log(menu,"checkl")
         <NavLink to="/" activeStyle>
           Home
         </NavLink>
-        <NavLink to="/discover" activeStyle>
-          Discover
+        <NavLink to="/report" activeStyle>
+          Report
         </NavLink>
         <NavLink to="/member" activeStyle>
           Member
