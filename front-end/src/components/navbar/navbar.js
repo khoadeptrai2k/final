@@ -101,6 +101,9 @@ const Navbar = () => {
         <NavLink to="/forum" activeStyle>
           Forum
         </NavLink>
+        <NavLink to="/message" activeStyle>
+          Message
+        </NavLink>
       </NavMenu>
       <NavMenu style={transFrom}>
         {auth.token ? (

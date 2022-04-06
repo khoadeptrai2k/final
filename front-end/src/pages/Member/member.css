@@ -30,3 +30,21 @@
     text-transform: uppercase;
     font-weight: 300;
 }
+
+.memberList {
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    grid-gap: 1rem;
+}
+@media (max-width: 800px) {
+    .memberList {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .memberList {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }

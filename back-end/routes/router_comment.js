@@ -13,5 +13,4 @@ router.patch('/comment/:id/unlike', auth, comment_controller.unLikeComment)
 router.delete('/comment/:id', auth, comment_controller.deleteComment)
 
 
-
 module.exports = router

@@ -16,6 +16,7 @@ import Member  from "../../pages/member";
 import ShowPosts from "../../pages/Forum/Posts/ShowPost/showPosts";
 import Alert from "../alert/Alert";
 import ReportAdmin from "../../pages/reportAdmin";
+import Message from "../../pages/Message/message";
 
 
 const Main = () => {
@@ -38,6 +39,7 @@ const Main = () => {
                 <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
                 <Route path="/post/:id" element={<ShowPosts/>}/>
                 <Route path="/report" element={auth.token ? <ReportAdmin/> : <NotFound/> } />
+                <Route path="/message" element={auth.token ? <Message/> : <NotFound/> } />
 
 
         

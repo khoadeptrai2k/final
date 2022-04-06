@@ -30,7 +30,7 @@ const Member = () => {
 
 
   return (
-    <div style={memberStyle}> 
+    <div> 
       <div style={{margin:'50px'}}> 
         MEMBER
         <input icon='search' placeholder='What are you looking for?'
@@ -44,7 +44,7 @@ const Member = () => {
 
     <>{
     !users.length ? <CircularProgress /> : (
-      <div style={memberStyle}>
+      <div className='memberList'>
         {searchInput.length > 1 ? (
             filteredResults.map((item) => {
                         return (
@@ -54,7 +54,7 @@ const Member = () => {
         ) : (
           
           users.map((member) => (
-              <MemberItem key={member._id} member={member} />
+                  <MemberItem key={member._id} member={member} />
               
         )))}
       </div>
@@ -63,11 +63,7 @@ const Member = () => {
     </div>
   )
 }
-const memberStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridGap: "1rem",
-  };
+
   
 
 export default Member
