@@ -12,7 +12,7 @@ const post_schema = new mongoose.Schema({
     },
     creator: String,
     userId: String,
-    tags: [String],
+    tags: String,
     createAt: {
         type: Date,
         default: new Date(),

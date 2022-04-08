@@ -100,7 +100,7 @@ const Post = ({post}) => {
 
 
     <div className={classes.details}>
-      <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+      <Typography variant="body2" color="textSecondary" component="h2">{post.tags}</Typography>
     </div>
     
     <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>

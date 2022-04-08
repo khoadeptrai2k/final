@@ -308,21 +308,22 @@
   font-size: 18px;
 }
 .edit_profile input{
-  font-size: 15px;
+  font-size: 13px;
   background: linear-gradient(21deg, white);
   padding: 3px;
   display: inline-block;
   border-radius: 5px;
   padding: 10px;
-  height: 30px;
+  height: 25px;
 }
 .edit_profile textarea {
-  font-size: 15px;
+  font-size: 13px;
   background: linear-gradient(21deg, white);
   padding: 3px;
   display: inline-block;
   border-radius: 10px;
   padding: 10px;
+  height: 100px;
 }
 
 .edit_profile .edit_header{

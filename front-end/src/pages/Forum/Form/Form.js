@@ -10,11 +10,11 @@ import { toast } from 'react-toastify';
 const Form = () => {
   const {auth, status} = useSelector(state => state)
   const dispatch = useDispatch()
-  const [post, setPost] = useState({title:'', message:'', tag:''})
+  const [post, setPost] = useState({title:'', message:'', tags:''})
 
   const [images, setImages] = useState([])
 
-  const {title, message, tag} = post
+  const {title, message, tags} = post
   const navigate = useNavigate()
 
   const handleChangeImages = e => {
@@ -41,7 +41,7 @@ const Form = () => {
 
   const handleInput = (e) => {
     const {name, value} = e.target
-    setPost({...post, [name]: value})
+    setPost({...post, tags:value, [name]: value})
   }
 
 
@@ -55,6 +55,10 @@ const Form = () => {
     if(images.length === 0)
         return dispatch({ 
           type: ACTIONS.ALERT, payload: {error: "Please add your photo and Create Post"}
+        })
+    if(tags.length === 0)
+        return dispatch({ 
+          type: ACTIONS.ALERT, payload: {error: "Please add your Tag Category"}
         })
 
 
@@ -113,10 +117,12 @@ const Form = () => {
           placeholder="Write something?"
           onChange={handleInput}          
           />
-          <textarea name="tag" value={tag}
-          placeholder="hagtag new "
-          onChange={handleInput}          
-          />
+          <select value={tags} onChange={handleInput} >
+            <option value="Information Technology">Information Technology</option>
+            <option value="Business Administration">Business Administration</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+
 
           <div className='show_images'>
             {

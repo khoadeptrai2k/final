@@ -7,6 +7,7 @@ import status from './statusReducer'
 import profile from './profileReducer'
 import detailPost from './detailPostReducer'
 import alert from './alertReducer'
+import message from './messageReducer'
 
 export const reducers = combineReducers({
     auth,
@@ -16,6 +17,7 @@ export const reducers = combineReducers({
     status,
     profile,
     detailPost,
-    alert
+    alert,
+    message
     
 })

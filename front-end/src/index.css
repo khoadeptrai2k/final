@@ -39,6 +39,7 @@ code {
 @import url("./pages/Member/member.css");
 @import url("./pages/Forum/Posts/Comment/commentPost.css");
 @import url("./pages/Member/search.css");
-
+@import url("./pages/Message/userCardMessage.css");
+@import url("./pages/Message/message.css");
 
 @import 'bootstrap/dist/css/bootstrap.min.css';

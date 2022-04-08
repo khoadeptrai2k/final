@@ -17,7 +17,7 @@ import ShowPosts from "../../pages/Forum/Posts/ShowPost/showPosts";
 import Alert from "../alert/Alert";
 import ReportAdmin from "../../pages/reportAdmin";
 import Message from "../../pages/Message/message";
-
+import MessageId from "../../pages/Message/messageId";
 
 const Main = () => {
     const {auth} = useSelector(state => state)
@@ -39,8 +39,8 @@ const Main = () => {
                 <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
                 <Route path="/post/:id" element={<ShowPosts/>}/>
                 <Route path="/report" element={auth.token ? <ReportAdmin/> : <NotFound/> } />
-                <Route path="/message" element={auth.token ? <Message/> : <NotFound/> } />
-
+                <Route exact path="/message" element={auth.token ? <Message/> : <NotFound/> } />
+                <Route path="/message/:id" element={auth.token ? <MessageId/> : <NotFound/> } />
 
         
         </Routes>

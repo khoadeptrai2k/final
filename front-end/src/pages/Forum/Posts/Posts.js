@@ -9,6 +9,7 @@ const Posts = ({ setCurrentId }) => {
   const {posts} = useSelector((state) => state);
   const classes = useStyles();
 
+
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   
@@ -23,10 +24,14 @@ const Posts = ({ setCurrentId }) => {
     else{
         setFilteredResults(posts)
     }
-}
+  }
+
 
   return (
     <div>
+
+    
+
     <input icon='search' placeholder='What are you looking for?'
                 onChange={(e) => searchItems(e.target.value)}
                 style={{width: "100%",

@@ -1,0 +1,13 @@
+.avatarsmall{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+
+.show_user{
+    background-color: #e0dfdf;
+    border-radius: 10px;
+    margin-top: 8px;
+    /* margin-right: 9%; */
+    cursor: pointer;
+}
