@@ -1,5 +1,5 @@
 const Conversation = require('../models/model_conversation')
-const Message = require('../models/model_message')
+const Messages = require('../models/model_message')
 
 class Messfeatures {
     constructor(query, queryString){
@@ -47,7 +47,7 @@ const message_controller = {
         }
     },
     getConversations: async (req, res) => {
-        try {
+        try {   
             
             const features = new Messfeatures(Conversation.find({
                     recipients: req.user._id
@@ -67,7 +67,7 @@ const message_controller = {
     },
     getMessages: async (req, res) => {
         try {
-            const features = new Messfeatures(Message.find({
+            const features = new Messfeatures(Messages.find({
                     $or: [
                         {sender: req.user._id, recipient: req.params.id},
                         {sender: req.params.id, recipient: req.user._id}

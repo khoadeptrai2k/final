@@ -6,7 +6,7 @@ import DisplayMessage from './displayMessage'
 import ACTIONS from '../../../redux/actions'
 import { showImage, showVideo } from '../../../components/untils/mediaShow'
 import { imageUpload } from '../../../components/untils/imageUpload'
-import { addMessage } from '../../../redux/actions/messageAction'
+import { addMessage, getMessages } from '../../../redux/actions/messageAction'
 
 
 const RightMessage = () => {
@@ -69,8 +69,17 @@ const RightMessage = () => {
       createdAt: new Date().toISOString()
     }
     setLoadMedia(false)
-    await dispatch(addMessage({msg, auth}))
+    dispatch(addMessage({msg, auth}))
   }
+
+  useEffect(() =>{
+    if(id){
+      const getMessagesData = async () => {
+          await dispatch(getMessages({auth, id}))
+      }
+      getMessagesData()
+    }
+  },[id, dispatch, auth]) 
 
   
   return (

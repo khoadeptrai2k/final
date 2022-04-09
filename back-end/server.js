@@ -29,6 +29,7 @@ mongoose.connect(URI || 'mongodb://127.0.0.1:27017/file_upload', {
 app.use('/api', require('./routes/router_user'))
 app.use('/api', require('./routes/router_post'))
 app.use('/api', require('./routes/router_comment'))
+app.use('/api', require('./routes/router_message'))
 
 
 // Upload Report

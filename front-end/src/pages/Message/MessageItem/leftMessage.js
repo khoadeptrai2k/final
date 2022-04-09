@@ -4,7 +4,7 @@ import { getData } from '../../../redux/api/authAPI'
 import { useSelector, useDispatch } from 'react-redux'
 import UserCardMessage from '../userCardMessage';
 import { useNavigate, useParams } from 'react-router-dom';
-import {addUser} from '../../../redux/actions/messageAction'
+import {addUser, getConversations} from '../../../redux/actions/messageAction'
 
 
 const LeftMessage = () => {
@@ -39,6 +39,12 @@ const LeftMessage = () => {
         return ''
     }
 
+    useEffect(() =>{
+        if(message.firstLoad) return;
+        dispatch(getConversations({auth}))
+    },[dispatch,auth,message.firstLoad])
+
+
   return (
     <>
         <form className="message_header" onClick={handleSearch} >
@@ -68,7 +74,7 @@ const LeftMessage = () => {
                             message.users.map(user => (
                                 <div key={user._id} className={`message_user ${isActive(user)}`}
                                 onClick={() => handleAddUser(user)}>
-                                    <UserCardMessage member={user} />
+                                    <UserCardMessage member={user} msg={true} />
                                 </div>
                             ))
                         }

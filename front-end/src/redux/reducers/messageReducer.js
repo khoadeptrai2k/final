@@ -2,9 +2,9 @@ import { MESS_TYPES } from "../actions/messageAction"
 
 const initialState = {
     users: [],
-    resultUsers: 0,
     data: [],
-    resultData: 0
+    resultData: 0,
+    resultUsers: 0,
 }
 
 const messageReducer = (state = initialState, action) => {
@@ -23,7 +23,21 @@ const messageReducer = (state = initialState, action) => {
                     ? {...user, text: action.payload.text, media:action.payload.media}
                     : user
                     )
+            }        
+        case MESS_TYPES.GET_CONVERSATIONS:
+            return {
+                ...state,
+                users: action.payload.newArr,
+                resultUsers: action.payload.result,
+                firstLoad:true
+            }        
+        case MESS_TYPES.GET_MESSAGES:
+            return {
+                ...state,
+                data: action.payload.messages.reverse(),
+                resultData: action.payload.result
             }
+            
         default: 
             return state;
     }
