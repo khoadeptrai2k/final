@@ -4,7 +4,7 @@ import LeftMessage from './MessageItem/leftMessage';
 const Message = () => {
   return (
       <div className='message d-flex'>
-        <div className='col-md-3 border-right px-0'>
+        <div className='col-md-4 border-right px-0'>
           <LeftMessage/>
         </div>
 

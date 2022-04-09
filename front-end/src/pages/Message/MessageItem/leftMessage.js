@@ -3,7 +3,7 @@ import ACTIONS from '../../../redux/actions'
 import { getData } from '../../../redux/api/authAPI'
 import { useSelector, useDispatch } from 'react-redux'
 import UserCardMessage from '../userCardMessage';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {addUser} from '../../../redux/actions/messageAction'
 
 
@@ -14,6 +14,7 @@ const LeftMessage = () => {
     const [searchUsers, setSearchUsers] = useState([])
     const [search, setSearch] = useState('')
     const navigate = useNavigate()
+    const {id} = useParams()
 
     const handleSearch = async (e) => {
         e.preventDefault()
@@ -33,6 +34,11 @@ const LeftMessage = () => {
         return navigate(`/message/${user._id}`)
     }
 
+    const isActive = (user) => {
+        if(id === user._id) return 'active';
+        return ''
+    }
+
   return (
     <>
         <form className="message_header" onClick={handleSearch} >
@@ -49,7 +55,8 @@ const LeftMessage = () => {
                 ?   <>
                     {
                         searchUsers.map(user => (
-                            <div key={user._id} onClick={() => handleAddUser(user)}>
+                            <div key={user._id} className={`message_user ${isActive(user)}`} 
+                            onClick={() => handleAddUser(user)}>
                                 <UserCardMessage member={user} />
                             </div>
                         ))
@@ -59,7 +66,7 @@ const LeftMessage = () => {
                     <>
                         {
                             message.users.map(user => (
-                                <div key={user._id} 
+                                <div key={user._id} className={`message_user ${isActive(user)}`}
                                 onClick={() => handleAddUser(user)}>
                                     <UserCardMessage member={user} />
                                 </div>

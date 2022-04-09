@@ -153,7 +153,7 @@ const Form = () => {
 
           <div className='input_images'>
             <div className='file_upload'>
-              <box-icon type='solid' name='file-image'>INPUT</box-icon> 
+              <box-icon type='solid' name='file-image'/> 
               <input type="file" name="file" id="file" multiple accept='image/*,video/*'
               onChange={handleChangeImages}
               />
