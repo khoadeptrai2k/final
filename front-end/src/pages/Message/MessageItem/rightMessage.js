@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import UserCardMessage from '../userCardMessage'
 import { useParams } from 'react-router-dom'
@@ -17,6 +17,8 @@ const RightMessage = () => {
   const [user, setUser] = useState([])
   const [media, setMedia] = useState([])
   const [loadMedia, setLoadMedia] = useState(false)
+
+  const refMessage = useRef()
 
   useEffect(() => {
     const newUser = message.users.find(user => user._id === id)
@@ -70,6 +72,9 @@ const RightMessage = () => {
     }
     setLoadMedia(false)
     await dispatch(addMessage({msg, auth, socket}))
+    if(refMessage.current){
+      refMessage.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+  }
   }
 
   useEffect(() =>{
@@ -96,7 +101,7 @@ const RightMessage = () => {
     <div className='chat_container'
       style={{height: media.length > 0 ? 'calc(100% - 180px)':''}}
     >
-      <div className='chat_display'>
+      <div className='chat_display' ref={refMessage}>
         {
           message.data.map((msg,index) => (
             <div key={index}>
