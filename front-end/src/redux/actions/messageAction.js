@@ -15,8 +15,10 @@ export const addUser = ({user, message}) => async (dispatch) =>{
     }
 }
 
-export const addMessage = ({msg, auth}) => async (dispatch) =>{
+export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
+
+    socket.emit('createMessage', {...msg})
     try{
         await postData('message',msg,auth.token)
     }catch (error) {

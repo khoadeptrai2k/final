@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import Navbar from './components/navbar/navbar';
 import Main from './components/main/main';
+import io from 'socket.io-client'
+import {ACTIONS} from './redux/actions/index'
 
 
 const App = () => {
@@ -11,8 +13,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(refreshToken())
+    const socket = io()
+    dispatch({type: ACTIONS.SOCKET, payload: socket})
+    return () => socket.close()
 },[dispatch])
-
 
   return (
     <Router>

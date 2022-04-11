@@ -23,7 +23,10 @@ export const ACTIONS = {
     STATUS: 'STATUS',
 
     //ALERT
-    ALERT: 'ALERT'
+    ALERT: 'ALERT',
+
+    //SOCKET
+    SOCKET: 'SOCKET'
 
 }
 

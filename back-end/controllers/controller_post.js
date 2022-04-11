@@ -1,18 +1,5 @@
 const PostMessage = require('../models/model_postMessage')
 
-class APIloadmores {
-    constructor(query, queryString){
-        this.query = query;
-        this.queryString = queryString;
-    }
-    paginating(){
-        const limit = this.queryString.limit * 1 || 2
-        const page = this.queryString.page * 1 || 1
-        const skip = (page - 1) * limit
-        this.query = this.query.skip(skip).limit(limit)
-        return this;
-    }
-}
 
 const post_controller = {
 
@@ -40,7 +27,7 @@ const post_controller = {
         try {
 
             const authPost = await PostMessage.find(
-                req.params._id
+                {userId: req.params.id}
             ).sort('-createdAt')
 
             res.json({authPost})

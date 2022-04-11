@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const multer = require('multer');
+const SocketServer = require("./socketServer")
 
 
 
@@ -12,7 +13,11 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
-
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
+io.on('connection', socket => {
+ SocketServer(socket)
+})
 
 // connect to mongodb
 const URI = process.env.MONGODB_URL
@@ -40,7 +45,7 @@ app.use(fileRoute);
 
 
 const PORT = process.env.PORT || 4000
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log('Server is running on port', PORT)
 })
 

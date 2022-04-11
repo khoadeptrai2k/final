@@ -4,10 +4,11 @@ import ShowPostUser from './showPostUser'
 const PostUser = ({id, profile}) => {
     const[post, setPost] = useState([])
     const[result, setResult] = useState([9])
+    console.log(post)
 
     useEffect(() => {
         profile.postAuth.forEach(data =>{
-            if(data._id === id) {
+            if(data._id === id ) {
                 setPost(data.authPost)   
                 setResult(data.result)
             }

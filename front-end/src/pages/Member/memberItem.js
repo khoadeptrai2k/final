@@ -15,7 +15,11 @@ const MemberItem = ({member}) => {
               <div class="details">
                   <h5>Name: {member.name}</h5>
                   <p><Link to={`/infor/${member._id}`}>Info Member</Link></p>
-                  <p>Message</p>
+                  {
+                  auth.userHeader._id === member._id
+                  ? <p></p>
+                  : <p><Link to={`/message/${member._id}`}>Message</Link></p>
+                  }
               </div>
       </div>
     )

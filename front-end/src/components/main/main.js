@@ -18,6 +18,7 @@ import Alert from "../alert/Alert";
 import ReportAdmin from "../../pages/reportAdmin";
 import Message from "../../pages/Message/message";
 import MessageId from "../../pages/Message/messageId";
+import SocketClient from '../../socketClient';
 
 const Main = () => {
     const {auth} = useSelector(state => state)
@@ -25,6 +26,8 @@ const Main = () => {
     return(
         <div>
         <Alert/>
+        {auth.token && <SocketClient/>}
+
         <Routes>
                 <Route exact path="/" element={ <Home/>} />
                 <Route path="/login" element={auth.token ? <NotFound/> : <Login/>} />

@@ -4,12 +4,11 @@ import {Link} from 'react-router-dom'
 
 
 const ShowPostUser = ({post}) => {
-    console.log(post)
 
   return (
     <div className="showPostUser">
         {
-            post.map((index) => (
+            post.map(index => (
                 <Link key={index._id} to={`/post/${index._id}`}>
                     <div className="showPostUserWrap" >
                         <div className="postTop">

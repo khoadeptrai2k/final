@@ -5,6 +5,7 @@ const initialState = {
     data: [],
     resultData: 0,
     resultUsers: 0,
+    firstLoad:false
 }
 
 const messageReducer = (state = initialState, action) => {

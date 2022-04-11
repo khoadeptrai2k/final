@@ -13,7 +13,7 @@ const InfoUser = ({id, auth, profile, dispatch}) => {
     const [onEdit, setOnEdit] = useState(false)
     const [changePass, setChangePass] = useState(false)
  
-
+console.log(id)
     useEffect(() => { 
         if(id === auth.userHeader?._id){
             setData([auth.userHeader])

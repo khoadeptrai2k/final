@@ -8,6 +8,7 @@ import profile from './profileReducer'
 import detailPost from './detailPostReducer'
 import alert from './alertReducer'
 import message from './messageReducer'
+import socket from './socketReducer'
 
 export const reducers = combineReducers({
     auth,
@@ -18,6 +19,7 @@ export const reducers = combineReducers({
     profile,
     detailPost,
     alert,
-    message
+    message,
+    socket,
     
 })

@@ -10,7 +10,7 @@ import { addMessage, getMessages } from '../../../redux/actions/messageAction'
 
 
 const RightMessage = () => {
-  const {auth, message} = useSelector(state => state)
+  const {auth, message, socket} = useSelector(state => state)
   const {id} = useParams()
   const dispatch = useDispatch()
   const [text, setText] = useState('')
@@ -69,7 +69,7 @@ const RightMessage = () => {
       createdAt: new Date().toISOString()
     }
     setLoadMedia(false)
-    dispatch(addMessage({msg, auth}))
+    await dispatch(addMessage({msg, auth, socket}))
   }
 
   useEffect(() =>{
@@ -91,7 +91,6 @@ const RightMessage = () => {
           <button className='fas fa-trash text-danger'>Delete</button>
         </UserCardMessage>
       }
-
     </div>
     
     <div className='chat_container'

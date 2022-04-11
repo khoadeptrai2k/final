@@ -12,7 +12,6 @@ import { Grid } from '@material-ui/core'
 const ProfileUser = () => {
     
     const { profile, auth } = useSelector(state => state)
-    console.log(profile)
     const dispatch = useDispatch()
 
     const { id } = useParams()
