@@ -13,7 +13,6 @@ const ListUser = () => {
     }
 
     const {auth, users} = useSelector(state => state)
-    console.log(auth, users)
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false)
@@ -102,7 +101,7 @@ const ListUser = () => {
                         </tbody>
                     </table>
                 </div>
-        <h3 style={{margin:'20px'}}>Table Users</h3>
+        <h3 style={{margin:'20px'}}>Table REPORT</h3>
         <FilesList/>
     </div>
   )

@@ -1,22 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import download from 'downloadjs';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import ACTIONS from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
 const FilesList = () => {
   const [filesList, setFilesList] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
-useEffect(() => {
-    const getFilesList = async () => {
-      try {
-        const { data } = await axios.get('/getAllFiles');
-        setErrorMsg('');
-        setFilesList(data);
-      } catch (error) {
-        error.response && setErrorMsg(error.response.data);
-      }
-    };
-getFilesList();
-  }, []);
+  const {auth} = useSelector(state => state);
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+      const getFilesList = async () => {
+        try {
+          const { data } = await axios.get('/getAllFiles');
+          setErrorMsg('');
+          setFilesList(data);
+        } catch (error) {
+          error.response && setErrorMsg(error.response.data);
+        }
+      };
+  getFilesList();
+    }, []);
+
+  const handleDelete = async (id) => {
+        try {
+            if(filesList._id === id){
+                if(window.confirm("Are you sure you want to delete this REPORT?")){
+                    await axios.delete(`/deleteFile/${id}`, {
+                        headers: {Authorization: auth.token}
+                    })
+
+                }
+            }
+
+          dispatch({ 
+              type: ACTIONS.ALERT, payload: {success:"DELETE SUCCESSFULL"}
+          })
+          
+        } catch (err) {
+          setFilesList({...filesList, err: err.response.data.msg , success: ''})
+        }
+    }
   
 const downloadFile = async (id, path, mimetype) => {
     try {
@@ -42,6 +70,7 @@ return (
             <th>Title</th>
             <th>Description</th>
             <th>Download File</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +89,10 @@ return (
                     >
                       Download
                     </a>
+                  </td>
+                  <td>
+                      <button className="" title="Remove"
+                      onClick={() => handleDelete(filesList._id)} >Delete</button>
                   </td>
                 </tr>
               )

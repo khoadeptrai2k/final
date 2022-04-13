@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { ACTIONS } from '../redux/actions/index';
 
 const ReportAdmin = (files) => {
     const [file, setFile] = useState(null); // state for storing actual image
@@ -11,6 +13,7 @@ const ReportAdmin = (files) => {
       description: ''
     });
     const [errorMsg, setErrorMsg] = useState('');
+    const dispatch = useDispatch()
     const [isPreviewAvailable, setIsPreviewAvailable] = useState(false); // state to show preview only for images
     const dropRef = useRef(); // React ref for managing the hover state of droppable area
     const handleInputChange = (event) => {
@@ -49,7 +52,7 @@ const ReportAdmin = (files) => {
                 formData.append('file', file);
                 formData.append('title', title);
                 formData.append('description', description);
-        setErrorMsg('');
+          setErrorMsg('');
                 await axios.post('http://localhost:4000/upload', formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
@@ -61,6 +64,9 @@ const ReportAdmin = (files) => {
             } else {
               setErrorMsg('Please enter all the field values.');
             }
+            dispatch({ 
+              type: ACTIONS.ALERT, payload: {success:"SUCCESSFULL"}
+            })
           } catch (error) {
             error.response && setErrorMsg(error.response.data);
           }

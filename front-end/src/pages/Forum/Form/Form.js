@@ -32,7 +32,6 @@ const Form = () => {
 
         return newImages.push(file)
     })
-    console.log(files)
 
     if(err) dispatch({ type: ACTIONS.ALERT, payload: {error: err} })
     setImages([...images, ...newImages])

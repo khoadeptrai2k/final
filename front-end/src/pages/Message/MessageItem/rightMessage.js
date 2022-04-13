@@ -1,18 +1,19 @@
 import React,{useState, useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import UserCardMessage from '../userCardMessage'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import DisplayMessage from './displayMessage'
 import ACTIONS from '../../../redux/actions'
 import { showImage, showVideo } from '../../../components/untils/mediaShow'
 import { imageUpload } from '../../../components/untils/imageUpload'
-import { addMessage, getMessages, MESS_TYPES } from '../../../redux/actions/messageAction'
+import { addMessage, deleteConversation, getMessages } from '../../../redux/actions/messageAction'
 
 
 const RightMessage = () => {
   const {auth, message, socket} = useSelector(state => state)
   const {id} = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [text, setText] = useState('')
   const [user, setUser] = useState([])
   const [media, setMedia] = useState([])
@@ -36,6 +37,11 @@ const RightMessage = () => {
     if(newUser) setUser(newUser)
   },[message.users, id])
   
+  const deleteConversation = () => {
+    dispatch(deleteConversation({authReducer, id}))
+    return navigate('/message')
+}
+
   const handleChangeFile = (e) =>{
     const files = [...e.target.files]
     let err = ""
@@ -130,7 +136,7 @@ const RightMessage = () => {
       {
         user.length!==0 &&      
         <UserCardMessage member={user}>
-          <button className='fas fa-trash text-danger'>Delete</button>
+          <button onClick={deleteConversation} className='text-danger'>Delete</button>
         </UserCardMessage>
       }
     </div>

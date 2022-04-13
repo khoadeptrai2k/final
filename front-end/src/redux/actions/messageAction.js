@@ -6,9 +6,9 @@ export const MESS_TYPES = {
     ADD_MESSAGE: 'ADD_MESSAGE',
     GET_CONVERSATIONS: 'GET_CONVERSATIONS',
     GET_MESSAGES: 'GET_MESSAGES',
-    DELETE_MESSAGES: 'DELETE_MESSAGES'
+    DELETE_CONVERSATION: 'DELETE_CONVERSATION',
+    DELETE_MESSAGES: 'DELETE_MESSAGES',
 }   
-
 
 export const addUser = ({user, message}) => async (dispatch) =>{
     if(message.users.every(item => item._id !== user._id)){
@@ -63,9 +63,21 @@ export const deleteMessages = ({msg, message, auth}) => async (dispatch) => {
         await deleteData(`message/${msg._id}`, auth.token)
     } catch (error) {
         dispatch({
-            type: ACTIONS.ALERT, 
-            payload: {error: error.response.data.msg
-            }
+            type: ACTIONS.ALERT, payload: {error: error.response.data.msg}
+        })
+    }
+}
+
+export const deleteConversation = ({auth, id}) => async (dispatch) => {
+    dispatch({
+        type: MESS_TYPES.DELETE_CONVERSATION,
+        payload: id
+    })
+    try {
+        await deleteData(`conversation/${id}`, auth.token)
+    } catch (error) {
+        dispatch({
+            type: ACTIONS.ALERT, payload: {error: error.response.data.msg}
         })
     }
 }

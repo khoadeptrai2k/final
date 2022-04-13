@@ -1,3 +1,4 @@
+import { DeleteData } from "../actions"
 import { MESS_TYPES } from "../actions/messageAction"
 
 const initialState = {
@@ -32,6 +33,12 @@ const messageReducer = (state = initialState, action) => {
                 resultUsers: action.payload.result,
                 firstLoad:true
             }        
+        case MESS_TYPES.DELETE_CONVERSATION:
+            return{
+                ...state,
+                users: DeleteData(state.users, action.payload),
+                data: DeleteData(state.data, action.payload)
+            };  
         case MESS_TYPES.GET_MESSAGES:
             return {
                 ...state,

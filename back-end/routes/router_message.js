@@ -8,6 +8,8 @@ router.get('/conversations', auth, message_controller.getConversations)
 
 router.get('/message/:id', auth, message_controller.getMessages)
 
+router.delete('/conversation/:id', auth, message_controller.deleteConversation)
+
 router.delete('/message/:id', auth, message_controller.deleteMessages)
 
 

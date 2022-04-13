@@ -1,6 +1,8 @@
+const auth = require('../middleware/auth')
 const path = require('path');
 const express = require('express');
 const multer = require('multer');
+const authAdmin = require('../middleware/authAdmin')
 const File = require('../models/model_report');
 const Router = express.Router();
 const upload = multer({
@@ -73,4 +75,12 @@ Router.get('/download/:id', async (req, res) => {
     res.status(400).send('Error while downloading file. Try again later.');
   }
 });
+Router.delete('/deleteFile/:id',auth, authAdmin, async (req, res) => {
+  try {
+      await File.findOneAndDelete(req.params.id)
+      res.json({msg: "Delete Success!"})
+  } catch (err) {
+      return res.status(500).json({msg: err.message})
+  }
+}),
 module.exports = Router;
