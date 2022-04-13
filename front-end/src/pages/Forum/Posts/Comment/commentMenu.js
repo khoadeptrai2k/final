@@ -17,10 +17,10 @@ const CommentMenu = ({post, comment, setOnEdit}) => {
         return(
             <>
                 <Dropdown.Item className="dropdown-item" onClick={() => setOnEdit(true)}>
-                    <span className="material-icons">Edit</span>
+                    <span className="">Edit</span>
                 </Dropdown.Item>
                 <Dropdown.Item className="dropdown-item" onClick={handleRemove}>
-                    <span className="material-icons">Remove</span>
+                    <span className="">Remove</span>
                 </Dropdown.Item>
             </>
         )

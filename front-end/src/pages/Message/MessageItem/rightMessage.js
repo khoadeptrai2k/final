@@ -6,7 +6,7 @@ import DisplayMessage from './displayMessage'
 import ACTIONS from '../../../redux/actions'
 import { showImage, showVideo } from '../../../components/untils/mediaShow'
 import { imageUpload } from '../../../components/untils/imageUpload'
-import { addMessage, getMessages } from '../../../redux/actions/messageAction'
+import { addMessage, getMessages, MESS_TYPES } from '../../../redux/actions/messageAction'
 
 
 const RightMessage = () => {
@@ -18,13 +18,22 @@ const RightMessage = () => {
   const [media, setMedia] = useState([])
   const [loadMedia, setLoadMedia] = useState(false)
 
+  const [page,setPage] = useState(0)
   const refMessage = useRef()
+  const pageEnd = useRef()
 
+  // const [data,setData] = useState([])
+
+  // useEffect(() => {
+  //   const newData = message.data.filter(item => 
+  //     item.sender === auth.userHeader._id || item.sender === id
+  //     )
+  //     setData(newData)
+  // },[message.data, auth.userHeader._id, id])
+  
   useEffect(() => {
     const newUser = message.users.find(user => user._id === id)
-    if(newUser){
-      setUser(newUser)
-    }
+    if(newUser) setUser(newUser)
   },[message.users, id])
   
   const handleChangeFile = (e) =>{
@@ -80,12 +89,40 @@ const RightMessage = () => {
   useEffect(() =>{
     if(id){
       const getMessagesData = async () => {
+          setPage(1)
+
           await dispatch(getMessages({auth, id}))
+
+          if(refMessage.current){
+            refMessage.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+        }
       }
       getMessagesData()
     }
   },[id, dispatch, auth]) 
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      if(entries[0].isIntersecting){
+        setPage(p => p + 1)
+      }
+    },{
+      threshold: 0.1
+    })
+    observer.observe(pageEnd.current)
+  },[setPage])
+  
+  useEffect(() => {
+    if(message.resultData >= (page - 1) * 9 && page > 1){
+      dispatch(getMessages({auth, id, page}))
+    }
+  },[message.resultData, page, id , auth, dispatch])
+
+  useEffect(() => {
+    if(refMessage.current){
+      refMessage.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+  }
+  },[text])
   
   return (
     <>
@@ -102,6 +139,7 @@ const RightMessage = () => {
       style={{height: media.length > 0 ? 'calc(100% - 180px)':''}}
     >
       <div className='chat_display' ref={refMessage}>
+        <button ref={pageEnd} style={{marginTop: '-25px', opacity: 0}}>Load Message</button>
         {
           message.data.map((msg,index) => (
             <div key={index}>

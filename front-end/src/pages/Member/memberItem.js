@@ -7,7 +7,7 @@ const MemberItem = ({member}) => {
 
 
     return (
-      <div class="cardMember">
+      <div className="cardMember">
               <img
                   alt=""
                   src={member.avatar}

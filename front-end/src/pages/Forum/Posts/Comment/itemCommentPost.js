@@ -133,7 +133,7 @@ const ItemCommentPost = ({post, comment, commentId}) => {
                         handleLike={handleLike}
                         />
                         <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit}
-                        style={{display:'flex', alignItem:'center', cursor:'pointer'}}
+                        style={{ display:'flex', alignItem:'center', cursor:'pointer'}}
                         />
                     </div>
 

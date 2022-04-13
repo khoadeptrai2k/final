@@ -5,8 +5,8 @@ const ButtonLike = ({like, handleUnLike, handleLike}) => {
   return (
     <>
         {
-            like ? <Button size="small" color="primary" className='far fa-heart text-danger' onClick={handleUnLike}>UnLike</Button>
-            : <Button size="small" color="primary" className='far fa-heart ' onClick={handleLike}>Like</Button>
+            like ? <Button size="small" color="primary" className='text-danger' onClick={handleUnLike}>UnLike</Button>
+            : <Button size="small" color="primary" className='' onClick={handleLike}>Like</Button>
         }
     </>
   )

@@ -77,21 +77,26 @@ const Navbar = () => {
 
   const transFrom = {
     transform: auth.token ? "translateY(-5px)" : 0,
+
   };
 
   return (
     <Nav>
       {/* <SideBar/> */}
-      <NavMenu className="logo">
+      <NavMenu style={{ display: 'flex',
+                        alignItems: 'center',
+                        marginRight: '-24px'}} 
+                className="logo">
         <h1>
           <NavLink to="/">STU-HOME</NavLink>
         </h1>
       </NavMenu>
-      <Bars />
-      <NavMenu>
-        <NavLink to="/" activeStyle>
-          Home
-        </NavLink>
+      <Bars onClick={() => setShowMenu(!showMenu)}/>
+      <NavMenu id={showMenu ? 'hidden' : ''}>
+        {/* <NavLink to={`/infor/${auth.userHeader._id}`} activeStyle>
+          Profile
+        </NavLink> */}
+        {auth.token ? <>
         <NavLink to="/report" activeStyle>
           Report
         </NavLink>
@@ -104,7 +109,13 @@ const Navbar = () => {
         <NavLink to="/message" activeStyle>
           Message
         </NavLink>
+
+        
+        </> : <></>}
+
       </NavMenu>
+
+      
       <NavMenu style={transFrom}>
         {auth.token ? (
           userLink()
@@ -115,6 +126,7 @@ const Navbar = () => {
           </NavBtn>
         )}
       </NavMenu>
+
     </Nav>
   );
 };

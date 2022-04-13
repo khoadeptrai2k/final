@@ -37,7 +37,14 @@ const messageReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload.messages.reverse(),
                 resultData: action.payload.result
+            }        
+        case MESS_TYPES.DELETE_MESSAGES:
+            return {
+                ...state,
+                data: action.payload.newData,
+                resultData: action.payload.newData.length
             }
+            
             
         default: 
             return state;

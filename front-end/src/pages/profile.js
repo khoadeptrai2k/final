@@ -23,7 +23,7 @@ const ProfileUser = () => {
     },[id, auth, dispatch, profile.ids])
 
     return (
-        <Grid container alignItems="stretch" spacing={3}>
+        <Grid container alignItems="stretch">
             <Grid item xs={12} sm={12} md={12} >
                 <InfoUser auth={auth} profile={profile} dispatch={dispatch} id={id}/>
             </Grid>

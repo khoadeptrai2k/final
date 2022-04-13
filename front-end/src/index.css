@@ -41,5 +41,8 @@ code {
 @import url("./pages/Member/search.css");
 @import url("./pages/Message/userCardMessage.css");
 @import url("./pages/Message/message.css");
+@import url("./components/navbar/navbar.css");
+@import url("./pages/Report/report.css");
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
+

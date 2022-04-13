@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef} from 'react'
 import ACTIONS from '../../../redux/actions'
 import { getData } from '../../../redux/api/authAPI'
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,6 +15,9 @@ const LeftMessage = () => {
     const [search, setSearch] = useState('')
     const navigate = useNavigate()
     const {id} = useParams()
+
+    const pageEnd = useRef()
+    const [page, setPage] = useState(0)
 
     const handleSearch = async (e) => {
         e.preventDefault()
@@ -44,6 +47,22 @@ const LeftMessage = () => {
         dispatch(getConversations({auth}))
     },[dispatch,auth,message.firstLoad])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+          if(entries[0].isIntersecting){
+            setPage(p => p + 1)
+          }
+        },{
+          threshold: 0.1
+        })
+        observer.observe(pageEnd.current)
+      },[setPage])
+      
+      useEffect(() => {
+        if(message.resultUsers >= (page - 1) * 9 && page > 1){
+          dispatch(getConversations({auth, page}))
+        }
+      },[message.resultUsers, page , auth, dispatch])
 
   return (
     <>
@@ -80,6 +99,7 @@ const LeftMessage = () => {
                         }
                     </>
             }
+            <button style={{opacity: 0}} ref={pageEnd}>Load Message</button>
         </div>
     </>
   )

@@ -4,10 +4,8 @@ import {imageUpload} from '../../components/untils/imageUpload'
 
 export const getPosts = (auth) => async (dispatch) => {
   try {
-    const { data } = await getData('getPosts', auth.token)
-// console.log(data)
+    const {data} = await getData('getPosts', auth.token)
     dispatch({ type: ACTIONS.FETCH_ALL, payload: data });
-    dispatch({payload: false})
   } catch (error) {
     dispatch({
       type: ACTIONS.ALERT,

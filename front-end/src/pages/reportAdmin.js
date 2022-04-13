@@ -79,6 +79,7 @@ const ReportAdmin = (files) => {
         {errorMsg && <p style={{color:'red'}} className="errorMsg">{errorMsg}</p>}
         <Row>
           <Col>
+            <h5>Input Your Title...</h5>
             <Form.Group controlId="title">
               <Form.Control
                 type="text"
@@ -92,7 +93,8 @@ const ReportAdmin = (files) => {
         </Row>
         <Row>
           <Col>
-            <Form.Group controlId="description">
+            <h5 style={{marginTop:'10px'}}>Input Your Description...</h5>
+            <Form.Group  controlId="description">
               <Form.Control
                 type="text"
                 name="description"
@@ -103,7 +105,8 @@ const ReportAdmin = (files) => {
             </Form.Group>
           </Col>
         </Row>
-        <div className="upload-section">
+        <h5 style={{marginTop:'10px'}}>Drop Item or Click chose File</h5>
+        <div className="upload-section" style={{border:'2px solid black', marginTop:'10px'}}>
             <Dropzone onDrop={onDrop}   
                     onDragEnter={() => updateBorder('over')}
                     onDragLeave={() => updateBorder('leave')}
@@ -136,7 +139,7 @@ const ReportAdmin = (files) => {
                 </div>
             )}
         </div>
-        <Button variant="primary" type="submit">
+        <Button style={{marginTop:'10px'}} variant="primary" type="submit">
           Submit
         </Button>
       </Form>

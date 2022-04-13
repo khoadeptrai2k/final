@@ -10,7 +10,12 @@
 
 .carousel img {
     width: 100%;
-    height: 250;
+    height: 400px;
     object-fit:fill;
+}
+.carousel video {
+  width: 100%;
+  height: 400px;
+  display: block;
 }
   

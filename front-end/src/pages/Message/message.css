@@ -150,6 +150,24 @@
     color: white;
     border-radius: 14px 14px 0 14px;
 }
+
+.you_content {
+    position: relative;
+}
+.you_content button{
+    position: absolute;
+    opacity: 0;
+    top: 45%;
+    left: -85px;	
+    transform: translateY(-50%);
+}
+
+.you_content:hover button{
+    opacity: 1;
+}
+
+
+
 .other_message .chat_text{
     background: white;
     border: 1px solid black;

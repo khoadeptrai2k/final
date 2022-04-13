@@ -1,11 +1,12 @@
-import { ACTIONS } from './index';
-import {postData, getData} from '../api/authAPI'
+import { ACTIONS, DeleteData } from './index';
+import {postData, getData, deleteData} from '../api/authAPI'
 
 export const MESS_TYPES = {
     ADD_USER: 'ADD_USER',
     ADD_MESSAGE: 'ADD_MESSAGE',
     GET_CONVERSATIONS: 'GET_CONVERSATIONS',
-    GET_MESSAGES: 'GET_MESSAGES'
+    GET_MESSAGES: 'GET_MESSAGES',
+    DELETE_MESSAGES: 'DELETE_MESSAGES'
 }   
 
 
@@ -26,9 +27,9 @@ export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     }
 }
 
-export const getConversations = ({auth}) => async (dispatch) =>{
+export const getConversations = ({auth, page = 1}) => async (dispatch) =>{
     try{
-        const res = await getData('conversations', auth.token)
+        const res = await getData(`conversations?limit=${page * 9}`, auth.token)
         let newArr = [];
         res.data.conversations.forEach(item =>{
             item.recipients.forEach(cv => {
@@ -44,13 +45,27 @@ export const getConversations = ({auth}) => async (dispatch) =>{
     }
 }
 
-export const getMessages = ({auth, id}) => async (dispatch) =>{
+export const getMessages = ({auth, id, page = 1}) => async (dispatch) =>{
     try{
-        const res = await getData(`message/${id}`,auth.token)
+        const res = await getData(`message/${id}?limit=${page * 9}`,auth.token)
         dispatch({type: MESS_TYPES.GET_MESSAGES, payload:res.data})
 
     }catch(error){
         dispatch({type:ACTIONS.ALERT, payload:{error:error.response.data.msg}})
 
+    }
+}
+
+export const deleteMessages = ({msg, message, auth}) => async (dispatch) => {
+    const newData = DeleteData(message.data, msg._id, auth.token)
+    dispatch({type: MESS_TYPES.DELETE_MESSAGES, payload:{newData, _id: msg.recipient}})
+    try {
+        await deleteData(`message/${msg._id}`, auth.token)
+    } catch (error) {
+        dispatch({
+            type: ACTIONS.ALERT, 
+            payload: {error: error.response.data.msg
+            }
+        })
     }
 }
