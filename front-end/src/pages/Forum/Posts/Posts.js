@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 import Post from './Post/Post';
 import useStyles from './styles';
 
+
+
 const Posts = ({ setCurrentId }) => {
   const {posts} = useSelector((state) => state);
   const classes = useStyles();
 
-
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+
   
   const searchItems = (searchValue) => {
     setSearchInput(searchValue)
@@ -29,9 +31,6 @@ const Posts = ({ setCurrentId }) => {
 
   return (
     <div>
-
-    
-
     <input icon='search' placeholder='What are you looking for?'
                 onChange={(e) => searchItems(e.target.value)}
                 style={{width: "100%",
@@ -39,7 +38,10 @@ const Posts = ({ setCurrentId }) => {
                         border: "2px solid #111d5e",
                         borderRadius:"10px" }}
     />
-    <>{
+
+
+    <>
+    {
     !posts.length ? <CircularProgress /> : (
       <Grid  className={classes.container} container alignItems="stretch" spacing={3}>
         {searchInput.length > 1 ? (

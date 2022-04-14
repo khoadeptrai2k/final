@@ -9,14 +9,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.App{
-  max-width: 100%;
+.App {
+  width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
 }
 
 .main {
   width: 100%;
+  min-height: 100vh;
   margin: auto;
 }
 

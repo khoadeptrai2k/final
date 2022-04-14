@@ -4,6 +4,7 @@ import { fetchAllUsers } from '../redux/actions/usersAction'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import FilesList from './Report/FilesList'
+import PostList from './Report/PostList'
 const ListUser = () => {
 
     const initialState = {
@@ -12,7 +13,7 @@ const ListUser = () => {
         success: ''
     }
 
-    const {auth, users} = useSelector(state => state)
+    const {auth, users, posts} = useSelector(state => state)
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false)
@@ -103,6 +104,9 @@ const ListUser = () => {
                 </div>
         <h3 style={{margin:'20px'}}>Table REPORT</h3>
         <FilesList/>
+        <h3 style={{margin:'20px'}}>Table POST</h3>     
+        <PostList/>
+
     </div>
   )
 }

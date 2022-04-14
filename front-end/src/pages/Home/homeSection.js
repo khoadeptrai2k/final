@@ -1,7 +1,6 @@
 import React from 'react'
 import './homeSection.css'
 import '../../App.css'
-import Upload from '../Forum/Posts/UploadVideo/upload'
 
 const HomeSection = () => {
   return (
@@ -17,7 +16,6 @@ const HomeSection = () => {
             >
                 GET NOW
             </button>
-            <Upload></Upload>
 
         </div>
     </div>

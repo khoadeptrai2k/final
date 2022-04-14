@@ -23,14 +23,6 @@ const RightMessage = () => {
   const refMessage = useRef()
   const pageEnd = useRef()
 
-  // const [data,setData] = useState([])
-
-  // useEffect(() => {
-  //   const newData = message.data.filter(item => 
-  //     item.sender === auth.userHeader._id || item.sender === id
-  //     )
-  //     setData(newData)
-  // },[message.data, auth.userHeader._id, id])
   
   useEffect(() => {
     const newUser = message.users.find(user => user._id === id)
@@ -38,7 +30,7 @@ const RightMessage = () => {
   },[message.users, id])
   
   const deleteConversation = () => {
-    dispatch(deleteConversation({authReducer, id}))
+    dispatch(deleteConversation({auth, id}))
     return navigate('/message')
 }
 
@@ -95,8 +87,6 @@ const RightMessage = () => {
   useEffect(() =>{
     if(id){
       const getMessagesData = async () => {
-          setPage(1)
-
           await dispatch(getMessages({auth, id}))
 
           if(refMessage.current){

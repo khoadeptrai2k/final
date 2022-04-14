@@ -85,16 +85,17 @@ console.log(newPost)
 };
 
 export const deletePost = ({auth, post}) => async (dispatch) => {
+  dispatch({ type: ACTIONS.ALERT, payload: {loading: true} })
 
   try {
     const {data} = await deleteData(`deletePost/${post._id}`,auth.token);
     dispatch({ type: ACTIONS.DELETE, payload: data});
-
+    dispatch({ type: ACTIONS.ALERT, payload: {loading: false} })
   } catch (error) {
     dispatch({
       type: ACTIONS.ALERT,
       payload: {error: error.response.data.msg}
-  })  }
+  })}
 };
 
 export const getPost = ({detailPost, id, auth}) => async (dispatch) => {

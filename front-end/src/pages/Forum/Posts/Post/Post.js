@@ -2,10 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import {TextField, Card, CardActions, CardContent, CardMedia, Button, Typography,Container } from '@material-ui/core/';
-import {Link} from 'react-router-dom'
-// import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment  from 'moment'
 
 
@@ -68,7 +64,6 @@ const Post = ({post}) => {
   const handleDelete = () =>{
     dispatch(deletePost({post, auth}))
   }
-  console.log(post)
   return (
     <Container className={classes.container}>
     {
