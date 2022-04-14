@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./intro.css";
 import Vector1 from "../img/Vector1.png";
 import Vector2 from "../img/Vector2.png";
@@ -6,15 +6,16 @@ import boy from "../img/boy.png";
 import glassesimoji from "../img/glassesimoji.png";
 import thumbup from "../img/thumbup.png";
 import crown from "../img/crown.png";
-import FloatingDiv from "../FloatingDiv/FloatingDiv";
+import FloatingDiv from "./FloatingDiv/FloatingDiv";
 import Github from "../img/github.png";
 import LinkedIn from "../img/linkedin.png";
 import Instagram from "../img/instagram.png";
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
-const Intro = () => {
+const Intro = ({gotoNextSection}) => {
   // Transition
   const transition = { duration: 2, type: "spring" };
+
 
 
   return (
@@ -28,6 +29,7 @@ const Intro = () => {
           <span>
           Study with the world's most productive community of students
           </span>
+            <button onClick={gotoNextSection} >Services</button>
         </div>
 
         {/* social icons */}
@@ -83,6 +85,8 @@ const Intro = () => {
           }}
         ></div>
       </div>
+      <div />
+
     </div>
   );
 };

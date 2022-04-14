@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./services.css";
-import Card from "../Card/Card";
+import Card from "./Card/Card";
 import HeartEmoji from "../img/heartemoji.png";
 import Glasses from "../img/glasses.png";
 import Humble from "../img/humble.png";
@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const Services = () => {
+const Services = ({gotoWorksSection}) => {
   // context
 
 
@@ -30,7 +30,7 @@ const Services = () => {
           <br />
           ispum is simpley dummy text of printing
         </span>
-
+        <button onClick={gotoWorksSection}>What can we bring for you?</button>
         <div className="blur s-blur1" style={{ background: "#ABF1FF94" }}></div>
       </div>
       {/* right */}
@@ -53,7 +53,7 @@ const Services = () => {
         {/* second card */}
         <motion.div
           initial={{ left: "-11rem", top: "12rem" }}
-          whileInView={{ left: "-4rem" }}
+          whileInView={{ left: "27rem" }}
           transition={transition}
         >
         <Link to="/member">
@@ -68,7 +68,7 @@ const Services = () => {
         {/* 3rd */}
         <motion.div
           initial={{ top: "19rem", left: "25rem" }}
-          whileInView={{ left: "12rem" }}
+          whileInView={{ left: "0rem" }}
           transition={transition}
         >
         <Link to="/message">

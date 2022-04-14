@@ -38,14 +38,12 @@ const Main = () => {
                 <Route path="/infor/:id" element={<Profile/>} />
                 {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
                 <Route path="/listUser" element={<ListUser/>} />
-                <Route path="/forum" element={auth.token ? <Forum/> : <NotFound/> } />
-                <Route path="/member" element={auth.token ? <Member/> : <NotFound/> } />
+                <Route path="/forum" element={auth.token ? <Forum/> : <Login/> } />
+                <Route path="/member" element={auth.token ? <Member/> : <Login/> } />
                 <Route path="/post/:id" element={<ShowPosts/>}/>
-                <Route path="/report" element={auth.token ? <ReportAdmin/> : <NotFound/> } />
-                <Route exact path="/message" element={auth.token ? <Message/> : <NotFound/> } />
-                <Route path="/message/:id" element={auth.token ? <MessageId/> : <NotFound/> } />
-
-        
+                <Route path="/report" element={auth.token ? <ReportAdmin/> : <Login/> } />
+                <Route exact path="/message" element={auth.token ? <Message/> : <Login/> } />
+                <Route path="/message/:id" element={auth.token ? <MessageId/> : <Login/> } />
         </Routes>
         </div>
 
