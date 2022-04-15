@@ -94,7 +94,7 @@
     filter: blur(72px);
   }
   
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 768px) {
     .Intro {
       flex-direction: column;
       gap: 7rem;

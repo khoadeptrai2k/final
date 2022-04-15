@@ -54,7 +54,7 @@
     left: -18rem;
   }
   
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 768px) {
     .services {
       margin-top: 0;
       flex-direction: column;
