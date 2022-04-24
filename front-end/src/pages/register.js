@@ -4,6 +4,8 @@ import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../components/untils/notification/notification'
 import {isEmpty, isEmail, isLength, isMatch} from '../components/untils/validation/validation'
 import { postData } from '../redux/api/authAPI'
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/actions/authAction'
 
 const initialState = {
   name: '',
@@ -14,7 +16,7 @@ const initialState = {
   success:'',
 }
 const Register = () => {
-  
+  const dispatch = useDispatch()
   const [user, setUser] = useState(initialState)
 
 
@@ -39,17 +41,8 @@ const Register = () => {
       if(!isMatch(password, cf_password))
         return setUser({...user, err: "Please enter the correct Password", success: ''})
     
-    try {
-      const res = await postData('/register',{
-        name, email, password
-      })
-      setUser({...user, err: '', success: res.data.msg})
+        dispatch(register(user))
 
-    } catch (err) {
-      err.response.data.msg && 
-      setUser({...user, err: err.response.data.msg, success:''})
-      
-    }
   }
 
     return (

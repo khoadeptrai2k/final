@@ -1,7 +1,9 @@
 const Users = require('../models/model_user')
+const Posts = require('../models/model_postMessage')
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
 const sendMail = require('./send_mail')
+
 
 const {CLIENT_URL} = process.env
 
@@ -26,12 +28,12 @@ const user_controller = {
             const password_hash = await bcrypt.hash(password, 12)
         
             const user_new = {
-                name, email, password: password_hash        
+                name, email, password: password_hash,        
             }
 
             const activation_token = createActivationToken(user_new)
 
-            const url = `${CLIENT_URL}/user/activate/${activation_token}`
+            const url = `${CLIENT_URL}/api/activate/${activation_token}`
             sendMail(email, url, "verify your email address")
 
 
@@ -45,7 +47,6 @@ const user_controller = {
         try {
             const {activation_token} = req.body
             const user = jsonwebtoken.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
-
             const {name, email, password} = user
 
             const check = await Users.findOne({email})
@@ -54,10 +55,18 @@ const user_controller = {
             const newUser = new Users({
                 name, email, password
             })
+            const access_token = createAccessToken({id: user._id})
+            const refresh_token = createRefreshToken({id: user._id})
+            
+            res.cookie('refreshtoken', refresh_token, {
+                httpOnly: true,
+                path: '/api/refresh_token',
+                maxAge: 7*24*60*60*1000 // 7 days
+            })
 
             await newUser.save()
 
-            res.json({msg:"Account has been activated!"})
+            res.json({msg:"Account has been activated!", access_token, user: {...user._doc},password:""})
 
 
         } catch (err) {
@@ -99,7 +108,7 @@ const user_controller = {
             jsonwebtoken.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async (err, result) =>{
                 if(err) return res.status(500).json({msg: "Please login now!"})
 
-                const user = await Users.findById(result.id)
+                const user = await Users.findById(result.id).select("-password")
                 if (!user) return res.status(400).json({ msg: "User is not exist" });
 
                 const access_token = createAccessToken({id: result.id})
@@ -117,7 +126,7 @@ const user_controller = {
             if(!user) return res.status(500).json({msg: "This email doesn't exist"})
             
             const access_token = createAccessToken({id: user._id})
-            const url = `${CLIENT_URL}/user/reset/${access_token}`
+            const url = `${CLIENT_URL}/api/reset/${access_token}`
             sendMail(email, url, "Reset your password")
             res.json({msg: "Re-send reset pass, please check your email."})
         
@@ -211,7 +220,8 @@ const user_controller = {
     },
     deleteUser: async (req, res) => {
         try {
-            await Users.findByIdAndDelete(req.params.id)
+            await Users.findByIdAndDelete(req.params.id) 
+
 
             res.json({msg: "Delete Success!"})
         } catch (err) {

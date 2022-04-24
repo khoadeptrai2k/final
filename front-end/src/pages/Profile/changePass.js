@@ -35,7 +35,7 @@ const ChangePass = ({setChangePass}) => {
             return setData({...data, err: "Password did not match.", success: ''})
 
         try {
-            axios.post('api/reset', {password},{
+            axios.post('/api/reset', {password},{
                 headers: {Authorization: auth.token}
             })
 

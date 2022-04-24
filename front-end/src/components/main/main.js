@@ -33,8 +33,8 @@ const Main = () => {
                 <Route path="/login" element={auth.token ? <NotFound/> : <Login/>} />
                 <Route path="/register" element={auth.token ? <NotFound/> : <Register/>} />
                 <Route path="/forgot_password" element={auth.token  ? <NotFound/> : <ForgotPassword/>} />
-                <Route path="/user/reset/:token" element={auth.token ? <NotFound/> : <ResetPassword/>} />
-                <Route path="/user/activate/:activation_token" element={<ActivateEmail/>} />
+                <Route path="/api/reset/:token" element={auth.token ? <NotFound/> : <ResetPassword/>} />
+                <Route path="/api/activate/:activation_token" element={auth.token ? <NotFound/> :<ActivateEmail/>} />
                 <Route path="/infor/:id" element={<Profile/>} />
                 {/* <Route exact path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>} /> */}
                 <Route path="/listUser" element={<ListUser/>} />

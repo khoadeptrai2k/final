@@ -27,7 +27,7 @@ const user_schema = new mongoose.Schema({
 
     something:{
         type: String,
-        unique: true
+        default: ''
     },
 
     gender:{

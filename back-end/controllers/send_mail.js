@@ -23,7 +23,7 @@ const send_email = (to, url, txt) => {
         refresh_token: MAILING_SERVICE_REFRESH_TOKEN
     })
 
-    const accessToken = oauth2Client.getAccessToken
+    const accessToken = oauth2Client.getAccessToken()
     const smtpTransport = nodemailer.createTransport({
         service: 'gmail',
         auth: {

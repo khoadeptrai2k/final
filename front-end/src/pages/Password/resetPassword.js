@@ -32,7 +32,7 @@ const ResetPassword = () => {
       return setData({...data, err: "Please enter the correct Password", success: ''})
 
     try {
-      const res = await postData('reset', {password},{
+      const res = await axios.post('/api/reset', {password},{
         headers:{Authorization: token}
       })
       return setData({...data,err: "", success:res.data.msg})

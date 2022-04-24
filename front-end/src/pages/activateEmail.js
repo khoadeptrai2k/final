@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom"
-import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../components/untils/notification/notification'
-
+import { postData } from '../redux/api/authAPI'
 const ActivateEmail = () => {
     const {activation_token} = useParams()
     const [err, setErr] = useState('')
@@ -12,7 +11,7 @@ const ActivateEmail = () => {
         if(activation_token){
             const activateEmail = async () =>{
                  try {
-                     const res = await axios.post('/user/activation', {activation_token})
+                     const res = await postData('activation', {activation_token})
                      setSuccess(res.data.msg)
                      
                  } catch (err) {
