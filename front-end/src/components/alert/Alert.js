@@ -17,7 +17,7 @@ const Alert = () => {
                 alert.error && 
                 <Toast msg={{title: 'Error', body: alert.error}}
                 handleShow={() => dispatch({type: ACTIONS.ALERT, payload: {}})} 
-                bgColor="bg-danger" />
+                bgColor="bg-danger"   />
             }
 
             {

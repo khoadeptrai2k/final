@@ -19,7 +19,6 @@ export const dispatchLogin = (user) => async (dispatch) =>{
                 success: res.data.msg
             } 
         })
-
       } catch (err) {
         dispatch({ 
             type: ACTIONS.ALERT, 

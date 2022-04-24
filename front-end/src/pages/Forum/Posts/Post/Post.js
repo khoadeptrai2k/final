@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import {TextField, Card, CardActions, CardContent, CardMedia, Button, Typography,Container } from '@material-ui/core/';
 import moment  from 'moment'
-
+import { Link } from 'react-router-dom';
 
 import { likePost, unLikePost, deletePost } from '../../../../redux/actions/posts';
 
@@ -138,14 +138,8 @@ const Post = ({post}) => {
       </Button>
       </div>
 
-       <Button size="small" color="primary" 
-      onClick={() => setOnShow(true)}> ShowMore</Button>
-                      {
-                    onShow && 
-                    <ShowPosts
-                    setOnShow={setOnShow}  
-                    />
-                }
+      <Button><Link style={{textDecoration: 'none'}} to={`/post/${post._id}`}>ShowMore</Link></Button>
+
 
     
     </CardActions>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../components/untils/notification/notification'
 import {dispatchLogin} from '../redux/actions/authAction'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 const Login = () => {
 
@@ -13,6 +13,7 @@ const Login = () => {
   }
   
   const [user, setUser] = useState(initialState)
+  const {auth} = useSelector(state => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,23 +26,9 @@ const Login = () => {
 
   const handleSubmitted = async i => {
     i.preventDefault()
-
     dispatch(dispatchLogin(user))
-    // try {
-    //   const res = await axios.post('/user/login', {email, password})
-    //   setUser({...user, err: '', success: res.data.msg})
-
-    //   localStorage.setItem('firstLogin', true)
-
-    //   dispatch(dispatchLogin(res))
-      navigate('/')
-
-    // } catch (err) {
-    //   err.response.data.msg && 
-    //   setUser({...user, err: err.response.data.msg, success:''})
-    // }
-    
   }
+  
 
     return (
       <div className="pages_login">

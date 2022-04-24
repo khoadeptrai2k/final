@@ -7,6 +7,7 @@ import ACTIONS from '../../../redux/actions'
 import { showImage, showVideo } from '../../../components/untils/mediaShow'
 import { imageUpload } from '../../../components/untils/imageUpload'
 import { addMessage, deleteConversation, getMessages } from '../../../redux/actions/messageAction'
+import 'boxicons';
 
 
 const RightMessage = () => {
@@ -29,7 +30,7 @@ const RightMessage = () => {
     if(newUser) setUser(newUser)
   },[message.users, id])
   
-  const deleteConversation = () => {
+  const deleteConversations = () => {
     dispatch(deleteConversation({auth, id}))
     return navigate('/message')
 }
@@ -124,10 +125,17 @@ const RightMessage = () => {
     <>
     <div className='message_header'>
       {
-        user.length!==0 &&      
+        user.length!==0 && 
+        <>
         <UserCardMessage member={user}>
-          <button onClick={deleteConversation} className='text-danger'>Delete</button>
         </UserCardMessage>
+        <box-icon onClick={deleteConversations} type='solid' name='trash'></box-icon>
+
+        </>
+
+      
+
+
       }
     </div>
     

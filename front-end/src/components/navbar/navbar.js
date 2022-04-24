@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      localStorage.removeItem("firstLogin");
+      localStorage.removeItem('firstlogin');
       await postData("logout");
       window.location.href = "/";
     } catch (err) {
@@ -53,7 +53,7 @@ const Navbar = () => {
             <span className="hello"> Hello, {auth.userHeader.name}</span>{" "}
           </div>
 
-          <DropItem aria-labelledby="dropdownMenuLink" style={menu?{dislay:"block"}:{display:"none"}} >
+          <DropItem id={showMenu ? 'hidden' : ''} aria-labelledby="dropdownMenuLink" style={menu?{dislay:"block"}:{display:"none"}} >
             <Li>
               <NavLink to={`/infor/${auth.userHeader._id}`}>Profile</NavLink>
             </Li>
@@ -92,12 +92,7 @@ const Navbar = () => {
       </NavMenu>
       <Bars className="nav-links" onClick={() => setShowMenu(!showMenu)}/>
       <NavMenu id={showMenu ? 'hidden' : ''}>
-    
-        {/* <NavLink to={`/infor/${auth.userHeader._id}`} activeStyle>
-          Profile
-        </NavLink> */}
         {auth.token ? 
-        
         <>
         <NavLink to="/report" activeStyle>
           Report
@@ -111,7 +106,11 @@ const Navbar = () => {
         <NavLink to="/message" activeStyle>
           Message
         </NavLink>
-
+        {auth.userHeader.role === 1 ? (
+                <NavLink to="/listUser">ManageUser</NavLink>
+              ) : (
+                <NavLink to={`/infor/${auth.userHeader._id}`}>Profile</NavLink>
+              )}
         </> : <>
 
             </>}

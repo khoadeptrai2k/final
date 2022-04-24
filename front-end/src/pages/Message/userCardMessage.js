@@ -20,10 +20,11 @@ const UserCardMessage = ({member, msg}) => {
 }
   return (
         <div className="show_user d-flex p-2 align-items-center justify-content-between">
-            {/* <Link to={`/infor/${member._id}`} style={{ textDecoration: 'none' }} className="d-flex align-items-center"> */}
                 <img src={member.avatar} alt="Avatar" className="avatarsmall"/>
                 <div style={{display: 'flex',flexDirection:'column'}}>
-                  <span className="text-dark mt-1">{member.name}</span>
+                <span className="text-dark mt-1">
+                  <Link to={`/infor/${member._id}`} style={{ textDecoration: 'none', color:'black' }} className="d-flex align-items-center">{member.name}</Link>
+                </span>
 
                   <small style={{opacity:0.7}}>
                     {

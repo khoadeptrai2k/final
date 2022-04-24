@@ -30,7 +30,7 @@ const Main = () => {
 
         <Routes>
                 <Route exact path="/" element={ <Home/>} />
-                <Route path="/login" element={auth.token ? <NotFound/> : <Login/>} />
+                <Route path="/login" element={auth.token ? <Home/> : <Login/>} />
                 <Route path="/register" element={auth.token ? <NotFound/> : <Register/>} />
                 <Route path="/forgot_password" element={auth.token  ? <NotFound/> : <ForgotPassword/>} />
                 <Route path="/api/reset/:token" element={auth.token ? <NotFound/> : <ResetPassword/>} />

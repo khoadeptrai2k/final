@@ -41,7 +41,8 @@ const Register = () => {
       if(!isMatch(password, cf_password))
         return setUser({...user, err: "Please enter the correct Password", success: ''})
     
-        dispatch(register(user))
+
+    dispatch(register(user))
 
   }
 
